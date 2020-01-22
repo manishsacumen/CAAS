@@ -1,0 +1,94 @@
+{% extends "login/base.html" %}
+{% load static %}
+{% block content %}
+<div class="view" style="background-image: url({% static 'img/background.jpg' %}); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-gradient align-items-center">
+      <!-- Content -->
+      <div class="container">
+        <!--Grid row-->
+        <div class="row mt-5">
+          <!--Grid column-->
+          <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left">
+            <img src="https://sacumen.com/wp-content/uploads/2019/01/sacumen-logo.png">
+            <!-- <h1 class="h1-responsive font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">Sign up right now! </h1> -->
+            <!-- <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s"> -->
+            
+          </div>
+          <!--Grid column-->
+          <!--Grid column-->
+          <div class="col-md-6 col-xl-5 mb-4">
+            <!--Form-->
+            <form action="/register/" method="POST">
+              {% csrf_token %}
+            <div class="card wow fadeInRight" data-wow-delay="0.3s">
+              <div class="card-body">
+                <!--Header-->
+                <div class="text-center">
+                  <h3 class="white-text">
+                    <i class="fas fa-user white-text"></i> Register:</h3>
+                    {% if messages %}
+                    {% for message in messages%}
+                    <span class="alert alert-{{ message.tags }}"><strong>{{ message }}</strong></span>
+                    {% endfor %}
+                    {% endif %}
+                    <div id="message">
+                      <h5>Password must contain the following:</h5>
+                      <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                      <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                      <p id="number" class="invalid">A <b>number</b></p>
+                      <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                    </div>
+                  <hr class="hr-light">
+                </div>
+                <!--Body-->
+                <div class="md-form">
+                  <i class="fas fa-user prefix white-text active"></i>
+                  <input type="text" id="form3" class="white-text form-control" name="first_name" required>
+                  <label for="form3" class="active">First name</label>
+                </div>
+                <div class="md-form">
+                        <i class="fas fa-user prefix white-text active"></i>
+                        <input type="text" id="form4" class="white-text form-control" name="last_name" required>
+                        <label for="form3" class="active">Last name</label>
+                      </div>
+                <div class="md-form">
+                  <i class="fas fa-envelope prefix white-text active"></i>
+                  <input type="email" id="form2" class="white-text form-control" name="email" required>
+                  <label for="form2" class="active">Email Id</label>
+                </div>
+                <div class="md-form">
+                  <i class="fas fa-key prefix white-text active"></i>
+                  <input type="password" id="psw" class="white-text form-control" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required >
+                  <label for="form4">Password</label>
+                </div>
+                <div class="md-form">
+                        <i class="fas fa-key prefix white-text active"></i>
+                        <input type="password" id="form6" class="white-text form-control" name="cpassword" required>
+                        <label for="form4">Confirm password</label>
+                      </div> 
+                <div class="text-center mt-4">
+                  <button class="btn btn-indigo" type="submit">Sign up</button>
+                  <hr class="hr-light mb-3 mt-4">
+                  <div class="inline-ul text-center">
+                   
+                    <p style="color: #fff;">Already have an account | <a href="/login/" style="color:darkgoldenrod">SignIn</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </form>
+            <!--/.Form-->
+          </div>
+          <!--Grid column--> 
+        </div>
+        <!--Grid row-->
+      </div>
+      <!-- Content -->
+    </div>
+    <!-- Mask & flexbox options-->
+  </div>
+
+{% endblock content %}
+

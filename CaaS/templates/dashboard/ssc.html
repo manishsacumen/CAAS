@@ -1,0 +1,243 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+
+
+<div class="main">
+	
+        <div class="main-inner">
+    
+            <div class="container">
+        
+              <div class="row">
+                  
+                  <div class="span12">      		
+                      
+                      <div class="widget ">
+                          
+                          <div class="widget-header">
+                              <i class="icon-user"></i>
+                              <h3>Security Score Card</h3>
+                          </div> <!-- /widget-header -->
+                        
+                        <div class="widget-content">
+                            
+                            
+                            
+                            <div class="tabbable">
+                            <ul class="nav nav-tabs">
+                              <li>
+                                <h3>Register Your SecurityScore Card Application</h3>
+                              </li>
+                            </ul>
+                            
+                            <br>
+
+                                <div class="content">
+                                    <div class="tab-pane" id="formcontrols">
+                                    <form id="edit-profile" method="post" action="" class="form-horizontal">
+                                        <fieldset>
+                                            
+                                            <div class="control-group">											
+                                                <label class="control-label" for="username">Name</label>
+                                                <div class="controls">
+                                                    <input type="text" class="span6 disabled" id="username"  name="name" placeholder="Sacumen">
+                                                    <p class="help-block">Enter a unique name for the data input</p>
+                                                </div> <!-- /controls -->				
+                                            </div> <!-- /control-group -->
+                                            
+                                            
+                                            <div class="control-group">											
+                                                <label class="control-label" for="firstname">Interval</label>
+                                                <div class="controls">
+                                                    <input type="text" class="span6" id="firstname"  name="interval" placeholder="86400">
+                                                    <p class="help-block">Time interval of input in seconds.</p>
+
+                                                </div> <!-- /controls -->				
+                                            </div> <!-- /control-group -->
+                                            
+                                            
+                                            <div class="control-group">											
+                                                <label class="control-label" for="lastname">SecurityScorecard Api Url</label>
+                                                <div class="controls">
+                                                    <input type="text" class="span6" id="lastname" name="ssc_api_url" placeholder="http://api.securityscorecard.io">
+                                                    <p class="help-block">Enter the SecurityScorecard API URL</p>
+
+                                                </div> <!-- /controls -->				
+                                            </div> <!-- /control-group -->
+
+                                            <div class="control-group">											
+                                                    <label class="control-label" for="lastname">API Token</label>
+                                                    <div class="controls">
+                                                        <input type="password" class="span6" id="lastname" name="api_token" placeholder="**********">
+                                                        <p class="help-block">Enter the SecurityScorecard API Token</p>
+    
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
+
+                                            <div class="control-group">											
+                                                    <label class="control-label" for="lastname">Severity - Overall Score</label>
+                                                    <div class="controls">
+                                                        <input type="text" class="span6" id="lastname" name="overall_score" placeholder="23">
+                                                        <p class="help-block">Specify the severity level to be used when logging overall score changes.</p>
+    
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
+                                            
+                                            <div class="control-group">											
+                                                    <label class="control-label" for="lastname">Severity - Factor Score</label>
+                                                    <div class="controls">
+                                                        <input type="text" class="span6" id="lastname" name="factor_score" placeholder="32">
+                                                        <p class="help-block">Specify the severity level to be used when logging factor score changes.</p>
+    
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
+                                            
+                                            <div class="control-group">											
+                                                    <label class="control-label" for="lastname">Severity - Issue Level Events</label>
+                                                    <div class="controls">
+                                                        <input type="text" class="span6" id="lastname" name="issue_level_events" placeholder="32">
+                                                        <p class="help-block">Specify the severity level to be used when logging changes in the ScoreCard event log. </p>
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
+
+                                            <div class="control-group">											
+                                                    <label class="control-label" for="lastname">Your Domain</label>
+                                                    <div class="controls">
+                                                        <input type="text" class="span6" id="lastname" name="your_domain" placeholder="sacumen.com">
+                                                        <p class="help-block">Enter the domain name to monitor.</p>
+    
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
+                                                                               
+                                            <div class="control-group">											
+                                                <label class="control-label">Log overall score for self?</label>
+                                                <div class="controls">
+                                                <label class="bg-checkbox inline">
+                                                  <input type="checkbox" name="log_overall"> 
+                                                  <p class="help-block">Due you want to monitor the overall score for your own scorecard?</p>
+                                                </label>       
+                                              </div>		
+                                            </div> 
+
+                                                                                
+                                            <div class="control-group">											
+                                                    <label class="control-label">Log factor score for self?</label>
+                                                    <div class="controls">
+                                                    <label class="bg-checkbox inline">
+                                                      <input type="checkbox" name="log_factor"> 
+                                                      <p class="help-block">Due you want to monitor the factor score for your own scorecard?</p>
+                                                    </label>       
+                                                  </div>		
+                                                </div> 
+
+                                                                                
+                                                <div class="control-group">											
+                                                        <label class="control-label">Log new events for slef?</label>
+                                                        <div class="controls">
+                                                        <label class="bg-checkbox inline">
+                                                          <input type="checkbox" name="log_new_events"> 
+                                                          <p class="help-block">Due you want to monitor for issue level events for your own scorecard?</p>
+                                                        </label>       
+                                                      </div>		
+                                                    </div> 
+
+                                                                                    
+                                            <div class="control-group">											
+                                                    <label class="control-label">Log if overall score is zero?</label>
+                                                    <div class="controls">
+                                                    <label class="bg-checkbox inline">
+                                                      <input type="checkbox" name="log_score_zero"> 
+                                                      <p class="help-block">Due you want to log events when overall score for yourself does not change?</p>
+                                                    </label>       
+                                                  </div>		
+                                                </div> 
+                                            
+                                            <div class="control-group">											
+                                                    <label class="control-label" for="lastname">Portfolio IDs</label>
+                                                    <div class="controls">
+                                                        <input type="text" class="span6" id="lastname" name="portfolio_id" placeholder="all">
+                                                        <p class="help-block">Enter the portfolio ids you want to monitor. Enter 'all' to get data from all portfolio.   </p>
+    
+                                                    </div>			
+                                                </div> 
+
+                                                                                
+                                                <div class="control-group">											
+                                                        <label class="control-label">Log overall score - 3rd party?</label>
+                                                        <div class="controls">
+                                                        <label class="bg-checkbox inline">
+                                                          <input type="checkbox" name="overall_third_party"> 
+                                                          <p class="help-block">Do you want to monitor the overall score for 3rd party scorecard?</p>
+                                                        </label>       
+                                                      </div>		
+                                                    </div> 
+
+                                                                                    
+                                            <div class="control-group">											
+                                                    <label class="control-label">Log factor score - 3rd party?</label>
+                                                    <div class="controls">
+                                                    <label class="bg-checkbox inline">
+                                                      <input type="checkbox" name="factor_third_party"> 
+                                                      <p class="help-block">Due you want to monitor the factor score for 3rd party scorecard?</p>
+                                                    </label>       
+                                                  </div>		
+                                                </div> 
+
+                                                                                
+                                                <div class="control-group">											
+                                                        <label class="control-label">Log new events - 3rd party</label>
+                                                        <div class="controls">
+                                                        <label class="bg-checkbox inline">
+                                                          <input type="checkbox" name="new_events-third_party"> 
+                                                          <p class="help-block">Do you want to monitor for issue level events for 3rd part scorecard?</p>
+                                                        </label>       
+                                                      </div>		
+                                                    </div> 
+
+                                                                                    
+                                            <div class="control-group">											
+                                                    <label class="control-label">Log overall score when zero?</label>
+                                                    <div class="controls">
+                                                    <label class="bg-checkbox inline">
+                                                      <input type="checkbox" name="overall_score_zero"> 
+                                                      <p class="help-block">Due you want to log events when the overall level scores for 3rd parties do not change? </p>
+                                                    </label>       
+                                                  </div>		
+                                                </div> 
+
+                                                                                
+                                                <div class="control-group">											
+                                                        <label class="control-label">Log factor score when zero?</label>
+                                                        <div class="controls">
+                                                        <label class="bg-checkbox inline">
+                                                          <input type="checkbox" name="factor_score_zero"> 
+                                                          <p class="help-block">Due you want to log events when the factor level score for 3rd parties do not change?</p>
+                                                        </label>       
+                                                      </div>		
+                                                    </div> 
+                          
+                                            <div class="form-actions">
+                                                <a href='/connectors/' type="submit" class="btn btn-primary">Save</a> 
+                                                <button class="btn">Cancel</button>
+                                            </div> <!-- /form-actions -->
+                                        </fieldset>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div> 
+                            
+                    </div> 
+                      
+                </div> 
+    
+              </div> <!-- /row -->
+        
+            </div> <!-- /container -->
+            
+        </div> <!-- /main-inner -->
+        
+    </div> <!-- /main -->
+    
+{% endblock content %}

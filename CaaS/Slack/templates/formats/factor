@@ -1,0 +1,2 @@
+Factor score for *{{ subject }}* for *{{ dateToday |slice:":10" }}* is *{{ scoreToday }}*.
+Previous score was *{{ scoreYesterday }}* and score change is *{{ diff }}*.

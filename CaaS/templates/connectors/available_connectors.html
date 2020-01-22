@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+  {% if messages %}
+{% for message in messages %}
+  <div class="alert alert-{{ message.tags }}">
+  {{ message }}
+  </div>
+{% endfor %}
+{% endif %}
+  <div class="row">
+      <div class="login-extra">
+          <img  style="height:50px; width: 60px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQvF_RR7nV2g-Utp0fPFKGVfi1IrQdX7fQGHnaiZQ-txwouOzDf"> <a data-toggle="modal" data-target="#jira_modal" type="button" class="btn btn-primary">JIRA Connect</a>
+      </div> 
+  </div>
+  <div class="row">
+      <div class="login-extra">
+         <img style="height:50px; width:60px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRj9Xwbww3_xuiifdijtsxr0YZx1aHlleDZTl5oXZUEBWmLtp3y"> <a data-toggle="modal" data-target="#slack_modal" type="button" class="btn btn-primary">SLACK Connect</a>
+      </div> 
+  </div>
+  <div class="row">
+      <div class="login-extra" style="padding-top:150px;">
+
+    <a href="/home/" type="button" class="btn btn-primary" >Go to Dashboard</a>
+    </div>
+  </div>
+</div>
+   
+
+{% load static %}
+<script src="{% static 'js/jira_validate.js' %}"></script>   
+
+{% include "connectors/model/connect_jira.html" %}
+{% include "connectors/model/connect_slack.html" %}
+{% endblock %}

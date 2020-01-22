@@ -1,0 +1,39 @@
+#message {
+	display:none;
+	/* background: #fff; */
+	color: #ffad40;
+	position: relative;
+	padding: 0px;
+	margin-top: 10px;
+  }
+  
+  #message p {
+    font-size: 11px
+}
+  
+  / Add a green text color and a checkmark when the requirements are right /
+  .valid {
+	color: green;
+  }
+  
+  .valid:before {
+	position: relative;
+	left: 25px;
+	content: "✔";
+	color: greenyellow
+  }
+  
+  / Add a red text color and an "x" when the requirements are wrong /
+  .invalid {
+	color: red;
+  }
+  
+  .invalid:before {
+	position: relative;
+	left: -35px;
+	content: "✖";
+  }
+  .ssc_form{
+	width: 100% !important;
+	height: 100% !important;
+}

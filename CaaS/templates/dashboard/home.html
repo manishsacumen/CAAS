@@ -1,0 +1,166 @@
+{% extends "dashboard/base.html" %}
+{% load static%}
+<script src="{% static 'dashboard/js/ssc_validate.js' %}"></script>  
+
+{% block content %}
+<style type="text/css">
+  * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding in columns */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+</style>
+
+<div class="main">
+  <div class="main-inner">
+    <div class="conatiner">
+      <div class="row">
+        <div class="span12">
+        <div class="widget">
+      {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+    </div>  
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+<div class="main">
+  <div class="main-inner">
+    <div class="container-fluid">
+      <div class="row"> 
+        <div class="span12">
+          <div class="widget">
+            <div class="widget-header"> <i class="icon-bookmark"></i>
+              <h3>Source Application</h3>
+            </div>
+            <div class="widget-content">
+              <div class="row">
+                  <div class="column">
+                    <div class="card">
+                      <img src="{% static 'dashboard/img/ssc_logo1.png' %}"  style="width: 70px; height: 60px; ">
+                      <h3>Security Score Card</h3>
+
+                      {% if ssc_data %}
+                      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ssc_modal">Edit</a>
+                      {% if ssc_data.flag %}
+                        <a href="/ssc_connector/ssc_flag/" class="btn btn-primary"  >Disable</a>
+                      {% else %}
+                        <a href="/ssc_connector/ssc_flag/" class="btn btn-primary"  >Enable</a>
+                      {% endif %}
+                      {% else %}
+                      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ssc_modal">Configure</a>
+                      {% endif %}
+
+                    </div>
+                  </div>
+              </div>
+           
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+   <div class="container-fluid">
+      <div class="row"> 
+        <div class="span12">
+          <div class="widget">
+            <div class="widget-header"> <i class="icon-bookmark"></i>
+              <h3>Application Connected</h3>
+            </div>
+            
+            <div class="widget-content">
+              <div class="row">
+                  <div class="column" disabled>
+                    <div class="card">
+                      <img src="{% static 'dashboard/img/slack.png' %}"  style="width: 70px; height: 60px; margin-bottom: ">
+                      <h3>Slack</h3>
+                      {% if ssc_data.flag %}
+                        {% if slack_data %}
+                          {% if slack_data.flag %}
+                              <a href="/ssc_connector/slack_flag/" class="btn btn-primary">Disable</a>
+                          {% else %}
+                              <a href="/ssc_connector/slack_flag/" class="btn btn-primary">Enable</a>
+                          {% endif %}
+                        {% else %}
+                        <a href="https://slack.com/oauth/authorize?scope=bot&client_id=876197112786.877514444611" class="btn btn-primary">Configure</a>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                  </div>
+                 <div class="column">
+                    <div class="card">
+                      <img src="{% static 'dashboard/img/jira.svg' %}"  style="width: 70px; height: 60px; margin-bottom: ">
+                      <h3>Jira</h3>
+                      {% if ssc_data.flag %}
+                        {% if jira_data %}
+                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jira_modal">Edit</a>
+
+                          {% if jira_data.flag %}
+                            <a href="/ssc_connector/jira_flag/" class="btn btn-primary">Disable</a>
+                          {% else %}
+                            <a href="/ssc_connector/jira_flag/" class="btn btn-primary" >Enable</a>
+                          {% endif %}
+                          {% else %} 
+                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jira_modal">Configure</a>
+                        {% endif %}
+                      {%  endif %}
+                    </div>
+                  </div>
+              </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% include "connectors/model/connect_jira.html" %}
+{% include "connectors/model/connect_slack.html" %}
+{% include "connectors/model/connect_ssc.html" %}
+
+{% endblock content %}

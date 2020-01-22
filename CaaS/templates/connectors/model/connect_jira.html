@@ -1,0 +1,89 @@
+<div class="modal fade" id="jira_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Connect with Jira</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="jira_config"class="modal-body">
+         <form id="jira-form" method='post' action='/jira/jira_register/'>
+          {% csrf_token %}
+            <div class="control">
+                <label for="exampleFormControlInput1">App Url</label>
+                <input type="text" value='{{jira_data.app_url}}'class="ssc_form" name="app_url" id="app_url"  required="">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Email Id</label>
+                <input type="text" value='{{jira_data.email_id}}' placeholder="name@example.com" class="ssc_form" name="email_id" id="email_id" required="">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">API Key</label>
+                <input type="text" value='{{jira_data.api_key}}' class="ssc_form" name="api_key" id="api_key" required="">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Project Key</label>
+                <input type="text" value='{{jira_data.project_key}}' class="ssc_form" name="project_key" id="project_key" required="">
+            </div>
+            <div class="modal-footer">
+              <span style="color:green;" id="jira_success">Test Success</span>
+              <span style="color:red;" id="jira_failed"> Test Failed</span>
+              <button type="button" id='test_jira' class="btn btn-primary">Test</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" id='jira_submit' class="btn btn-primary">Submit</button>
+            </div>
+         </form>
+        </div>
+        <div id="ssc_config"class="card-body">
+          <form action='/jira/jira_config/'method="post" style="padding-left:20px;" >
+              <div class="form-check">
+                  <input type="checkbox" name="fetch_company_overall" class="form-check-input" id="fetch_company_overall">
+                  <label class="form-check-label" for="fetch_company_overall">Company Overall Log</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="fetch_company_factors" class="form-check-input" id="fetch_company_factors">
+                  <label class="form-check-label" for="fetch_company_factors">Comapny Factor Log</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="fetch_company_issues" class="form-check-input" id="fetch_company_issues">
+                  <label class="form-check-label" for="fetch_company_issues">Comapny Issues Log</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="fetch_portfolio_overall "class="form-check-input" id="fetch_portfolio_overall">
+                  <label class="form-check-label" for="fetch_portfolio_overall">Comapny third party overall score </label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="fetch_portfolio_factors" class="form-check-input" id="fetch_portfolio_factors">
+                  <label class="form-check-label" for="fetch_portfolio_factors">Company third party factor score</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="fetch_portfolio_issues" class="form-check-input" id="fetch_portfolio_issues">
+                  <label class="form-check-label" for="fetch_portfolio_issues">Company third party issue log</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="fetch_issue_level_data" class="form-check-input" id="fetch_issue_level_data">
+                  <label class="form-check-label" for="fetch_issue_level_data">Company third party issue level data</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="diff_override_own_overall" class="form-check-input" id="diff_override_own_overall">
+                  <label class="form-check-label" for="diff_override_own_overall">Company third party override overall zero</label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="diff_override_portfolio_overall" class="form-check-input" id="diff_override_portfolio_overall">
+                  <label class="form-check-label" for="diff_override_portfolio_overall">Company third party overall zero </label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="diff_override_own_factor" class="form-check-input" id="diff_override_own_factor">
+                  <label class="form-check-label" for="diff_override_own_factor">Log third party override factor zero </label>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" name="diff_override_portfolio_factor" class="form-check-input" id="diff_override_portfolio_factor">
+                  <label class="form-check-label" for="diff_override_portfolio_factor">Comapny third party factor zero </label>
+                </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      </div>
+      </div>
+    </div>
+  </div>

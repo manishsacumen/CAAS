@@ -1,0 +1,66 @@
+{% extends "dashboard/base.html" %}
+{% load static%}
+{% block content %}
+    <div class="container">
+        <p>&nbsp;</p>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card border-success">
+                    <div class="card-header">
+                        <h1 class="text-center">Slack SSC Configuration</h1>
+                    </div>
+                    <div class="card-body">
+                        <form action='/slack/slack_config/'method="post">
+                            {% csrf_token %}
+                            <div class="form-check">
+                              <input type="checkbox" name="fetch_company_overall" class="form-check-input" id="fetch_company_overall">
+                              <label class="form-check-label" for="fetch_company_overall">Company Overall Log</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="fetch_company_factors" class="form-check-input" id="fetch_company_factors">
+                              <label class="form-check-label" for="fetch_company_factors">Comapny Factor Log</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="fetch_company_issues" class="form-check-input" id="fetch_company_issues">
+                              <label class="form-check-label" for="fetch_company_issues">Comapny Issues Log</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="fetch_portfolio_overall "class="form-check-input" id="fetch_portfolio_overall">
+                              <label class="form-check-label" for="fetch_portfolio_overall">Comapny third party overall score </label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="fetch_portfolio_factors" class="form-check-input" id="fetch_portfolio_factors">
+                              <label class="form-check-label" for="fetch_portfolio_factors">Company third party factor score</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="fetch_portfolio_issues" class="form-check-input" id="fetch_portfolio_issues">
+                              <label class="form-check-label" for="fetch_portfolio_issues">Company third party issue log</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="fetch_issue_level_data" class="form-check-input" id="fetch_issue_level_data">
+                              <label class="form-check-label" for="fetch_issue_level_data">Company third party issue level data</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="diff_override_own_overall" class="form-check-input" id="diff_override_own_overall">
+                              <label class="form-check-label" for="diff_override_own_overall">Company third party override overall zero</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="diff_override_portfolio_overall" class="form-check-input" id="diff_override_portfolio_overall">
+                              <label class="form-check-label" for="diff_override_portfolio_overall">Company third party overall zero </label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="diff_override_own_factor" class="form-check-input" id="diff_override_own_factor">
+                              <label class="form-check-label" for="diff_override_own_factor">Log third party override factor zero </label>
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" name="diff_override_portfolio_factor" class="form-check-input" id="diff_override_portfolio_factor">
+                              <label class="form-check-label" for="diff_override_portfolio_factor">Comapny third party factor zero </label>
+                            </div>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
