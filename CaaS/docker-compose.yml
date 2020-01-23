@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  slackbot_redis:
+    image: redis
+  slackbot_web:
+    build: .
+    command: >
+      sh -c "
+      python3 manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8080"
+    volumes:
+      - .:/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - slackbot_redis
+
+  slackbot_celery:
+    build: .
+    command: "celery -A slackbot worker -B --loglevel=debug"
+    volumes:
+      - .:/code
+    depends_on:
+      - slackbot_redis
+
