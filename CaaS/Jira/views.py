@@ -6,11 +6,6 @@ from requests.auth import HTTPBasicAuth
 import requests
 import json
 from .models import Jira
-from Connector.models import SSCConnector
-
-
-
-# Create your views here.
 
 
 class Connector:
@@ -60,7 +55,7 @@ class Connector:
 
 
 
-
+@login_required(login_url='/login/')
 def jira_register(request):
     jira_config = request.POST.dict()
     current_user = request.user
@@ -86,7 +81,7 @@ def jira_register(request):
         messages.error(request, f'There is some problem in connection..!! Please Try Again')
         return redirect('/ssc_connector/ssc/')
 
-    return render(request, 'dashboard/home.html')
+    # return render(request, 'dashboard/home.html')
 
 
 def test_jira(request):
@@ -99,7 +94,7 @@ def test_jira(request):
     res = requests.get(url=test_api_url, auth=auth)
     if res.status_code == 200:
         return HttpResponse("Success")
-
+@login_required(login_url='/login/')
 def jira_config(request):
     jira = Jira.objects.filter(user_id = request.user).first()
     if jira:

@@ -10,7 +10,7 @@ def validation_email(reciver_email, otp):
     EMAIL_PASSWORD = 'clarion@123'
 
     msg = EmailMessage()
-    msg['Subject'] = 'CASS One time password for verification...!!'
+    msg['Subject'] = 'CAAS Activation link for authentication...!!'
     msg['From'] = EMAIL_ADDRESS
     msg['To'] = reciver_email
 
@@ -92,7 +92,7 @@ def validation_otp(reciver_email, otp):
     EMAIL_PASSWORD = 'clarion@123'
 
     msg = EmailMessage()
-    msg['Subject'] = 'CASS One time password for verification...!!'
+    msg['Subject'] = 'CAAS One time password for verification...!!'
     msg['From'] = EMAIL_ADDRESS
     msg['To'] = reciver_email
 

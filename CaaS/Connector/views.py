@@ -1,20 +1,18 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.views import View
 import json
-from django.views.generic import TemplateView
 from django.shortcuts import render
-from .forms import SSForm
 from .config import payload
 from .models import SSCConnector
 from django.contrib import messages
 from ssc.main import collect_events
-from django.contrib.auth.models import User
 from Jira import views, models
 from Slack.utils import send_message_to_slack
+from django.contrib.auth.decorators import login_required
 from Slack.models import Slack
 import datetime
 
 
+@login_required(login_url='/login/')
 def home(request):
     if request.POST:
         current_user = request.user
@@ -30,21 +28,23 @@ def home(request):
             ssc_obj = SSCConnector.objects.filter(user_id = request.user).first()
         except Exception as err:
             print("Getting exception as {}".format(err))
-            new_ssc = SSCConnector(user_id=current_user, interval=interval, api_url=api_url, api_token=api_token,
-                                   overall_score=overall_score,
-                                   factor_score=factor_score, issue_level_event=issue_level_event, domain=domain)
-            new_ssc.save()
-            messages.success(request, f'Your SecurityScore Card is Registered')
         else:
-            ssc_obj.interval = interval
-            ssc_obj.api_url = api_url
-            ssc_obj.api_token = api_token
-            ssc_obj.overall_score = overall_score
-            ssc_obj.factor_score = factor_score
-            ssc_obj.issue_level_event =issue_level_event
-            ssc_obj.domain = domain
-            ssc_obj.save()
-            messages.success(request, f'Your SecurityScore Card is Saved Successfully')
+            if not ssc_obj:
+                new_ssc = SSCConnector(user_id=current_user, interval=interval, api_url=api_url, api_token=api_token,
+                                       overall_score=overall_score,
+                                       factor_score=factor_score, issue_level_event=issue_level_event, domain=domain)
+                new_ssc.save()
+                messages.success(request, f'Your SecurityScoreCard is Registered')
+            else:
+                ssc_obj.interval = interval
+                ssc_obj.api_url = api_url
+                ssc_obj.api_token = api_token
+                ssc_obj.overall_score = overall_score
+                ssc_obj.factor_score = factor_score
+                ssc_obj.issue_level_event =issue_level_event
+                ssc_obj.domain = domain
+                ssc_obj.save()
+                messages.success(request, f'Your SecurityScoreCard is Saved Successfully')
 
         return redirect('/ssc_connector/ssc/')
     else:
@@ -54,7 +54,7 @@ def home(request):
         jira_data = models.Jira.objects.filter(user_id = current_user).first()
     return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data, 'jira_data':jira_data, 'slack_data':slack_data})
 
-
+@login_required(login_url='/login/')
 def process_ssc(request):
     try:
         ssc_user = SSCConnector.objects.filter(user_id=request.user).first()
@@ -104,11 +104,11 @@ def process_ssc_response(sc_response):
     for key, each_factor in sc_response.items():
         if isinstance(each_factor, list):
             for each in each_factor:
-                tmp=[]
+                tmp = list()
                 tmp.append(each)
                 yield tmp
         else:
-            tmp=[]
+            tmp = list()
             tmp.append(each_factor)
             yield tmp
 
@@ -139,7 +139,11 @@ def set_ssc_flag(request):
 
 
 def set_flag(request, flag_obj, flag_name):
-    ssc = flag_obj.objects.filter(user_id=request.user).first()
+    # ssc = flag_obj.objects.filter(user_id=request.user).first()
+    if flag_name == "Slack":
+        ssc = flag_obj.objects.filter(source_id__user_id=request.user).first()
+    else:
+        ssc = flag_obj.objects.filter(user_id=request.user).first()
     if ssc:
         if ssc.flag:
             msg = "{} is Deactivated".format(flag_name)

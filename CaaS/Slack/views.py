@@ -5,6 +5,7 @@ import requests
 from django.views import View
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.contrib.auth.decorators import login_required
 
 from .models import Slack, SlackRequest
 from Connector.models import SSCConnector

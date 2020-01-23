@@ -22,12 +22,6 @@ from email.message import EmailMessage
 from .email_template import validation_email, validation_otp
 
 
-
-# @login_required(login_url='/login/')
-# def ssc_view(request):
-#     return render(request, 'dashboard/ssc.html')
-
-
 # This view will take you to dashboard only if the user is loged in
 @login_required(login_url='/login/')
 def home_view(request):
