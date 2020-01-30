@@ -23,6 +23,13 @@
               {% csrf_token %}
             <div class="card wow fadeInRight" data-wow-delay="0.3s">
               <div class="card-body">
+                  <div id="message" style="margin-left: 30px;">
+                      <h5>Password must contain the following:</h5>
+                      <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                      <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                      <p id="number" class="invalid">A <b>number</b></p>
+                      <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                    </div>
                 <!--Header-->
                 <div class="text-center">
                   <h3 class="white-text">
@@ -32,13 +39,7 @@
                     <span class="alert alert-{{ message.tags }}"><strong>{{ message }}</strong></span>
                     {% endfor %}
                     {% endif %}
-                    <div id="message">
-                      <h5>Password must contain the following:</h5>
-                      <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                      <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                      <p id="number" class="invalid">A <b>number</b></p>
-                      <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-                    </div>
+                   
                   <hr class="hr-light">
                 </div>
                 <!--Body-->
@@ -69,7 +70,7 @@
                         <label for="form4">Confirm password</label>
                       </div> 
                 <div class="text-center mt-4">
-                  <button class="btn btn-indigo" type="submit">Sign up</button>
+                  <button class="btn btn-outline-white wow fadeInLeft waves-effect waves-light" type="submit">Sign up</button>
                   <hr class="hr-light mb-3 mt-4">
                   <div class="inline-ul text-center">
                    
