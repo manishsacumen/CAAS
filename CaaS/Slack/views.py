@@ -69,8 +69,6 @@ class InstallView(View):
 
 
 def create_slack_config(request):
-    import pdb
-    #pdb.set_trace()
     slack = Slack.objects.filter(source_id__user_id = request.user).first()
     if slack:
         slack.config = str(request.POST.dict())

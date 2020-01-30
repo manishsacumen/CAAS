@@ -14,7 +14,8 @@ $(document).ready(function(){
 $("#test_ssc").click(function(e) {
     $("#success").hide();
     $("#failed").hide();
-    console.log("hii")
+    $('#ssc_submit').prop('disabled', true);
+   
     e.preventDefault(); // avoid to execute the actual submit of the form.
 
     var form = $("#ssc-form");
@@ -31,6 +32,7 @@ $("#test_ssc").click(function(e) {
            },
            error: function(XMLHttpRequest, textStatus, errorThrown) {
             $("#failed").show();
+            $('#ssc_submit').prop('disabled', true);
          }
          });
 

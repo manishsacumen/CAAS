@@ -40,6 +40,9 @@ $(document).ready(function() {
 
   $("#test_jira").click(function(e) {
     console.log("hii")
+    $("#jira_success").hide();
+    $("#jira_failed").hide();
+    $('#jira_submit').prop('disabled', true);
     e.preventDefault(); // avoid to execute the actual submit of the form.
     
     var form = $("#jira-form");
@@ -52,13 +55,15 @@ $(document).ready(function() {
     success: function(data)
     {
       $("#jira_success").show();
+      $("#jira_failed").hide();
       $('#jira_submit').prop('disabled', false);
     
     
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       $("#jira_failed").show();
-    
+      $("#jira_success").hide();
+       $('#jira_submit').prop('disabled', true);
     }
     });
     

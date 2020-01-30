@@ -72,7 +72,8 @@ def process_ssc(request):
             pass
         else:
             if not jira_user and not slack_user:
-                return messages.warning(request, f'No app is configured.. Please configure at least one..!!')
+                # return messages.warning(request, f'No app is configured.. Please configure at least one..!!')
+                pass
             if jira_flag:
                 url, username, api_token, options_str = jira_user.app_url, jira_user.email_id, jira_user.api_key, jira_user.jira_config
                 options_formatted = options_str.replace("'", '"')
@@ -88,7 +89,7 @@ def process_ssc(request):
                     payload["fields"]['description']['content'][0]['content'][0]['text'] = json.dumps(each_record[0])
                     jira_resp = jira_obj.create_issue(**payload)
                 else:
-                    messages.success(request, f"New issue is reported in Jira.")
+                    pass
             if slack_flag:
                 access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
                 options_str = slack_user.config

@@ -134,3 +134,43 @@ CELERY_RESULT_BACKEND = 'redis://slackbot_redis'
 CELERY_BROKER_URL = 'redis://slackbot_redis'
 
 DOMAIN = 'http://ec2-15-206-124-72.ap-south-1.compute.amazonaws.com:8080'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': "%(asctime)s|%(levelname)s|%(name)s:%(lineno)s|%(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'caaslogformat': {
+            'format': "%(asctime)s|%(levelname)s|%(name)s:%(lineno)s|ACTION: %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'caas.log',
+            'maxBytes': 1024*1024*5,
+            'formatter': 'caaslogformat',
+            'backupCount':5,
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'formatter': 'verbose'
+        }
+    }
+}

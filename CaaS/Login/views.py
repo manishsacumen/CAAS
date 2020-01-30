@@ -154,7 +154,7 @@ def send_otp(request):
                 recepitent = request.user.username
                 email_send = validation_otp(recepitent, message )
                 if email_send:
-                    return messages.success(request, f'Otp has been send to your email please check you email ')
+                    return messages.success(request, f'Otp has been send to your email please check your email ')
         else:
              messages.warning(request, f'Account is blocked for 1 hour ')
     else:
@@ -163,7 +163,7 @@ def send_otp(request):
         message = otp
         recepitent = request.user.username
         email_send = validation_otp(recepitent, message )
-        return messages.warning(request, f'Otp has been send to your email please check you email ')
+        return messages.warning(request, f'Otp has been send to your email please check your email ')
 
 
 def opt_resend(request):
