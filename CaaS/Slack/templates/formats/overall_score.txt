@@ -1,2 +1,2 @@
-*{{body}}* score for *{{ subject }}* for *{{ dateToday |slice:":10" }}* is *{{ scoreToday }}*.
-Previous score was *{{ scoreYesterday }}* and score change is *{{ diff }}*.
+*{{body}}* score for *{{ subject }}* on *{{ dateToday |slice:":10" }}* is *{{ scoreToday }}*.
+Previous score on *{{ dateYesterday |slice:":10" }}* was *{{ scoreYesterday }}* and score change is *{{ scoreChange }}*.
