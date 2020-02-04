@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form id="ssc-form"  action='/ssc_connector/ssc/' method="POST">
+            <form id="ssc-form"  action='/ssc_connector/save_ssc/' method="POST">
           {% csrf_token %}
             <div class="control">
                 <label for="exampleFormControlInput1">Interval</label>
@@ -39,8 +39,8 @@
                 <input type="text" class="ssc_form" value='{{ssc_data.domain}}' name="domain" id="project_key" required="">
             </div>
             <div class="modal-footer">
-              <span style="color:green;" id="success">Test Connection Successful</span>
-              <span style="color:red;" id="failed"> Test Connection Failed</span>
+              <span style="color:green;" id="success">Test Success</span>
+              <span style="color:red;" id="failed"> Test Failed</span>
               <button type="button" id="test_ssc" class="btn btn-primary">Test</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="submit" id= "ssc_submit" class="btn btn-primary">Submit</button>
