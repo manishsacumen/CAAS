@@ -117,7 +117,7 @@ class CompanyWriter(object):
                 else config.get('diff_override_own_factor')
 
             for factor in factors:
-                if factor.get('diff') != 0 or override:
+                if factor.get('diff') == 0 or override:
                     factor.pop('diff', None)
                     factor.update({'severity': config['level_factor_change']})
 
