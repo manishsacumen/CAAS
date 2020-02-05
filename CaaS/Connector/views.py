@@ -74,7 +74,7 @@ def dashboard(request):
         return e
 
 @login_required(login_url='/login/')
-def process_ssc(request):
+def process_ssc(request, flag_name):
     try:
         ssc_user = SSCConnector.objects.filter(user_id=request.user).first()
         slack_user = Slack.objects.filter(source_id__user_id=request.user).first()
@@ -94,7 +94,7 @@ def process_ssc(request):
                 logger.info("Jira and slack is deactivated%s ", request.user.email)
                 # return messages.warning(request, f'No app is configured.. Please configure at least one..!!')
                 pass
-            if jira_flag:
+            if jira_flag and flag_name !='Slack':
                 url, username, api_token, options_str = jira_user.app_url, jira_user.email_id, jira_user.api_key, jira_user.jira_config
                 options_formatted = options_str.replace("'", '"')
                 options = json.loads(options_formatted)
@@ -111,12 +111,13 @@ def process_ssc(request):
                     jira_resp = jira_obj.create_issue(**payload)
                 else:
                     pass
-            if slack_flag:
+            if slack_flag and flag_name =='Slack':
                 access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
                 options_str = slack_user.config
                 options_formatted = options_str.replace("'", '"')
-                options = json.loads(options_formatted)
-                sc_slack_response = collect_events(access_key, domain, **options)
+                optionss = json.loads(options_formatted)
+                sc_slack_response = collect_events(access_key, domain, **optionss)
+               
                 data = process_ssc_response(sc_slack_response)
                 logger.info("to Slack is start sending messages%s ", request.user.email)
                 for each_record in data:
@@ -181,6 +182,7 @@ def set_flag(request, flag_obj, flag_name):
     # ssc = flag_obj.objects.filter(user_id=request.user).first()
     try:
         if flag_name == "Slack":
+
             ssc = flag_obj.objects.filter(source_id__user_id=request.user).first()
         else:
             ssc = flag_obj.objects.filter(user_id=request.user).first()
@@ -195,7 +197,7 @@ def set_flag(request, flag_obj, flag_name):
                 msg = "{} is Activated".format(flag_name)
                 ssc.flag = True
                 ssc.save()
-                process_ssc(request)
+                process_ssc(request,flag_name)
                 logger.info("Activated %s",  flag_name)
                 messages.success(request, msg)
     except Exception as e:
