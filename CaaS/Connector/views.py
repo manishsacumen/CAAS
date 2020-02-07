@@ -9,6 +9,8 @@ from Jira import views, models
 from Slack.utils import send_message_to_slack
 from django.contrib.auth.decorators import login_required
 from Slack.models import Slack
+from Splunk.models import Splunk
+from Splunk.splunk import SplunkEvents
 import datetime
 import logging
 from django.views import View
@@ -67,8 +69,12 @@ def dashboard(request):
         ssc_data =  SSCConnector.objects.filter(user_id = current_user).first()
         slack_data  =  Slack.objects.filter(source_id =  ssc_data).first()
         jira_data = models.Jira.objects.filter(user_id = current_user).first()
+        splunk_data  =  Splunk.objects.filter(source_id =  ssc_data).first()
         logger.info("Dashboard loaded successfully%s ", request.user.email)
-        return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data, 'jira_data':jira_data, 'slack_data':slack_data})
+        return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data,
+                                             'jira_data':jira_data,
+                                              'slack_data':slack_data,
+                                              'splunk_data':splunk_data})
     except Exception as e:
         logger.error("Unexpected Exception occured: %s ", e)
         return e
@@ -79,7 +85,7 @@ def process_ssc(request, flag_name):
         ssc_user = SSCConnector.objects.filter(user_id=request.user).first()
         slack_user = Slack.objects.filter(source_id__user_id=request.user).first()
         jira_user = models.Jira.objects.filter(user_id=request.user).first()
-
+        splunk_user =  Splunk.objects.filter(source_id__user_id=request.user).first()
         slack_flag = slack_user and slack_user.flag
         jira_flag = jira_user and jira_user.flag
         ssc_flag = ssc_user and ssc_user.flag
@@ -122,6 +128,21 @@ def process_ssc(request, flag_name):
                 logger.info("to Slack is start sending messages%s ", request.user.email)
                 for each_record in data:
                     send_message_to_slack(token=slack_user.auth_token, channel=slack_user.default_channel, message=each_record[0])
+            if splunk_user.flag  and flag_name == 'Splunk':
+                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+                url, token, config = splunk_user.api_url, splunk_user.hec_token, splunk_user.config
+                options_formatted = config.replace("'", '"')
+                options = json.loads(options_formatted)
+                sc_splunk_response = collect_events(access_key, domain, **options)
+                data = process_ssc_response(sc_splunk_response)
+                splunk_obj  =  SplunkEvents(token,url)
+                sp = dict()
+                for each_record in data:
+                    current_time = str(datetime.datetime.now())
+                    sp['event'] = json.loads(json.dumps(each_record[0]))
+                    splunk_resp = splunk_obj.create_event(json.dumps(sp))
+                    print(splunk_resp.json())
+                
 
         
 def process_ssc_response(sc_response):
@@ -203,3 +224,21 @@ def set_flag(request, flag_obj, flag_name):
     except Exception as e:
             logger.error("Unexpected Exception occured: %s ", e)
             return e
+
+
+@login_required(login_url='/login/')
+def set_splunk_flag(request):
+    splunk_data  =  Splunk.objects.filter(source_id__user_id =  request.user).first()
+    if splunk_data and splunk_data.flag:
+        splunk_data.flag =  False
+        splunk_data.save()
+    else:
+        splunk_data.flag = True
+        splunk_data.save()
+        flag_name = "Splunk"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+
+        

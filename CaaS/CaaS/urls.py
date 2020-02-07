@@ -28,4 +28,5 @@ urlpatterns = [
     path('ssc_connector/',include('Connector.url')),
     path('connectors/', login_required( TemplateView.as_view(template_name="connectors/available_connectors.html"))),
     path('install', csrf_exempt(InstallView.as_view())),
+    path('splunk/',include('Splunk.url')),
 ]
