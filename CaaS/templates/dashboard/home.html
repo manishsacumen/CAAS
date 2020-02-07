@@ -1,7 +1,7 @@
 {% extends "dashboard/base.html" %}
 {% load static%}
-<script src="{% static 'dashboard/js/ssc_validate.js' %}"></script>  
-
+<!-- <script src="{% static 'dashboard/js/ssc_validate.js' %}"></script>  
+<script src="{% static 'dashboard/js/splunk_validate.js' %}"></script>   -->
 {% block content %}
 <style type="text/css">
   * {
@@ -45,7 +45,42 @@ body {
     margin-bottom: 20px;
   }
 }
-
+#overlay {
+  background: #ffffff;
+  color: #666666;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 5000;
+  top: 0;
+  left: 0;
+  float: left;
+  text-align: center;
+  padding-top: 25%;
+  opacity: .80;
+}
+button {
+  margin: 40px;
+  padding: 5px 20px;
+  cursor: pointer;
+}
+.spinner {
+    margin: 0 auto;
+    height: 64px;
+    width: 64px;
+    animation: rotate 0.8s infinite linear;
+    border: 5px solid firebrick;
+    border-right-color: transparent;
+    border-radius: 50%;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 </style>
 
 <div class="main">
@@ -151,6 +186,25 @@ body {
                       {%  endif %}
                     </div>
                   </div>
+                  <div class="column">
+                    <div class="card">
+                      <img src="{% static 'dashboard/img/splunk-app-logo1.png' %}"  style="width: 70px; height: 60px; margin-bottom: ">
+                      <h3>Splunk</h3>
+                      {% if ssc_data.flag %}
+                        {% if splunk_data %}
+                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Edit</a>
+
+                          {% if splunk_data.flag %}
+                            <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Disable</a>
+                          {% else %}
+                            <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary" >Enable</a>
+                          {% endif %}
+                          {% else %} 
+                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Configure</a>
+                        {% endif %}
+                      {%  endif %}
+                    </div>
+                  </div>
               </div>
         </div>
         </div>
@@ -162,5 +216,5 @@ body {
 {% include "connectors/model/connect_jira.html" %}
 {% include "connectors/model/connect_slack.html" %}
 {% include "connectors/model/connect_ssc.html" %}
-
+{% include "connectors/model/connect_splunk.html" %}
 {% endblock content %}
