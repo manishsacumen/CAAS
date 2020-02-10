@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'Jira' ,
     'Connector',
     'Splunk',
+    'ServiceNow',
+    'Rapid7',
 ]
 
 MIDDLEWARE = [
