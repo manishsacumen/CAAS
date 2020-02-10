@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Login',
     'Jira' ,
     'Connector',
+    'Splunk',
 ]
 
 MIDDLEWARE = [
@@ -129,9 +130,9 @@ STATIC_URL = '/static/'
 
 # Celery
 
-CELERY_RESULT_BACKEND = 'redis://slackbot_redis'
+CELERY_RESULT_BACKEND = 'redis://localhost'
 
-CELERY_BROKER_URL = 'redis://slackbot_redis'
+CELERY_BROKER_URL = 'redis://localhost'
 
 DOMAIN = 'http://ec2-15-206-124-72.ap-south-1.compute.amazonaws.com:8080'
 
