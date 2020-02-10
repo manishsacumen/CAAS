@@ -4,9 +4,9 @@ from django.views.generic import TemplateView
 
 app_name = 'Login'
 urlpatterns = [
-    path('', views.user_login, name='CaaS-Login'),
-    path('login/', views.user_login, name='CaaS-Login'),
-    path('register/', views.user_register, name='CaaS-Register'),
+    path('', views.LoginView.as_view(), name='CaaS-Login'),
+    path('login/', views.LoginView.as_view(), name='CaaS-Login'),
+    path('register/', views.RegisterView.as_view(), name='CaaS-Register'),
     path('ssc/', views.home_view, name='CaaS-HomePage'),
     # path('ssc/', views.ssc_view, name='CaaS-SSC'),
 

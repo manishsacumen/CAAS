@@ -9,7 +9,8 @@ from django.views.generic import TemplateView
 #  ]
 
 urlpatterns = [
-    path('ssc/', views.home),
+    path('ssc/', views.dashboard),
+    path('save_ssc/', views.Connector.as_view()),
     path('test_ssc/', views.process_ssc),
     # path('ssc_register/', views.ssc_register),
     # path('save_ssc/', )
@@ -17,7 +18,6 @@ urlpatterns = [
     path('jira_flag/', views.set_jira_flag),
     path('slack_flag/', views.set_slack_flag),
     path('ssc_flag/', views.set_ssc_flag),
-
-
+    path('set_splunk_flag/', views.set_splunk_flag),
 
  ]

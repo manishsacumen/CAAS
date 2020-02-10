@@ -47,7 +47,7 @@ def collect_events(access_key, domain, **options):
     diff_override_portfolio_factor = options.get('diff_override_portfolio_factor', False)
 
     # check_point_date = helper.get_check_point(CHECKPOINT_NAME)
-    check_point_date = '2020-01-10'
+    check_point_date = '2020-02-01'
     # import pdb
     # pdb.set_trace()
 
@@ -75,8 +75,6 @@ def collect_events(access_key, domain, **options):
     company = Company(access_key=access_key, domain=domain)
     company_writer = CompanyWriter(company)
     result = {}
-
-
     # Fetch overall score for company
     if fetch_company_overall:
         overall_resp = company_writer.write_overall(**config)
