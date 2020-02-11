@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from Slack.models import Slack
 from Splunk.models import Splunk
 from Splunk.splunk import SplunkEvents
+from Rapid7.models import Rapid
+from ServiceNow.models import Servicenowmodel
 import datetime
 import logging
 from django.views import View
@@ -70,11 +72,16 @@ def dashboard(request):
         slack_data  =  Slack.objects.filter(source_id =  ssc_data).first()
         jira_data = models.Jira.objects.filter(user_id = current_user).first()
         splunk_data  =  Splunk.objects.filter(source_id =  ssc_data).first()
+        servicenow_data  =  Servicenowmodel.objects.filter(source_id =  ssc_data).first()
+        rapid_data  =  Rapid.objects.filter(source_id =  ssc_data).first()
+
         logger.info("Dashboard loaded successfully%s ", request.user.email)
         return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data,
                                              'jira_data':jira_data,
                                               'slack_data':slack_data,
-                                              'splunk_data':splunk_data})
+                                              'splunk_data':splunk_data, 
+                                              'servicenow_data': servicenow_data, 
+                                              'rapid_data': rapid_data})
     except Exception as e:
         logger.error("Unexpected Exception occured: %s ", e)
         return e
