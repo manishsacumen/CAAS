@@ -211,16 +211,15 @@ button {
                       <img src="{% static 'dashboard/img/servicenow.png' %}"  style="width:150px; height: 60px; ">
                       <h3>ServiceNow</h3>
                       {% if ssc_data.flag %}
-                        {% if splunk_data %}
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Edit</a>
-
-                          {% if splunk_data.flag %}
-                            <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Disable</a>
+                        {% if servicenow_data %}
+                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Edit</a>
+                          {% if servicenow_data.flag %}
+                            <a href="/ssc_connector/set_servicenow_flag/" class="btn btn-primary">Disable</a>
                           {% else %}
-                            <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary" >Enable</a>
+                            <a href="/ssc_connector/set_servicenow_flag/" class="btn btn-primary" >Enable</a>
                           {% endif %}
                           {% else %} 
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Configure</a>
+                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Configure</a>
                         {% endif %}
                       {%  endif %}
                     </div>
@@ -233,16 +232,16 @@ button {
                         <img src="{% static 'dashboard/img/rapid7.png' %}"  style="width:150px; height: 60px; ">
                         <h3>Rapid7</h3>
                         {% if ssc_data.flag %}
-                          {% if splunk_data %}
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Edit</a>
+                          {% if rapid_data %}
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Edit</a>
   
-                            {% if splunk_data.flag %}
-                              <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Disable</a>
+                            {% if rapid_data.flag %}
+                              <a href="/ssc_connector/set_rapid_flag/" class="btn btn-primary">Disable</a>
                             {% else %}
-                              <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary" >Enable</a>
+                              <a href="/ssc_connector/set_rapid_flag/" class="btn btn-primary" >Enable</a>
                             {% endif %}
                             {% else %} 
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Configure</a>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Configure</a>
                           {% endif %}
                         {%  endif %}
                       </div>
@@ -260,4 +259,7 @@ button {
 {% include "connectors/model/connect_slack.html" %}
 {% include "connectors/model/connect_ssc.html" %}
 {% include "connectors/model/connect_splunk.html" %}
+{% include "connectors/model/connect_servicenow.html" %}
+{% include "connectors/model/connect_rapid.html" %}
+
 {% endblock content %}
