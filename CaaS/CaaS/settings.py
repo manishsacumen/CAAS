@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Splunk',
     'ServiceNow',
     'Rapid7',
+    'Freshdesk',
 ]
 
 MIDDLEWARE = [
