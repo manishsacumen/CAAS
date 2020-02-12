@@ -13,7 +13,10 @@ from Splunk.models import Splunk
 from Splunk.splunk import SplunkEvents
 from Rapid7.models import Rapid
 from ServiceNow.models import Servicenowmodel
+<<<<<<< HEAD
 from Freshdesk.models import Freshdeskmodel
+=======
+>>>>>>> 51f1075e57fbf9ec3bd64843867bbbb00b5b9989
 import datetime
 import logging
 from django.views import View
