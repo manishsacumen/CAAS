@@ -13,10 +13,12 @@ from Splunk.models import Splunk
 from Splunk.splunk import SplunkEvents
 from Rapid7.models import Rapid
 from ServiceNow.models import Servicenowmodel
+from Freshdesk.models import Freshdeskmodel
 import datetime
 import logging
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -74,6 +76,8 @@ def dashboard(request):
         splunk_data  =  Splunk.objects.filter(source_id =  ssc_data).first()
         servicenow_data  =  Servicenowmodel.objects.filter(source_id =  ssc_data).first()
         rapid_data  =  Rapid.objects.filter(source_id =  ssc_data).first()
+        freshdesk_data  =  Freshdeskmodel.objects.filter(source_id =  ssc_data).first()
+
 
         logger.info("Dashboard loaded successfully%s ", request.user.email)
         return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data,
@@ -81,7 +85,8 @@ def dashboard(request):
                                               'slack_data':slack_data,
                                               'splunk_data':splunk_data, 
                                               'servicenow_data': servicenow_data, 
-                                              'rapid_data': rapid_data})
+                                              'rapid_data': rapid_data,
+                                              'freshdesk_data': freshdesk_data})
     except Exception as e:
         logger.error("Unexpected Exception occured: %s ", e)
         return e
