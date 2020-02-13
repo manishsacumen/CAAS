@@ -12,11 +12,11 @@ from Slack.models import Slack
 from Splunk.models import Splunk
 from Splunk.splunk import SplunkEvents
 from Rapid7.models import Rapid
+from Rapid7.rapidseven import Rapidseven
 from ServiceNow.models import Servicenowmodel
-<<<<<<< HEAD
 from Freshdesk.models import Freshdeskmodel
-=======
->>>>>>> 51f1075e57fbf9ec3bd64843867bbbb00b5b9989
+from Freshdesk.freshdesk import FreshdeskEvents
+from ZOHO.models import Zohomodel
 import datetime
 import logging
 from django.views import View
@@ -80,8 +80,8 @@ def dashboard(request):
         servicenow_data  =  Servicenowmodel.objects.filter(source_id =  ssc_data).first()
         rapid_data  =  Rapid.objects.filter(source_id =  ssc_data).first()
         freshdesk_data  =  Freshdeskmodel.objects.filter(source_id =  ssc_data).first()
-
-
+        zohodesk_data  =   Zohomodel.objects.filter(source_id = ssc_data).first()
+        
         logger.info("Dashboard loaded successfully%s ", request.user.email)
         return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data,
                                              'jira_data':jira_data,
@@ -89,7 +89,8 @@ def dashboard(request):
                                               'splunk_data':splunk_data, 
                                               'servicenow_data': servicenow_data, 
                                               'rapid_data': rapid_data,
-                                              'freshdesk_data': freshdesk_data})
+                                              'freshdesk_data': freshdesk_data,
+                                              'zohodesk_data': zohodesk_data})
     except Exception as e:
         logger.error("Unexpected Exception occured: %s ", e)
         return e
@@ -101,6 +102,9 @@ def process_ssc(request, flag_name):
         slack_user = Slack.objects.filter(source_id__user_id=request.user).first()
         jira_user = models.Jira.objects.filter(user_id=request.user).first()
         splunk_user =  Splunk.objects.filter(source_id__user_id=request.user).first()
+        rapid_user  =  Rapid.objects.filter(source_id__user_id =  request.user).first()
+        servicenw_user  =  Servicenowmodel.objects.filter(source_id__user_id =  request.user).first()
+        freshdesk_user  =  Freshdeskmodel.objects.filter(source_id__user_id =  request.user).first()
         slack_flag = slack_user and slack_user.flag
         jira_flag = jira_user and jira_user.flag
         ssc_flag = ssc_user and ssc_user.flag
@@ -157,7 +161,37 @@ def process_ssc(request, flag_name):
                     sp['event'] = json.loads(json.dumps(each_record[0]))
                     splunk_resp = splunk_obj.create_event(json.dumps(sp))
                     print(splunk_resp.json())
-                
+            if rapid_user.flag  and flag_name == 'Rapid':
+                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+                url, token, options_str   = rapid_user.url, rapid_user.api_key, rapid_user.config
+                options_formatted = options_str.replace("'", '"')
+                options = json.loads(options_formatted)
+                rapid_obj =  Rapidseven(url, token)
+                rapid_response = collect_events(access_key, domain, **options)
+                data = process_ssc_response(rapid_response)
+                for each_record in data:
+                    rapid_resp = rapid_obj.create_log(each_record[0])
+            if servicenw_user.flag  and flag_name == 'ServiceNow':
+                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+                url, username, password, options_str   = servicenw_user.url, servicenw_user.username, servicenw_user.password, servicenw_user.config
+                options_formatted = options_str.replace("'", '"')
+                options = json.loads(options_formatted)
+                snw_obj =  ServiceNowEvents(url, username, password)
+                snw_response = collect_events(access_key, domain, **options)
+                data = process_ssc_response(snw_response)
+                for each_record in data:
+                    snw_resp = snw_obj.create_incident(**each_record[0])
+            if freshdesk_user.flag  and flag_name == 'Freshdesk':
+                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+                url, username, api_key, options_str   = freshdesk_user.url, freshdesk_user.username, freshdesk_user.api_key, servicenw_user.config
+                options_formatted = options_str.replace("'", '"')
+                options = json.loads(options_formatted)
+                fresh_obj =  FreshdeskEvents(username, api_key, url)
+                fresh_response = collect_events(access_key, domain, **options)
+                data = process_ssc_response(fresh_response)
+                for each_record in data:
+                    fresh_resp = fresh_obj.create_ticket(**each_record[0])
+
 
         
 def process_ssc_response(sc_response):
@@ -255,5 +289,44 @@ def set_splunk_flag(request):
     return redirect("/ssc_connector/ssc/")
 
 
+@login_required(login_url='/login/')
+def set_rapid_flag(request):
+    rapid_data  =  Rapid.objects.filter(source_id__user_id =  request.user).first()
+    if rapid_data and rapid_data.flag:
+        rapid_data.flag =  False
+        rapid_data.save()
+    else:
+        rapid_data.flag = True
+        rapid_data.save()
+        flag_name = "Rapid"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
 
-        
+
+
+@login_required(login_url='/login/')
+def set_servicenow_flag(request):
+    snw_data  =  Servicenowmodel.objects.filter(source_id__user_id =  request.user).first()
+    if snw_data and snw_data.flag:
+        snw_data.flag =  False
+        snw_data.save()
+    else:
+        snw_data.flag = True
+        snw_data.save()
+        flag_name = "ServiceNow"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_freshdesk_flag(request):
+    freshdesk_data  =  Freshdeskmodel.objects.filter(source_id__user_id =  request.user).first()
+    if freshdesk_data and freshdesk_data.flag:
+        freshdesk_data.flag =  False
+        freshdesk_data.save()
+    else:
+        freshdesk_data.flag = True
+        freshdesk_data.save()
+        flag_name = "Freshdesk"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")

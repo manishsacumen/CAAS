@@ -211,7 +211,6 @@ button {
                       <img src="{% static 'dashboard/img/servicenow.png' %}"  style="width:150px; height: 60px; ">
                       <h3>ServiceNow</h3>
                       {% if ssc_data.flag %}
-<<<<<<< HEAD
                         {% if servicenow_data %}
                           <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Edit</a>
                           {% if servicenow_data.flag %}
@@ -221,18 +220,6 @@ button {
                           {% endif %}
                           {% else %} 
                           <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Configure</a>
-=======
-                        {% if splunk_data %}
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Edit</a>
-
-                          {% if splunk_data.flag %}
-                            <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Disable</a>
-                          {% else %}
-                            <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary" >Enable</a>
-                          {% endif %}
-                          {% else %} 
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Configure</a>
->>>>>>> b70a03ecb917f57d48e3e5ca9e0fac057765afdc
                         {% endif %}
                       {%  endif %}
                     </div>
@@ -245,7 +232,6 @@ button {
                         <img src="{% static 'dashboard/img/rapid7.png' %}"  style="width:150px; height: 60px; ">
                         <h3>Rapid7</h3>
                         {% if ssc_data.flag %}
-<<<<<<< HEAD
                           {% if rapid_data %}
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Edit</a>
   
@@ -256,18 +242,44 @@ button {
                             {% endif %}
                             {% else %} 
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Configure</a>
-=======
-                          {% if splunk_data %}
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Edit</a>
+                          {% endif %}
+                        {%  endif %}
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="{% static 'dashboard/img/freshdesk.png' %}"  style="width:150px; height: 60px; ">
+                        <h3>Freshdesk</h3>
+                        {% if ssc_data.flag %}
+                          {% if freshdesk_data %}
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#freshdesk_modal">Edit</a>
   
-                            {% if splunk_data.flag %}
-                              <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Disable</a>
+                            {% if freshdesk_data.flag %}
+                              <a href="/ssc_connector/set_freshdesk_flag/" class="btn btn-primary">Disable</a>
                             {% else %}
-                              <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary" >Enable</a>
+                              <a href="/ssc_connector/set_freshdesk_flag/" class="btn btn-primary" >Enable</a>
                             {% endif %}
                             {% else %} 
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Configure</a>
->>>>>>> b70a03ecb917f57d48e3e5ca9e0fac057765afdc
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#freshdesk_modal">Configure</a>
+                          {% endif %}
+                        {%  endif %}
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="{% static 'dashboard/img/freshdesk.png' %}"  style="width:150px; height: 60px; ">
+                        <h3>ZOHO desk</h3>
+                        {% if ssc_data.flag %}
+                          {% if zohodesk_data %}
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zohodesk_modal">Edit</a>
+  
+                            {% if zohodesk_data.flag %}
+                              <a href="/ssc_connector/set_zohodesk_flag/" class="btn btn-primary">Disable</a>
+                            {% else %}
+                              <a href="/ssc_connector/set_zohodesk_flag/" class="btn btn-primary" >Enable</a>
+                            {% endif %}
+                            {% else %} 
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zohodesk_modal">Configure</a>
                           {% endif %}
                         {%  endif %}
                       </div>
@@ -287,5 +299,6 @@ button {
 {% include "connectors/model/connect_splunk.html" %}
 {% include "connectors/model/connect_servicenow.html" %}
 {% include "connectors/model/connect_rapid.html" %}
-
+{% include "connectors/model/connect_freshdesk.html" %}
+{% include "connectors/model/connect_zohodesk.html" %}
 {% endblock content %}

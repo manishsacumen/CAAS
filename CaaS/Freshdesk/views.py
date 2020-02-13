@@ -20,7 +20,6 @@ class Save_Freshdesk(LoginRequiredMixin, View):
     redirect_field_name = 'redirect_to'
 
     def post(self, request):
-
         url  =  request.POST.get('url',None)
         username  = request.POST.get('username',None)
         api_key  = request.POST.get('api_key',None)
@@ -32,7 +31,7 @@ class Save_Freshdesk(LoginRequiredMixin, View):
             Freshdesk_data.save()
         else:
             source = SSCConnector.objects.filter(user_id = request.user).first()
-            Freshdesk = Freshdeskmodel(source_id =  source, username = username, password  =  api_key)
+            Freshdesk = Freshdeskmodel(source_id =  source, username = username, api_key  =  api_key, url = url)
             Freshdesk.save()
         return redirect('/ssc_connector/ssc/')
 
@@ -44,10 +43,9 @@ def test_Freshdesk(request):
         api_key = request.POST.get('api_key', None)
         api_token = FreshdeskEvents.encodebase64(api_key)
         headers = {"Accept": "application/json", "Content-Type": "application/json", "Authorization": api_token}
-
         # auth = HTTPBasicAuth(username, password)
-        test_api = "/api/v2/tickets"
-        app_url = request.POST.get('app_url', None)
+        test_api = "api/v2/tickets"
+        app_url = request.POST.get('url', None)
         test_api_url = "{}/{}".format(app_url, test_api)
         res = requests.get(url=test_api_url, headers=headers)
         if res.status_code == 200:
@@ -62,9 +60,9 @@ def test_Freshdesk(request):
 def Freshdesk_config(request):
     try:
         logger.info("Freshdesk configuration Request")
-        Freshdesk = Freshdeskmodel.objects.filter(user_id = request.user).first()
+        Freshdesk = Freshdeskmodel.objects.filter(source_id__user_id = request.user).first()
         if Freshdesk:
-            Freshdesk.Freshdesk_config = str(request.POST.dict())
+            Freshdesk.config = str(request.POST.dict())
             Freshdesk.save()
             return redirect('/ssc_connector/ssc/')
         else:

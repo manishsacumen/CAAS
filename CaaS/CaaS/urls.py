@@ -29,5 +29,7 @@ urlpatterns = [
     path('connectors/', login_required( TemplateView.as_view(template_name="connectors/available_connectors.html"))),
     path('install', csrf_exempt(InstallView.as_view())),
     path('splunk/',include('Splunk.url')),
-    path('rapid7/',include('Rapid7.url')),
+    path('rapid/',include('Rapid7.url')),
+    path('servicenow/',include('ServiceNow.url')),
+    path('freshdesk/',include('Freshdesk.url')),
 ]

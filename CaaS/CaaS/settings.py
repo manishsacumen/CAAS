@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'ServiceNow',
     'Rapid7',
     'Freshdesk',
+    'ZOHO',
 ]
 
 MIDDLEWARE = [

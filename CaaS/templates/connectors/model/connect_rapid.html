@@ -12,19 +12,11 @@
               {% csrf_token %}
                 <div class="control">
                     <label for="exampleFormControlInput1">App Url</label>
-                    <input type="text" value='{{rapid_data.app_url}}'class="ssc_form" name="app_url" id="app_url"  required="">
+                    <input type="text" value='{{rapid_data.app_url}}'class="ssc_form" name="url" id="app_url"  required="">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Email Id</label>
-                    <input type="text" value='{{rapid_data.email_id}}' placeholder="name@example.com" class="ssc_form" name="email_id" id="email_id" required="">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">API Key</label>
-                    <input type="text" value='{{rapid_data.api_key}}' class="ssc_form" name="api_key" id="api_key" required="">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Project Key</label>
-                    <input type="text" value='{{rapid_data.project_key}}' class="ssc_form" name="project_key" id="project_key" required="">
+                    <label for="exampleFormControlInput1">Api Key</label>
+                    <input type="text" value='{{rapid_data.token}}' class="ssc_form" name="token" id="api_key" required="">
                 </div>
                 <div class="modal-footer">
                   <span style="color:green;" id="rapid_success">Test Connection Success</span>
@@ -35,7 +27,7 @@
                 </div>
              </form>  
             </div>
-            <div id="ssc_config"class="card-body">
+            <div id="ssc_rapid_config"class="card-body">
               <form action='/rapid/rapid_config/'method="post" style="padding-left:20px;" >
                 {% csrf_token %}
                   <div class="form-check">
