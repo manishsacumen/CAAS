@@ -14,6 +14,7 @@ class  Zohomodel(models.Model):
     token   = models.CharField(max_length=512)
     contact_id  = models.CharField(max_length=512)
     department_id= models.CharField(max_length=512)
+    org_id = models.CharField(max_length=512,  blank=False, null=True)
     config =  models.CharField(max_length=512)
     flag =  flag =  models.BooleanField(default=False)
     created_date =  models.DateTimeField()

@@ -17,6 +17,7 @@ from ServiceNow.models import Servicenowmodel
 from Freshdesk.models import Freshdeskmodel
 from Freshdesk.freshdesk import FreshdeskEvents
 from ZOHO.models import Zohomodel
+from ZOHO.zohodesk import ZohodeskEvents
 import datetime
 import logging
 from django.views import View
@@ -105,6 +106,7 @@ def process_ssc(request, flag_name):
         rapid_user  =  Rapid.objects.filter(source_id__user_id =  request.user).first()
         servicenw_user  =  Servicenowmodel.objects.filter(source_id__user_id =  request.user).first()
         freshdesk_user  =  Freshdeskmodel.objects.filter(source_id__user_id =  request.user).first()
+        zohodesk_user  =  Zohomodel.objects.filter(source_id__user_id =  request.user).first()
         slack_flag = slack_user and slack_user.flag
         jira_flag = jira_user and jira_user.flag
         ssc_flag = ssc_user and ssc_user.flag
@@ -187,6 +189,16 @@ def process_ssc(request, flag_name):
                 options_formatted = options_str.replace("'", '"')
                 options = json.loads(options_formatted)
                 fresh_obj =  FreshdeskEvents(username, api_key, url)
+                fresh_response = collect_events(access_key, domain, **options)
+                data = process_ssc_response(fresh_response)
+                for each_record in data:
+                    fresh_resp = fresh_obj.create_ticket(**each_record[0])
+            if zohodesk_user.flag  and flag_name == 'Zohodesk':
+                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+                token, contact_id, department_id, org_id, options_str   = zohodesk_user.token, zohodesk_user.contact_id,zohodesk_user.department_id,zohodesk_user.org_id,  zohodesk_user.config,
+                options_formatted = options_str.replace("'", '"')
+                options = json.loads(options_formatted)
+                fresh_obj =  ZohodeskEvents(contact_id,department_id,token,org_id)
                 fresh_response = collect_events(access_key, domain, **options)
                 data = process_ssc_response(fresh_response)
                 for each_record in data:
@@ -328,5 +340,20 @@ def set_freshdesk_flag(request):
         freshdesk_data.flag = True
         freshdesk_data.save()
         flag_name = "Freshdesk"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+
+@login_required(login_url='/login/')
+def set_zohodesk_flag(request):
+    zohodesk_data  =  Zohomodel.objects.filter(source_id__user_id =  request.user).first()
+    if zohodesk_data and zohodesk_data.flag:
+        zohodesk_data.flag =  False
+        zohodesk_data.save()
+    else:
+        zohodesk_data.flag = True
+        zohodesk_data.save()
+        flag_name = "Zohodesk"
         process_ssc(request,flag_name)
     return redirect("/ssc_connector/ssc/")

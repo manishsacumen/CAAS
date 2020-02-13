@@ -23,5 +23,6 @@ urlpatterns = [
     path('set_rapid_flag/', views.set_rapid_flag),
     path('set_servicenow_flag/', views.set_servicenow_flag),
     path('set_freshdesk_flag/', views.set_freshdesk_flag),
+    path('set_zohodesk_flag/', views.set_zohodesk_flag),
 
  ]
