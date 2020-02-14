@@ -14,7 +14,7 @@ from Splunk.splunk import SplunkEvents
 from Rapid7.models import Rapid
 from Rapid7.rapidseven import Rapidseven
 from ServiceNow.models import Servicenowmodel
-from ServiceNow.models import ServiceNowEvents
+from ServiceNow.servicenow import ServiceNowEvents
 from Freshdesk.models import Freshdeskmodel
 from Freshdesk.freshdesk import FreshdeskEvents
 from ZOHO.models import Zohomodel
