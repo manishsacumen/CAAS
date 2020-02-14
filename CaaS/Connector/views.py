@@ -18,6 +18,8 @@ from Freshdesk.models import Freshdeskmodel
 from Freshdesk.freshdesk import FreshdeskEvents
 from ZOHO.models import Zohomodel
 from ZOHO.zohodesk import ZohodeskEvents
+from Pagerduty.models import Pagerdutymodel
+from Pagerduty.pagerduty import Pagerdutyincident
 import datetime
 import logging
 from django.views import View
@@ -82,7 +84,7 @@ def dashboard(request):
         rapid_data  =  Rapid.objects.filter(source_id =  ssc_data).first()
         freshdesk_data  =  Freshdeskmodel.objects.filter(source_id =  ssc_data).first()
         zohodesk_data  =   Zohomodel.objects.filter(source_id = ssc_data).first()
-        
+        pagerduty_data  =  Pagerdutymodel.objects.filter(source_id = ssc_data).first()
         logger.info("Dashboard loaded successfully%s ", request.user.email)
         return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data,
                                              'jira_data':jira_data,
@@ -91,7 +93,8 @@ def dashboard(request):
                                               'servicenow_data': servicenow_data, 
                                               'rapid_data': rapid_data,
                                               'freshdesk_data': freshdesk_data,
-                                              'zohodesk_data': zohodesk_data})
+                                              'zohodesk_data': zohodesk_data,
+                                              'pagerduty_data' : pagerduty_data})
     except Exception as e:
         logger.error("Unexpected Exception occured: %s ", e)
         return e
@@ -107,6 +110,7 @@ def process_ssc(request, flag_name):
         servicenw_user  =  Servicenowmodel.objects.filter(source_id__user_id =  request.user).first()
         freshdesk_user  =  Freshdeskmodel.objects.filter(source_id__user_id =  request.user).first()
         zohodesk_user  =  Zohomodel.objects.filter(source_id__user_id =  request.user).first()
+        pagerduty_user  =  Pagerdutymodel.objects.filter(source_id__user_id =  request.user).first()
         slack_flag = slack_user and slack_user.flag
         jira_flag = jira_user and jira_user.flag
         ssc_flag = ssc_user and ssc_user.flag
@@ -203,6 +207,16 @@ def process_ssc(request, flag_name):
                 data = process_ssc_response(fresh_response)
                 for each_record in data:
                     fresh_resp = fresh_obj.create_ticket(**each_record[0])
+            if pagerduty_user.flag  and flag_name == 'Pagerduty':
+                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+                email, api_key, service_id, options_str   = pagerduty_user.email, pagerduty_user.api_key,pagerduty_user.service_id, pagerduty_user.config,
+                options_formatted = options_str.replace("'", '"')
+                options = json.loads(options_formatted)
+                pagerduty_obj =  Pagerdutyincident(email, api_key,  service_id)
+                pagerduty_response = collect_events(access_key, domain, **options)
+                data = process_ssc_response(pagerduty_response)
+                for each_record in data:
+                    fresh_resp = pagerduty_obj.create_incident(str(each_record[0]))
 
 
         
@@ -355,5 +369,19 @@ def set_zohodesk_flag(request):
         zohodesk_data.flag = True
         zohodesk_data.save()
         flag_name = "Zohodesk"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_pagerduty_flag(request):
+    pagerduty_data  =  Pagerdutymodel.objects.filter(source_id__user_id =  request.user).first()
+    if pagerduty_data and pagerduty_data.flag:
+        pagerduty_data.flag =  False
+        pagerduty_data.save()
+    else:
+        pagerduty_data.flag = True
+        pagerduty_data.save()
+        flag_name = "Pagerduty"
         process_ssc(request,flag_name)
     return redirect("/ssc_connector/ssc/")

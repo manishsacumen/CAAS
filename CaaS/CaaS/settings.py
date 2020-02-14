@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Rapid7',
     'Freshdesk',
     'ZOHO',
+    'Pagerduty',
 ]
 
 MIDDLEWARE = [

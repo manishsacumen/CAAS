@@ -284,6 +284,25 @@ button {
                         {%  endif %}
                       </div>
                     </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="{% static 'dashboard/img/pagerduty.png' %}"  style="width:150px; height: 60px; ">
+                        <h3>Pagerduty</h3>
+                        {% if ssc_data.flag %}
+                          {% if pagerduty_data %}
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pagerduty_modal">Edit</a>
+  
+                            {% if pagerduty_data.flag %}
+                              <a href="/ssc_connector/set_pagerduty_flag/" class="btn btn-primary">Disable</a>
+                            {% else %}
+                              <a href="/ssc_connector/set_pagerduty_flag/" class="btn btn-primary" >Enable</a>
+                            {% endif %}
+                            {% else %} 
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pagerduty_modal">Configure</a>
+                          {% endif %}
+                        {%  endif %}
+                      </div>
+                    </div>
 
               </div>
         </div>
@@ -301,4 +320,5 @@ button {
 {% include "connectors/model/connect_rapid.html" %}
 {% include "connectors/model/connect_freshdesk.html" %}
 {% include "connectors/model/connect_zohodesk.html" %}
+{% include "connectors/model/connect_pagerduty.html" %}
 {% endblock content %}
