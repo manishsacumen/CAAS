@@ -21,6 +21,12 @@ from ZOHO.models import Zohomodel
 from ZOHO.zohodesk import ZohodeskEvents
 from Pagerduty.models import Pagerdutymodel
 from Pagerduty.pagerduty import Pagerdutyincident
+from Opsgenie.models import Opsgeniemodel
+from Opsgenie.opsgenie import Opsgenieincident
+from Zendesk.models import Zendeskmodel
+from Zendesk.zendesk import Zendesktickets
+from Jitbit.models import Jitbitmodel
+from Jitbit.jitbit  import Jitbitticket
 import datetime
 import logging
 from django.views import View
@@ -86,6 +92,9 @@ def dashboard(request):
         freshdesk_data  =  Freshdeskmodel.objects.filter(source_id =  ssc_data).first()
         zohodesk_data  =   Zohomodel.objects.filter(source_id = ssc_data).first()
         pagerduty_data  =  Pagerdutymodel.objects.filter(source_id = ssc_data).first()
+        opsgenie_data  =   Opsgeniemodel.objects.filter(source_id = ssc_data).first()
+        zendesk_data  =   Zendeskmodel.objects.filter(source_id = ssc_data).first()
+        jitbit_data  =   Jitbitmodel.objects.filter(source_id = ssc_data).first()
         logger.info("Dashboard loaded successfully%s ", request.user.email)
         return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data,
                                              'jira_data':jira_data,
@@ -95,7 +104,10 @@ def dashboard(request):
                                               'rapid_data': rapid_data,
                                               'freshdesk_data': freshdesk_data,
                                               'zohodesk_data': zohodesk_data,
-                                              'pagerduty_data' : pagerduty_data})
+                                              'pagerduty_data' : pagerduty_data,
+                                              'opsgenie_data':opsgenie_data,
+                                              'zendesk_data':zendesk_data,
+                                              'jitbit_data': jitbit_data})
     except Exception as e:
         logger.error("Unexpected Exception occured: %s ", e)
         return e
@@ -112,6 +124,9 @@ def process_ssc(request, flag_name):
         freshdesk_user  =  Freshdeskmodel.objects.filter(source_id__user_id =  request.user).first()
         zohodesk_user  =  Zohomodel.objects.filter(source_id__user_id =  request.user).first()
         pagerduty_user  =  Pagerdutymodel.objects.filter(source_id__user_id =  request.user).first()
+        opsgenie_user  =   Opsgeniemodel.objects.filter(source_id__user_id =  request.user).first()
+        zendesk_user  =   Zendeskmodel.objects.filter(source_id__user_id =  request.user).first()
+        jitbit_user  =   Jitbitmodel.objects.filter(source_id__user_id =  request.user).first()
         slack_flag = slack_user and slack_user.flag
         jira_flag = jira_user and jira_user.flag
         ssc_flag = ssc_user and ssc_user.flag
@@ -126,7 +141,7 @@ def process_ssc(request, flag_name):
                 logger.info("Jira and slack is deactivated%s ", request.user.email)
                 # return messages.warning(request, f'No app is configured.. Please configure at least one..!!')
                 pass
-            if jira_flag and flag_name !='Slack':
+            if jira_flag and flag_name =='Jira':
                 url, username, api_token, options_str = jira_user.app_url, jira_user.email_id, jira_user.api_key, jira_user.jira_config
                 options_formatted = options_str.replace("'", '"')
                 options = json.loads(options_formatted)
@@ -218,6 +233,36 @@ def process_ssc(request, flag_name):
                 data = process_ssc_response(pagerduty_response)
                 for each_record in data:
                     fresh_resp = pagerduty_obj.create_incident(str(each_record[0]))
+            if opsgenie_user.flag  and flag_name == 'Opsgenie':
+                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+                api_key, service_id, options_str   = opsgenie_user.api_key,opsgenie_user.service_id, opsgenie_user.config,
+                options_formatted = options_str.replace("'", '"')
+                options = json.loads(options_formatted)
+                opsgenie_obj = Opsgenieincident(api_key,  service_id)
+                opsgenie_response = collect_events(access_key, domain, **options)
+                data = process_ssc_response(opsgenie_response)
+                for each_record in data:
+                    opsgenie_resp = opsgenie_obj.create_incident(str(each_record[0]))
+            if zendesk_user.flag  and flag_name == 'Zendesk':
+                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+                api_key, email, url,  options_str   = zendesk_user.api_key,zendesk_user.email, zendesk_user.url, zendesk_user.config,
+                options_formatted = options_str.replace("'", '"')
+                options = json.loads(options_formatted)
+                zendesk_obj = Zendesktickets(email, api_key, url)
+                zendesk_response = collect_events(access_key, domain, **options)
+                data = process_ssc_response(zendesk_response)
+                for each_record in data:
+                    zendesk_resp = zendesk_obj.create_tickets(str(each_record[0]))
+            if jitbit_user.flag  and flag_name == 'Jitbit':
+                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+                email, password, url, categoryid,  options_str   = jitbit_user.username,jitbit_user.password, jitbit_user.domain, jitbit_user.categoryId, jitbit_user.config,
+                options_formatted = options_str.replace("'", '"')
+                options = json.loads(options_formatted)
+                jitbit_obj = Jitbitticket(email, password, categoryid, url)
+                jitbit_response = collect_events(access_key, domain, **options)
+                data = process_ssc_response(jitbit_response)
+                for each_record in data:
+                    jitbit_resp = jitbit_obj.create_ticket(str(each_record[0]))
 
 
         
@@ -386,3 +431,46 @@ def set_pagerduty_flag(request):
         flag_name = "Pagerduty"
         process_ssc(request,flag_name)
     return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_opsgenie_flag(request):
+    opsgenie_data  =  Opsgeniemodel.objects.filter(source_id__user_id =  request.user).first()
+    if  opsgenie_data and  opsgenie_data.flag:
+        opsgenie_data.flag =  False
+        opsgenie_data.save()
+    else:
+        opsgenie_data.flag = True
+        opsgenie_data.save()
+        flag_name = "Opsgenie"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_zendesk_flag(request):
+    zendesk_data  =  Zendeskmodel.objects.filter(source_id__user_id =  request.user).first()
+    if  zendesk_data and  zendesk_data.flag:
+        zendesk_data.flag =  False
+        zendesk_data.save()
+    else:
+        zendesk_data.flag = True
+        zendesk_data.save()
+        flag_name = "Zendesk"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_jitbit_flag(request):
+    jitbit_data  =  Jitbitmodel.objects.filter(source_id__user_id =  request.user).first()
+    if  jitbit_data and  jitbit_data.flag:
+        jitbit_data.flag =  False
+        jitbit_data.save()
+    else:
+        jitbit_data.flag = True
+        jitbit_data.save()
+        flag_name = "Jitbit"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+

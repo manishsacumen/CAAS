@@ -24,7 +24,6 @@ class FreshdeskEvents:
     
     # Creating new ticket
     def create_ticket(self, **data):
-        import pdb; pdb.set_trace()
         headers = {"Accept": "application/json", "Content-Type": "application/json", "Authorization": "Basic {}".format(self.__api_token)}
         try:
             

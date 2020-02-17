@@ -25,4 +25,7 @@ urlpatterns = [
     path('set_freshdesk_flag/', views.set_freshdesk_flag),
     path('set_zohodesk_flag/', views.set_zohodesk_flag),
     path('set_pagerduty_flag/', views.set_pagerduty_flag),
+    path('set_opsgenie_flag/', views.set_opsgenie_flag),
+    path('set_zendesk_flag/', views.set_zendesk_flag),
+    path('set_jitbit_flag/', views.set_jitbit_flag),
  ]

@@ -1,38 +1,35 @@
-<div class="modal fade" id="freshdesk_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="opsgenie_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Connect with freshdesk</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Connect with opsgenie</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div id="freshdesk_config"class="modal-body">
-         <form id="freshdesk-form" method='post' action='/freshdesk/freshdesk_register/'>
+        <div id="opsgenie_config"class="modal-body">
+         <form id="opsgenie-form" method='post' action='/opsgenie/opsgenie_register/'>
           {% csrf_token %}
-            <div class="control">
-                <label for="exampleFormControlInput1">App Url</label>
-                <input type="text" value='{{freshdesk_data.url}}'class="ssc_form" name="url" id="app_url"  required="">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Username</label>
-                <input type="text" value='{{freshdesk_data.username}}' class="ssc_form" name="username" id="username" required="">
-            </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Api Key</label>
-                <input type="text" value='{{freshdesk_data.api_key}}' class="ssc_form" name="api_key" id="api_key" required="">
+                <input type="text" value='{{opsgenie_data.api_key}}' class="ssc_form" name="api_key" id="username" required="">
             </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Service Id</label>
+                <input type="text" value='{{opsgenie_data.service_id}}' class="ssc_form" name="service_id" id="api_key" required="">
+            </div>
+            
             <div class="modal-footer">
-              <span style="color:green;" id="freshdesk_success">Test Connection Success</span>
-              <span style="color:red;" id="freshdesk_failed"> Test Connection Failed</span>
-              <button type="button" id='test_freshdesk' class="btn btn-primary">Test Connection</button>
+              <span style="color:green;" id="opsgenie_success">Test Connection Success</span>
+              <span style="color:red;" id="opsgenie_failed"> Test Connection Failed</span>
+              <button type="button" id='test_opsgenie' class="btn btn-primary">Test Connection</button>
               <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-              <button type="submit" id='freshdesk_submit' class="btn btn-primary">Submit</button>
+              <button type="submit" id='opsgenie_submit' class="btn btn-primary">Submit</button>
             </div>
          </form>  
         </div>
-        <div id="ssc_freshdesk_config"class="card-body">
-          <form action='/freshdesk/Freshdesk_config/'method="post" style="padding-left:20px;" >
+        <div id="ssc_opsgenie_config"class="card-body">
+          <form action='/opsgenie/opsgenie_config/'method="post" style="padding-left:20px;" >
             {% csrf_token %}
               <div class="form-check">
                   <input type="checkbox" name="fetch_company_overall" class="form-check-input" id="fetch_company_overall">

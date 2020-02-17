@@ -305,6 +305,66 @@ button {
                     </div>
 
               </div>
+              <br>
+              <div class="row">
+                <div class="column">
+                  <div class="card">
+                    <img src="{% static 'dashboard/img/opsgenie.png' %}"  style="width:150px; height: 60px; ">
+                    <h3>Opsgenie</h3>
+                    {% if ssc_data.flag %}
+                      {% if opsgenie_data %}
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#opsgenie_modal">Edit</a>
+
+                        {% if opsgenie_data.flag %}
+                          <a href="/ssc_connector/set_opsgenie_flag/" class="btn btn-primary">Disable</a>
+                        {% else %}
+                          <a href="/ssc_connector/set_opsgenie_flag/" class="btn btn-primary" >Enable</a>
+                        {% endif %}
+                        {% else %} 
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#opsgenie_modal">Configure</a>
+                      {% endif %}
+                    {%  endif %}
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="card">
+                    <img src="{% static 'dashboard/img/zendesk.jpg' %}"  style="width:150px; height: 60px; ">
+                    <h3>Zendesk</h3>
+                    {% if ssc_data.flag %}
+                      {% if zendesk_data %}
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zendesk_modal">Edit</a>
+
+                        {% if zendesk_data.flag %}
+                          <a href="/ssc_connector/set_zendesk_flag/" class="btn btn-primary">Disable</a>
+                        {% else %}
+                          <a href="/ssc_connector/set_zendesk_flag/" class="btn btn-primary" >Enable</a>
+                        {% endif %}
+                        {% else %} 
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zendesk_modal">Configure</a>
+                      {% endif %}
+                    {%  endif %}
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="card">
+                    <img src="{% static 'dashboard/img/jitbit.png' %}"  style="width:150px; height: 60px; ">
+                    <h3>Jitbit</h3>
+                    {% if ssc_data.flag %}
+                      {% if jitbit_data %}
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                        {% if jitbit_data.flag %}
+                          <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                        {% else %}
+                          <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary" >Enable</a>
+                        {% endif %}
+                        {% else %} 
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                      {% endif %}
+                    {%  endif %}
+                  </div>
+                </div>
+              </div>
         </div>
         </div>
       </div>
@@ -321,4 +381,7 @@ button {
 {% include "connectors/model/connect_freshdesk.html" %}
 {% include "connectors/model/connect_zohodesk.html" %}
 {% include "connectors/model/connect_pagerduty.html" %}
+{% include "connectors/model/connect_opsgenie.html" %}
+{% include "connectors/model/connect_zendesk.html" %}
+{% include "connectors/model/connect_jitbit.html" %}
 {% endblock content %}

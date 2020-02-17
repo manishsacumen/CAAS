@@ -12,11 +12,11 @@
               {% csrf_token %}
                 <div class="control">
                     <label for="exampleFormControlInput1">App Url</label>
-                    <input type="text" value='{{rapid_data.app_url}}'class="ssc_form" name="url" id="app_url"  required="">
+                    <input type="text" value='{{rapid_data.url}}'class="ssc_form" name="url" id="app_url"  required="">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Api Key</label>
-                    <input type="text" value='{{rapid_data.token}}' class="ssc_form" name="token" id="api_key" required="">
+                    <input type="text" value='{{rapid_data.api_key}}' class="ssc_form" name="token" id="api_key" required="">
                 </div>
                 <div class="modal-footer">
                   <span style="color:green;" id="rapid_success">Test Connection Success</span>

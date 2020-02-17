@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'Freshdesk',
     'ZOHO',
     'Pagerduty',
+    'Opsgenie',
+    'Zendesk',
+    'Jitbit',
 ]
 
 MIDDLEWARE = [

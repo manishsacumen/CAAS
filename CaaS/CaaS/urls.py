@@ -33,5 +33,8 @@ urlpatterns = [
     path('servicenow/',include('ServiceNow.url')),
     path('freshdesk/',include('Freshdesk.url')),
     path('zohodesk/',include('ZOHO.url')),
-    path('pagerduty/',include('Pagerduty.url'))
+    path('pagerduty/',include('Pagerduty.url')),
+    path('opsgenie/',include('Opsgenie.url')),
+    path('zendesk/',include('Zendesk.url')),
+    path('jitbit/',include('Jitbit.url')),
 ]
