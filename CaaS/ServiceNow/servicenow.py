@@ -12,7 +12,7 @@ class ServiceNowEvents:
 
     __headers = {"Accept": "application/json", "Content-Type": "application/json"}
 
-    def __init__(self, username, password, url):
+    def __init__(self, url, username, password):
         self.__url = url
         self.__username  =  username
         self.__password = password
