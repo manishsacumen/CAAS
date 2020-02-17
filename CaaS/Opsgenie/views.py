@@ -8,6 +8,7 @@ from Connector.models import SSCConnector
 from .models import Opsgeniemodel
 from .opsgenie import  Opsgenieincident
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -26,11 +27,13 @@ class Save_opsgenie(LoginRequiredMixin, View):
                 opsgenie_data.api_key  =  api_key
                 opsgenie_data.service_id = service_id
                 opsgenie_data.save()
+                messages.success(request,"Opsgenie is updated successfully")
                 logger.info("opsgenie is updated successfully%s",request.user.email)
             else:
                 source = SSCConnector.objects.filter(user_id = request.user).first()
                 opsgenie = Opsgeniemodel(source_id =  source, api_key  =  api_key,service_id = service_id)
                 opsgenie.save()
+                messages.success(request,"Opsgenie is added successfully")
                 logger.info("opsgenie is added successfully%s",request.user.email)
             return redirect('/ssc_connector/ssc/')
         except Exception as e:

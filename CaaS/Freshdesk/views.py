@@ -4,6 +4,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.contrib import messages
 from Connector.models import SSCConnector
 from .models import Freshdeskmodel
 from requests.auth import HTTPBasicAuth
@@ -29,10 +30,12 @@ class Save_Freshdesk(LoginRequiredMixin, View):
             Freshdesk_data.username  =  username
             Freshdesk_data.api_key  =  api_key
             Freshdesk_data.save()
+            messages.success(request, f'Freshdesk Updated Successfully..!!')
         else:
             source = SSCConnector.objects.filter(user_id = request.user).first()
             Freshdesk = Freshdeskmodel(source_id =  source, username = username, api_key  =  api_key, url = url)
             Freshdesk.save()
+            messages.success(request, f'Freshdesk Added Successfully..!!')
         return redirect('/ssc_connector/ssc/')
 
 

@@ -8,6 +8,7 @@ from Connector.models import SSCConnector
 from .models import Pagerdutymodel
 from .pagerduty import  Pagerdutyincident
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -28,6 +29,7 @@ class Save_pagerduty(LoginRequiredMixin, View):
                 pagerduty_data.api_key  =  api_key
                 pagerduty_data.service_id = service_id
                 pagerduty_data.save()
+                messages.success(request,"Pagerduty is updated successfully")
                 logger.info("pagerduty is updated successfully%s",request.user.email)
             else:
                 source = SSCConnector.objects.filter(user_id = request.user).first()

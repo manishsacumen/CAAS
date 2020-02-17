@@ -4,6 +4,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.contrib import messages
 from Connector.models import SSCConnector
 from .models import Servicenowmodel
 from requests.auth import HTTPBasicAuth
@@ -30,10 +31,12 @@ class Save_servicenow(LoginRequiredMixin, View):
             servicenow_data.username  =  username
             servicenow_data.password  =  password
             servicenow_data.save()
+            messages.success(request,"Service now updated successfully")
         else:
             source = SSCConnector.objects.filter(user_id = request.user).first()
             rapid = Servicenowmodel(source_id =  source, username = username, password  =  password,url= url)
             rapid.save()
+            messages.success(request,"Service now added successfully")
         return redirect('/ssc_connector/ssc/')
 
 

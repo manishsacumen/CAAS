@@ -8,7 +8,7 @@ from Connector.models import SSCConnector
 from .models import Zohomodel
 from .zohodesk import ZohodeskEvents
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -30,12 +30,14 @@ class Save_Zohodesk(LoginRequiredMixin, View):
                 Zohodesk_data.department_id  =  department_id
                 Zohodesk_data.org_id  =  org_id
                 Zohodesk_data.save()
-                logger.info("Zohodesk7 is updated successfully%s",request.user.email)
+                messages.success(request,"Zohodesk is updated successfully")
+                logger.info("Zohodesk is updated successfully%s",request.user.email)
             else:
                 source = SSCConnector.objects.filter(user_id = request.user).first()
                 Zohodesk = Zohomodel(source_id =  source,token  = token, contact_id  =  contact_id, department_id = department_id, org_id = org_id)
                 Zohodesk.save()
-                logger.info("Zohodesk7 is added successfully%s",request.user.email)
+                messages.success(request,"Zohodesk is added successfully")
+                logger.info("Zohodesk is added successfully%s",request.user.email)
             return redirect('/ssc_connector/ssc/')
         except Exception as e:
             logger.error("Unexpected Exception occured: %s ", e)

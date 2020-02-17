@@ -8,6 +8,7 @@ from Connector.models import SSCConnector
 from .models import Jitbitmodel
 from .jitbit import  Jitbitticket
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -30,12 +31,12 @@ class Save_jitbit(LoginRequiredMixin, View):
                 jitbit_data.domain = url
                 jitbit_data.categoryId = categoryid
                 jitbit_data.save()
-                logger.info("jitbit is updated successfully%s",request.user.email)
+                logger.info(request,"jitbit is updated successfully%s",request.user.email)
             else:
                 source = SSCConnector.objects.filter(user_id = request.user).first()
                 jitbit = Jitbitmodel(source_id =  source, username  =  email, password = password, domain = url, categoryId = categoryid)
                 jitbit.save()
-                logger.info("jitbit is added successfully%s",request.user.email)
+                logger.info(request,"jitbit is added successfully%s",request.user.email)
             return redirect('/ssc_connector/ssc/')
         except Exception as e:
             logger.error("Unexpected Exception occured: %s ", e)

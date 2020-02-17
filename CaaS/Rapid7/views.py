@@ -8,6 +8,7 @@ from Connector.models import SSCConnector
 from .models import Rapid
 from .rapidseven import Rapidseven
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -26,11 +27,13 @@ class Save_rapid(LoginRequiredMixin, View):
                 rapid_data.url  =  url
                 rapid_data.api_key  =  token
                 rapid_data.save()
+                messages.success(request, f'Rapid7 Updated Successfully..!!')
                 logger.info("Rapid7 is updated successfully%s",request.user.email)
             else:
                 source = SSCConnector.objects.filter(user_id = request.user).first()
                 rapid = Rapid(source_id =  source,url = url, api_key  =  token)
                 rapid.save()
+                messages.success(request, f'Rapid7 connected Successfully..!!')
                 logger.info("Rapid7 is added successfully%s",request.user.email)
             return redirect('/ssc_connector/ssc/')
         except Exception as e:

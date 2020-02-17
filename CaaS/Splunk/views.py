@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 import logging
 from .splunk import SplunkEvents
 import json
+from django.contrib import messages
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -28,11 +29,13 @@ class SplunkData(LoginRequiredMixin, View):
             source.api_url =  api_url
             source.hec_token = hec_token 
             source.save()
+            messages.success(request,"Splunk updated successfully")
             return redirect('/ssc_connector/ssc/')
         else:
             ss =  SSCConnector.objects.filter(user_id = request.user).first()
             splunk_create  = Splunk(source_id  =ss,api_url = api_url,hec_token = hec_token)
             splunk_create.save()
+            messages.success(request,"Splunk added successfully")
             return redirect('/ssc_connector/ssc/')
 
 
