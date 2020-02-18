@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 
 $("#splunk_submit").click(function(e) {
-  $('#overlay').fadeIn().delay(2000).fadeOut();
+  // $('#overlay').fadeIn().delay(2000).fadeOut();
     console.log("hii")
     e.preventDefault(); // avoid to execute the actual submit of the form.
     

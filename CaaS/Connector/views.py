@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 import json
 from django.shortcuts import render
-from .config import payload
+from .config import payload, servicenow_payload
 from .models import SSCConnector
 from django.contrib import messages
 from ssc.main import collect_events
@@ -211,7 +211,14 @@ def process_ssc(request, flag_name):
                 snw_response = collect_events(access_key, domain, **options)
                 data = process_ssc_response(snw_response)
                 for each_record in data:
-                    snw_resp = snw_obj.create_incident(**each_record[0])
+                    current_time = str(datetime.datetime.now())
+                    msg = "New SecurityScorecard Issue is reported on {}.".format(current_time)
+                    servicenow_payload["short_description"] = msg
+                    servicenow_payload['description'] = json.dumps(each_record[0])
+                    fresh_resp = snw_obj.create_incident(**servicenow_payload)
+                    # snw_resp = snw_obj.create_incident(**each_record[0])
+                else:
+                    pass
             if freshdesk_flag  and flag_name == 'Freshdesk':
                 access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
                 url, username, api_key, options_str   = freshdesk_user.url, freshdesk_user.username, freshdesk_user.api_key, servicenw_user.config
