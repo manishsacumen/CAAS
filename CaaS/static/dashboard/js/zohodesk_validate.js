@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#ssc_zohodesk_config').hide()  
     $('#zohodesk_success').hide()
     $('#zohodesk_failed').hide()  
+    $('#zohodesk_submit').prop('disabled', true);
 
 });
 

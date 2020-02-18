@@ -340,11 +340,7 @@ h6.bigstats {
 }
 
 .span11 {
-	width: 99%;
-}
-
-.span12{
-	margin-left:1%;
+	width: 93.5%;
 }
 
 .width20 {
@@ -384,16 +380,16 @@ h6.bigstats {
 }
 
 .margin-left10 {
-	/*margin-left: -10%;*/
+	margin-left: -10%;
 }
 
 .margin-left0 {
-	margin-left: 0px;
+    margin-left: 0px;
 }
 
 .chartContainer {
-	width: 80%;
-	margin: auto;
+    width: 80%;
+    margin: auto;
 }
 
 button[type="submit"]:disabled {
@@ -423,27 +419,6 @@ div[disabled] {
 .refreshReports {
 	color: #12519f;
 	height: 38px !important;
-	width: 38px !important;
-	margin-top: -1% !important;
-}
-
-.padding-bottom5 {
-	padding-bottom: 5%;
-}
-
-.profile-picture {
-	width: 20%;
-	margin-left: 1%;
-	float: left;
-}
-
-.profile-data {
-	width: 50%;
-	float: left;
-	margin-left: 5%;
-}
-.alert {
-	width: 97%;
-	margin-left: 1.5%;
-	margin-bottom: 0.5%;
+	width:38px !important;
+	margin-top:-1% !important;
 }

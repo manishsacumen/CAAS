@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#ssc_zendesk_config').hide()  
     $('#zendesk_success').hide()
     $('#zendesk_failed').hide()  
+    $('#zendesk_submit').prop('disabled', true);
 
 });
 

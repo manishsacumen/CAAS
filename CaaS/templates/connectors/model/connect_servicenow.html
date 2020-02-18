@@ -23,12 +23,14 @@
                     <input type="password" value='{{servicenow_data.password}}' class="ssc_form" name="password" id="password" required="">
                 </div>
                 <div class="modal-footer">
-                  <span style="color:green;" id="servicenow_success">Test Connection Success</span>
-                  <span style="color:red;" id="servicenow_failed"> Test Connection Failed</span>
-                  <button type="button" id='test_servicenow' class="btn btn-primary">Test Connection</button>
-                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                  <button type="submit" id='servicenow_submit' class="btn btn-primary">Submit</button>
-                </div>
+                  <div style="float:left;width:40%;text-align:left;">
+                      <span style="color:green;" id="servicenow_success">Test Conection Succeeded</span>
+                      <span style="color:red;" id="servicenow_failed"> Test Connection Failed</span>
+                  </div>
+                <button type="button" id='test_servicenow' class="btn btn-primary">Test Connection</button>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                <button type="submit" id='servicenow_submit' class="btn btn-primary">Submit</button>
+              </div>
              </form>  
             </div>
             <div id="ssc_servicenow_config"class="card-body">

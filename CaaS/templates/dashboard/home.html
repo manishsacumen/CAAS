@@ -1,377 +1,431 @@
 {% extends "dashboard/base.html" %}
 {% load static%}
-<!-- <script src="{% static 'dashboard/js/ssc_validate.js' %}"></script>  
+<!-- <script src="{% static 'dashboard/js/ssc_validate.js' %}"></script>
 <script src="{% static 'dashboard/js/splunk_validate.js' %}"></script>   -->
 {% block content %}
 <style type="text/css">
-  * {
-  box-sizing: border-box;
-}
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Float four columns side by side */
-.column {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
-}
-
-/* Remove extra left and right margins, due to padding in columns */
-.row {margin: 0 -5px;}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Style the counter cards */
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
-  padding: 16px;
-  text-align: center;
-  background-color: #f1f1f1;
-}
-
-/* Responsive columns - one column layout (vertical) on small screens */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-}
-#overlay {
-  background: #ffffff;
-  color: #666666;
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  z-index: 5000;
-  top: 0;
-  left: 0;
-  float: left;
-  text-align: center;
-  padding-top: 25%;
-  opacity: .80;
-}
-button {
-  margin: 40px;
-  padding: 5px 20px;
-  cursor: pointer;
-}
-.spinner {
-    margin: 0 auto;
-    height: 64px;
-    width: 64px;
-    animation: rotate 0.8s infinite linear;
-    border: 5px solid firebrick;
-    border-right-color: transparent;
-    border-radius: 50%;
-}
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
+    * {
+        box-sizing: border-box;
     }
-    100% {
-        transform: rotate(360deg);
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
     }
-}
+
+    /* Float four columns side by side */
+    .column {
+        float: left;
+        width: 25%;
+        padding: 0 10px;
+    }
+
+    /* Remove extra left and right margins, due to padding in columns */
+    .row {
+        margin: 0 -5px;
+    }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+    /* Style the counter cards */
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+        padding: 16px;
+        text-align: center;
+        background-color: #f1f1f1;
+    }
+
+    /* Responsive columns - one column layout (vertical) on small screens */
+    @media screen and (max-width: 600px) {
+        .column {
+            width: 100%;
+            display: block;
+            margin-bottom: 20px;
+        }
+    }
+
+    #overlay {
+        background: #ffffff;
+        color: #666666;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 5000;
+        top: 0;
+        left: 0;
+        float: left;
+        text-align: center;
+        padding-top: 25%;
+        opacity: .80;
+    }
+
+    button {
+        margin: 40px;
+        padding: 5px 20px;
+        cursor: pointer;
+    }
+
+    .spinner {
+        margin: 0 auto;
+        height: 64px;
+        width: 64px;
+        animation: rotate 0.8s infinite linear;
+        border: 5px solid firebrick;
+        border-right-color: transparent;
+        border-radius: 50%;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 
-<div class="main">
-  <div class="main-inner">
-    <div class="conatiner">
-      <div class="row">
-        <div class="span12">
-        <div class="widget">
-      {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-        {{ message }}
-      </div>
-    </div>  
-    </div>
-    </div>
-    </div>
-  </div>
+<div class="">
+    <!--<div class="main-inner">
+        <div class="conatiner">
+            <div class="row">
+                <div class="span12">
+                    <div class="widget">-->
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    <!--</div>
+                </div>
+            </div>
+        </div>
+    </div>-->
 </div>
 {% endfor %}
 {% endif %}
-</div>
-<div class="main">
-  <div class="main-inner">
-    <div class="container-fluid">
-      <div class="row"> 
-        <div class="span12">
-          <div class="widget">
-            <div class="widget-header"> <i class="icon-bookmark"></i>
-              <h3>Source Application</h3>
-            </div>
-            <div class="widget-content">
-              <div class="row">
-                  <div class="column">
-                    <div class="card">
-                      <img src="{% static 'dashboard/img/ssc_logo1.png' %}"  style="width: 70px; height: 60px; ">
-                      <h3>SecurityScoreCard</h3>
 
-                      {% if ssc_data %}
-                      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ssc_modal">Edit</a>
-                      {% if ssc_data.flag %}
-                        <a href="/ssc_connector/ssc_flag/" class="btn btn-primary"  >Disable</a>
-                      {% else %}
-                        <a href="/ssc_connector/ssc_flag/" class="btn btn-primary"  >Enable</a>
-                      {% endif %}
-                      {% else %}
-                      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ssc_modal">Configure</a>
-                      {% endif %}
-
-                    </div>
-                  </div>
-              </div>
-           
+<div class="subnavbar width100" style="padding-left:16px;padding-right:16px;">
+    <div class="subnavbar-inner">
+        <div class="container padding-left0">
+            <ul class="mainnav">
+                <li class="active"><a href="/ssc_connector/ssc/"><i class="icon-dashboard"></i><span>Dashboard</span></a></li>
+                <li><a href="/profile/"><i class="icon-user"></i><span>User Profile</span></a></li>
+            </ul>
+            <!--<div class="nav-collapse">-->
+            <ul class="nav pull-right" style="margin-right: 4%;">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-user"></i>{{request.user.first_name}}<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/profile/">Profile</a></li>
+                        <li><a href="/ssc_connector/ssc/">Dashboard</a></li>
+                        <li><a href='/logout/'>Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!--</div>-->
         </div>
-        </div>
-      </div>
+        <!-- /container -->
     </div>
-  </div>
-  <hr>
-   <div class="container-fluid">
-      <div class="row"> 
-        <div class="span12">
-          <div class="widget">
-            <div class="widget-header"> <i class="icon-bookmark"></i>
-              <h3>Application Connected</h3>
+    <!-- /subnavbar-inner -->
+</div>
+<div class="main width100">
+    <div class="main-inner">
+        <div class="container">
+            <div class="row">
+                <div class="span11" style="margin-left: 0.5%; width: 96.5%;">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <i class="icon-bookmark"></i>
+                            <h3>Source Application</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content widget-body">
+                            <div class="shortcuts">
+                                <div class="shortcut" id="divSecurityScoreCard">
+                                    <!--<div class="float-left">
+                                        <i id="securityScoreCardConnectedIcon" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="securityScoreCardDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/ssc_logo1.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">SecurityScorecard</span>
+
+                                    {% if ssc_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ssc_modal">Edit</a>
+                                    {% if ssc_data.flag %}
+                                    <a href="/ssc_connector/ssc_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/ssc_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ssc_modal">Configure</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- /shortcuts -->
+                        </div>
+                        <!-- /widget-content -->
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget-header">
+                            <i class="icon-bookmark"></i>
+                            <h3>Applications Connected</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content widget-body">
+                            <div class="shortcuts">
+                                <div class="shortcut" id="divSlack">
+                                    <!--<div class="float-left">
+                                        <i id="SlackConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="SlackDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/slack.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">Slack</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if slack_data %}
+                                    {% if slack_data.flag %}
+                                    <a href="/ssc_connector/slack_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/slack_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="https://slack.com/oauth/authorize?scope=bot&client_id=876197112786.877514444611" class="btn btn-primary">Configure</a>
+                                    {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="shortcut" id="divJira">
+                                    <!--<div class="float-left">
+                                        <i id="JiraConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JiraDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/jira.svg' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">Jira</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jira_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jira_modal">Edit</a>
+
+                                    {% if jira_data.flag %}
+                                    <a href="/ssc_connector/jira_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/jira_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jira_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" id="divSplunk">
+                                    <!--<div class="float-left">
+                                        <i id="SplunkConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="SplunkDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/splunk-app-logo1.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">Splunk</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if splunk_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Edit</a>
+
+                                    {% if splunk_data.flag %}
+                                    <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" id="divServiceNow">
+                                    <!--<div class="float-left">
+                                        <i id="ServiceNowConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="ServiceNowDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/servicenow.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">ServiceNow</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if servicenow_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Edit</a>
+                                    {% if servicenow_data.flag %}
+                                    <a href="/ssc_connector/set_servicenow_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_servicenow_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" id="divRapid7">
+                                    <!--<div class="float-left">
+                                        <i id="Rapid7ConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="Rapid7DisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/rapid7.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">Rapid7</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if rapid_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Edit</a>
+
+                                    {% if rapid_data.flag %}
+                                    <a href="/ssc_connector/set_rapid_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_rapid_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" id="divFreshdesk">
+                                    <!--<div class="float-left">
+                                        <i id="FreshdeskConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="FreshdeskDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/freshdesk.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">Freshdesk</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if freshdesk_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#freshdesk_modal">Edit</a>
+
+                                    {% if freshdesk_data.flag %}
+                                    <a href="/ssc_connector/set_freshdesk_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_freshdesk_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#freshdesk_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" id="divZohoDesk">
+                                    <!--<div class="float-left">
+                                        <i id="ZohoDeskConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="ZohoDeskDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/zohodesk.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">ZOHO Desk</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if zohodesk_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zohodesk_modal">Edit</a>
+
+                                    {% if zohodesk_data.flag %}
+                                    <a href="/ssc_connector/set_zohodesk_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_zohodesk_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zohodesk_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" id="divPagerduty">
+                                    <!--<div class="float-left">
+                                        <i id="PagerdutyConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="PagerdutyDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/pagerduty.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">Pagerduty</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if pagerduty_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pagerduty_modal">Edit</a>
+
+                                    {% if pagerduty_data.flag %}
+                                    <a href="/ssc_connector/set_pagerduty_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_pagerduty_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pagerduty_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" id="divOpsgenie">
+                                    <!--<div class="float-left">
+                                        <i id="OpsgenieConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="OpsgenieDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/opsgenie.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">Opsgenie</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if opsgenie_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#opsgenie_modal">Edit</a>
+
+                                    {% if opsgenie_data.flag %}
+                                    <a href="/ssc_connector/set_opsgenie_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_opsgenie_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#opsgenie_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" id="divZendesk">
+                                    <!--<div class="float-left">
+                                        <i id="ZendeskConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="ZendeskDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/zendesk.jpg' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">Zendesk</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if zendesk_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zendesk_modal">Edit</a>
+
+                                    {% if zendesk_data.flag %}
+                                    <a href="/ssc_connector/set_zendesk_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_zendesk_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zendesk_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" id="divJitBit">
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/jitbit.png' %}" class="width20 margin-bottom10 margin-left10" /><span class="padding-bottom5 shortcut-label">JitBit</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jitbit_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                                    {% if jitbit_data.flag %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                            </div>
+                            <!-- /shortcuts -->
+                        </div>
+                        <!-- /widget-content -->
+                    </div>
+
+                </div>
+                <!-- /span6 -->
             </div>
-            
-            <div class="widget-content">
-              <div class="row">
-                  <div class="column" disabled>
-                    <div class="card">
-                      <img src="{% static 'dashboard/img/slack.png' %}"  style="width: 70px; height: 60px; margin-bottom: ">
-                      <h3>Slack</h3>
-                      {% if ssc_data.flag %}
-                        {% if slack_data %}
-                          {% if slack_data.flag %}
-                              <a href="/ssc_connector/slack_flag/" class="btn btn-primary">Disable</a>
-                          {% else %}
-                              <a href="/ssc_connector/slack_flag/" class="btn btn-primary">Enable</a>
-                          {% endif %}
-                        {% else %}
-                        <a href="https://slack.com/oauth/authorize?scope=bot&client_id=876197112786.877514444611" class="btn btn-primary">Configure</a>
-                        {% endif %}
-                      {% endif %}
-                    </div>
-                  </div>
-                 <div class="column">
-                    <div class="card">
-                      <img src="{% static 'dashboard/img/jira.svg' %}"  style="width: 70px; height: 60px;">
-                      <h3>Jira</h3>
-                      {% if ssc_data.flag %}
-                        {% if jira_data %}
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jira_modal">Edit</a>
-
-                          {% if jira_data.flag %}
-                            <a href="/ssc_connector/jira_flag/" class="btn btn-primary">Disable</a>
-                          {% else %}
-                            <a href="/ssc_connector/jira_flag/" class="btn btn-primary" >Enable</a>
-                          {% endif %}
-                          {% else %} 
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jira_modal">Configure</a>
-                        {% endif %}
-                      {%  endif %}
-                    </div>
-                  </div>
-                  <div class="column">
-                    <div class="card">
-                      <img src="{% static 'dashboard/img/splunk-app-logo1.png' %}"  style="width: 70px; height: 60px; ">
-                      <h3>Splunk</h3>
-                      {% if ssc_data.flag %}
-                        {% if splunk_data %}
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Edit</a>
-
-                          {% if splunk_data.flag %}
-                            <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Disable</a>
-                          {% else %}
-                            <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary" >Enable</a>
-                          {% endif %}
-                          {% else %} 
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Configure</a>
-                        {% endif %}
-                      {%  endif %}
-                    </div>
-                  </div>
-
-                  <div class="column">
-                    <div class="card">
-                      <img src="{% static 'dashboard/img/servicenow.png' %}"  style="width:150px; height: 60px; ">
-                      <h3>ServiceNow</h3>
-                      {% if ssc_data.flag %}
-                        {% if servicenow_data %}
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Edit</a>
-                          {% if servicenow_data.flag %}
-                            <a href="/ssc_connector/set_servicenow_flag/" class="btn btn-primary">Disable</a>
-                          {% else %}
-                            <a href="/ssc_connector/set_servicenow_flag/" class="btn btn-primary" >Enable</a>
-                          {% endif %}
-                          {% else %} 
-                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Configure</a>
-                        {% endif %}
-                      {%  endif %}
-                    </div>
-                  </div>
-              </div>
-              <br>
-              <div class="row">
-                  <div class="column">
-                      <div class="card">
-                        <img src="{% static 'dashboard/img/rapid7.png' %}"  style="width:150px; height: 60px; ">
-                        <h3>Rapid7</h3>
-                        {% if ssc_data.flag %}
-                          {% if rapid_data %}
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Edit</a>
-  
-                            {% if rapid_data.flag %}
-                              <a href="/ssc_connector/set_rapid_flag/" class="btn btn-primary">Disable</a>
-                            {% else %}
-                              <a href="/ssc_connector/set_rapid_flag/" class="btn btn-primary" >Enable</a>
-                            {% endif %}
-                            {% else %} 
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Configure</a>
-                          {% endif %}
-                        {%  endif %}
-                      </div>
-                    </div>
-                    <div class="column">
-                      <div class="card">
-                        <img src="{% static 'dashboard/img/freshdesk.png' %}"  style="width:150px; height: 60px; ">
-                        <h3>Freshdesk</h3>
-                        {% if ssc_data.flag %}
-                          {% if freshdesk_data %}
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#freshdesk_modal">Edit</a>
-  
-                            {% if freshdesk_data.flag %}
-                              <a href="/ssc_connector/set_freshdesk_flag/" class="btn btn-primary">Disable</a>
-                            {% else %}
-                              <a href="/ssc_connector/set_freshdesk_flag/" class="btn btn-primary" >Enable</a>
-                            {% endif %}
-                            {% else %} 
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#freshdesk_modal">Configure</a>
-                          {% endif %}
-                        {%  endif %}
-                      </div>
-                    </div>
-                    <div class="column">
-                      <div class="card">
-                        <img src="{% static 'dashboard/img/zohodesk.png' %}"  style="width:150px; height: 60px; ">
-                        <h3>ZOHO desk</h3>
-                        {% if ssc_data.flag %}
-                          {% if zohodesk_data %}
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zohodesk_modal">Edit</a>
-  
-                            {% if zohodesk_data.flag %}
-                              <a href="/ssc_connector/set_zohodesk_flag/" class="btn btn-primary">Disable</a>
-                            {% else %}
-                              <a href="/ssc_connector/set_zohodesk_flag/" class="btn btn-primary" >Enable</a>
-                            {% endif %}
-                            {% else %} 
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zohodesk_modal">Configure</a>
-                          {% endif %}
-                        {%  endif %}
-                      </div>
-                    </div>
-                    <div class="column">
-                      <div class="card">
-                        <img src="{% static 'dashboard/img/pagerduty.png' %}"  style="width:150px; height: 60px; ">
-                        <h3>Pagerduty</h3>
-                        {% if ssc_data.flag %}
-                          {% if pagerduty_data %}
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pagerduty_modal">Edit</a>
-  
-                            {% if pagerduty_data.flag %}
-                              <a href="/ssc_connector/set_pagerduty_flag/" class="btn btn-primary">Disable</a>
-                            {% else %}
-                              <a href="/ssc_connector/set_pagerduty_flag/" class="btn btn-primary" >Enable</a>
-                            {% endif %}
-                            {% else %} 
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pagerduty_modal">Configure</a>
-                          {% endif %}
-                        {%  endif %}
-                      </div>
-                    </div>
-
-              </div>
-              <br>
-              <div class="row">
-                <div class="column">
-                  <div class="card">
-                    <img src="{% static 'dashboard/img/opsgenie.png' %}"  style="width:150px; height: 60px; ">
-                    <h3>Opsgenie</h3>
-                    {% if ssc_data.flag %}
-                      {% if opsgenie_data %}
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#opsgenie_modal">Edit</a>
-
-                        {% if opsgenie_data.flag %}
-                          <a href="/ssc_connector/set_opsgenie_flag/" class="btn btn-primary">Disable</a>
-                        {% else %}
-                          <a href="/ssc_connector/set_opsgenie_flag/" class="btn btn-primary" >Enable</a>
-                        {% endif %}
-                        {% else %} 
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#opsgenie_modal">Configure</a>
-                      {% endif %}
-                    {%  endif %}
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="card">
-                    <img src="{% static 'dashboard/img/zendesk.jpg' %}"  style="width:150px; height: 60px; ">
-                    <h3>Zendesk</h3>
-                    {% if ssc_data.flag %}
-                      {% if zendesk_data %}
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zendesk_modal">Edit</a>
-
-                        {% if zendesk_data.flag %}
-                          <a href="/ssc_connector/set_zendesk_flag/" class="btn btn-primary">Disable</a>
-                        {% else %}
-                          <a href="/ssc_connector/set_zendesk_flag/" class="btn btn-primary" >Enable</a>
-                        {% endif %}
-                        {% else %} 
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zendesk_modal">Configure</a>
-                      {% endif %}
-                    {%  endif %}
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="card">
-                    <img src="{% static 'dashboard/img/jitbit.png' %}"  style="width:150px; height: 60px; ">
-                    <h3>Jitbit</h3>
-                    {% if ssc_data.flag %}
-                      {% if jitbit_data %}
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
-
-                        {% if jitbit_data.flag %}
-                          <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
-                        {% else %}
-                          <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary" >Enable</a>
-                        {% endif %}
-                        {% else %} 
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
-                      {% endif %}
-                    {%  endif %}
-                  </div>
-                </div>
-              </div>
+            <!-- /row -->
         </div>
-        </div>
-      </div>
+        <!-- /container -->
     </div>
-  </div>
+    <!-- /main-inner -->
 </div>
-</div>
+<!-- /main -->
 {% include "connectors/model/connect_jira.html" %}
 {% include "connectors/model/connect_slack.html" %}
 {% include "connectors/model/connect_ssc.html" %}

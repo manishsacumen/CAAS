@@ -27,8 +27,10 @@
                 <input type="text" value='{{zohodesk_data.org_id}}' class="ssc_form" name="org_id" id="zoho_org_id" required="">
             </div>
             <div class="modal-footer">
-              <span style="color:green;" id="zohodesk_success">Test Connection Success</span>
-              <span style="color:red;" id="zohodesk_failed"> Test Connection Failed</span>
+              <div style="float:left;width:40%;text-align:left;">
+                <span style="color:green;" id="zohodesk_success">Test Conection Succeeded</span>
+                <span style="color:red;" id="zohodesk_failed"> Test Connection Failed</span>
+            </div>
               <button type="button" id='test_zohodesk' class="btn btn-primary">Test Connection</button>
               <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
               <button type="submit" id='zohodesk_submit' class="btn btn-primary">Submit</button>

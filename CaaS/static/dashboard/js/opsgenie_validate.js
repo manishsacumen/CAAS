@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#ssc_opsgenie_config').hide()  
     $('#opsgenie_success').hide()
     $('#opsgenie_failed').hide()  
+    $('#opsgenie_submit').prop('disabled', true);
 
 });
 

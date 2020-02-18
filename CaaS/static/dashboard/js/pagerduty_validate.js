@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#ssc_pagerduty_config').hide()  
     $('#pagerduty_success').hide()
     $('#pagerduty_failed').hide()  
+    $('#pagerduty_submit').prop('disabled', true);
 
 });
 

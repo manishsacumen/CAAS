@@ -19,17 +19,19 @@
                 <input type="text" value='{{splunk_data.hec_token}}' class="ssc_form" name="token" id="project_key" required="">
             </div>
             <div class="modal-footer">
-              <span style="color:green;" id="splunk_success">Test Connection Success</span>
-              <span style="color:red;" id="splunk_failed"> Test Connection Failed</span>
-              <button type="button" id='test_splunk' class="btn btn-primary">Test Connection</button>
-              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-              <button type="submit" id='splunk_submit' class="btn btn-primary">Submit</button>
-              <div id="overlay" style="display:none;">
-                <div class="spinner"></div>
-                <br/>
-                 Loading...
-             </div>
+              <div style="float:left;width:40%;text-align:left;">
+                  <span style="color:green;" id="splunk_success">Test Conection Succeeded</span>
+                  <span style="color:red;" id="splunk_failed"> Test Connection Failed</span>
+              </div>
+            <button type="button" id='test_splunk' class="btn btn-primary">Test Connection</button>
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="submit" id='splunk_submit' class="btn btn-primary">Submit</button>
+            <div id="overlay" style="display:none;">
+              <div class="spinner"></div>
+              <br/>
+               Loading...
            </div>
+         </div>
          </form>
         </div>
         <div id="ssc_splunk_config"class="card-body">

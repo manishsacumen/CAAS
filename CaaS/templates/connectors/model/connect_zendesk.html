@@ -22,13 +22,15 @@
               <label for="exampleFormControlInput1">Url</label>
               <input type="text" value='{{zendesk_data.url}}' class="ssc_form" name="url" id="username" required="">
           </div>
-            <div class="modal-footer">
-              <span style="color:green;" id="zendesk_success">Test Connection Success</span>
-              <span style="color:red;" id="zendesk_failed"> Test Connection Failed</span>
-              <button type="button" id='test_zendesk' class="btn btn-primary">Test Connection</button>
-              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-              <button type="submit" id='zendesk_submit' class="btn btn-primary">Submit</button>
+          <div class="modal-footer">
+            <div style="float:left;width:40%;text-align:left;">
+                <span style="color:green;" id="zendesk_success">Test Conection Succeeded</span>
+                <span style="color:red;" id="zendesk_failed"> Test Connection Failed</span>
             </div>
+          <button type="button" id='test_zendesk' class="btn btn-primary">Test Connection</button>
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+          <button type="submit" id='zendesk_submit' class="btn btn-primary">Submit</button>
+        </div>
          </form>  
         </div>
         <div id="ssc_zendesk_config"class="card-body">

@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#ssc_rapid_config').hide()  
     $('#rapid_success').hide()
     $('#rapid_failed').hide()  
+    $('#rapid_submit').prop('disabled', true);
 
 });
 

@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#ssc_servicenow_config').hide()  
     $('#servicenow_success').hide()
     $('#servicenow_failed').hide()  
+    $('#servicenow_submit').prop('disabled', true);
 
 });
 

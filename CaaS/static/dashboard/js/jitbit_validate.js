@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#ssc_jitbit_config').hide()  
     $('#jitbit_success').hide()
     $('#jitbit_failed').hide()  
+    $('#jitbit_submit').prop('disabled', true);
 
 });
 

@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#ssc_freshdesk_config').hide()  
     $('#freshdesk_success').hide()
     $('#freshdesk_failed').hide()  
+    $('#freshdesk_submit').prop('disabled', true);
 
 });
 
