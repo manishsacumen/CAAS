@@ -19,3 +19,6 @@ payload = {
                     }
                 }
             }
+servicenow_payload = {
+    "short_description":"Test incident creation through REST", 
+    "comments":"These are my comments"}

@@ -1,0 +1,23 @@
+24/Feb/2020 05:45:15|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+24/Feb/2020 05:45:28|WARNING|django.request:228|ACTION: Not Found: /favicon.ico
+24/Feb/2020 05:46:08|INFO|Login.views:111|ACTION: User is present in  client table deepak.baraik@sacumen.com 
+24/Feb/2020 05:46:08|INFO|Login.views:121|ACTION: User created successfully deepak.baraik@sacumen.com 
+24/Feb/2020 05:46:12|INFO|Login.views:140|ACTION: Activation link for the account is sent to your registered email id deepak.baraik@sacumen.com 
+24/Feb/2020 05:57:52|INFO|Login.views:169|ACTION: Email Verified Successfully deepak.baraik@sacumen.com 
+24/Feb/2020 05:57:52|INFO|Login.views:175|ACTION: Token is verified successfullydeepak.baraik@sacumen.com 
+24/Feb/2020 05:58:27|INFO|Login.views:220|ACTION: otp objects for user is created
+24/Feb/2020 05:58:30|INFO|Login.views:61|ACTION: User logged in successfully Otp send deepak.baraik@sacumen.com 
+24/Feb/2020 05:58:47|INFO|Login.views:250|ACTION: otp is validated successfully deepak.baraik@sacumen.com
+24/Feb/2020 05:58:47|INFO|Connector.views:98|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+24/Feb/2020 09:10:46|INFO|Connector.views:98|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+24/Feb/2020 09:11:38|INFO|Connector.views:63|ACTION: Your SecurityScoreCard is Registereddeepak.baraik@sacumen.com 
+24/Feb/2020 09:11:38|INFO|Connector.views:98|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+24/Feb/2020 09:11:45|INFO|Connector.views:150|ACTION: Jira and slack is deactivateddeepak.baraik@sacumen.com 
+24/Feb/2020 09:11:45|INFO|Connector.views:359|ACTION: Activated SecurityScoreCard
+24/Feb/2020 09:11:45|INFO|Connector.views:98|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+24/Feb/2020 09:15:05|INFO|Connector.views:98|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+24/Feb/2020 10:23:19|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+24/Feb/2020 10:23:42|INFO|Login.views:52|ACTION: User logged in successfully Otp send deepak.baraik@sacumen.com 
+24/Feb/2020 10:24:07|INFO|Login.views:250|ACTION: otp is validated successfully deepak.baraik@sacumen.com
+24/Feb/2020 10:24:07|INFO|Connector.views:98|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+24/Feb/2020 10:24:08|WARNING|django.request:228|ACTION: Not Found: /favicon.ico

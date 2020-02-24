@@ -45,6 +45,11 @@ INSTALLED_APPS = [
     'ServiceNow',
     'Rapid7',
     'Freshdesk',
+    'ZOHO',
+    'Pagerduty',
+    'Opsgenie',
+    'Zendesk',
+    'Jitbit',
 ]
 
 MIDDLEWARE = [

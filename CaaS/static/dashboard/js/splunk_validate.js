@@ -3,14 +3,14 @@ $(document).ready(function() {
     $('#ssc_splunk_config').hide()  
     $('#splunk_success').hide()
     $('#splunk_failed').hide()
-
+    $('#splunk_submit').prop('disabled', true);
    
 
 });
 
 
 $("#splunk_submit").click(function(e) {
-  $('#overlay').fadeIn().delay(2000).fadeOut();
+  // $('#overlay').fadeIn().delay(2000).fadeOut();
     console.log("hii")
     e.preventDefault(); // avoid to execute the actual submit of the form.
     
