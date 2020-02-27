@@ -795,6 +795,174 @@
                                     {% endif %}
                                     {%  endif %}
                                 </div>
+                                <div class="shortcut" >
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/demo/nessus.png' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;" /><span class="padding-bottom5 shortcut-label">Nessus</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jitbit_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                                    {% if jitbit_data.flag %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut" >
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/demo/tenable.png' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;"/><span class="padding-bottom5 shortcut-label">Tenable.sc</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jitbit_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                                    {% if jitbit_data.flag %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut">
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/demo/qualys.png' %}" class="width20 margin-bottom10 margin-left10" style="width: 120px; height:55px;"/><span class="padding-bottom5 shortcut-label">Qualys</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jitbit_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                                    {% if jitbit_data.flag %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut">
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/demo/tanium.png' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;"/><span class="padding-bottom5 shortcut-label">Tanium</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jitbit_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                                    {% if jitbit_data.flag %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut">
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/demo/crowdstrike.jpeg' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;"/><span class="padding-bottom5 shortcut-label">CrowdStrike</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jitbit_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                                    {% if jitbit_data.flag %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut">
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/demo/qradar.jpeg' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;"/><span class="padding-bottom5 shortcut-label">IBM QRadar</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jitbit_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                                    {% if jitbit_data.flag %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut">
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/demo/bmc.jpg' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;"/><span class="padding-bottom5 shortcut-label">BMC Remedy</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jitbit_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                                    {% if jitbit_data.flag %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+                                <div class="shortcut">
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/demo/symphony.png' %}" class="width20 margin-bottom10 margin-left10" style="width: 160px; height:75px;"/><span class="padding-bottom5 shortcut-label">Symphony Summit</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if jitbit_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+
+                                    {% if jitbit_data.flag %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
 
                             </div>
                             <!-- /shortcuts -->
