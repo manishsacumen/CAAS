@@ -37,4 +37,7 @@ urlpatterns = [
     path('opsgenie/',include('Opsgenie.url')),
     path('zendesk/',include('Zendesk.url')),
     path('jitbit/',include('Jitbit.url')),
+    path('solarwinds/',include('SolarWinds.url')),
+    path('agilecrm/',include('Agilecrm.url')),
+    path('hubspot/',include('Hubspot.url')),
 ]

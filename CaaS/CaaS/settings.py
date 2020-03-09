@@ -50,6 +50,10 @@ INSTALLED_APPS = [
     'Opsgenie',
     'Zendesk',
     'Jitbit',
+    'SolarWinds',
+    'Agilecrm',
+    'Hubspot',
+    'Salesforce',
 ]
 
 MIDDLEWARE = [
