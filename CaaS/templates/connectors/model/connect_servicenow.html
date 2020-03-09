@@ -12,70 +12,72 @@
               {% csrf_token %}
                 <div class="control">
                     <label for="exampleFormControlInput1">App Url</label>
-                    <input type="text" value='{{servicenow_data.app_url}}'class="ssc_form" name="app_url" id="app_url"  required="">
+                    <input type="text" value='{{servicenow_data.url}}'class="ssc_form" name="app_url" id="app_url"  required="">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Username</label>
-                    <input type="text" value='{{servicenow_data.email_id}}' class="ssc_form" name="username" id="username" required="">
+                    <input type="text" value='{{servicenow_data.username}}' class="ssc_form" name="username" id="username" required="">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Password</label>
-                    <input type="text" value='{{servicenow_data.api_key}}' class="ssc_form" name="password" id="password" required="">
+                    <input type="password" value='{{servicenow_data.password}}' class="ssc_form" name="password" id="password" required="">
                 </div>
                 <div class="modal-footer">
-                  <span style="color:green;" id="servicenow_success">Test Connection Success</span>
-                  <span style="color:red;" id="servicenow_failed"> Test Connection Failed</span>
-                  <button type="button" id='test_servicenow' class="btn btn-primary">Test Connection</button>
-                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                  <button type="submit" id='servicenow_submit' class="btn btn-primary">Submit</button>
-                </div>
+                  <div style="float:left;width:40%;text-align:left;">
+                      <span style="color:green;" id="servicenow_success">Test Conection Succeeded</span>
+                      <span style="color:red;" id="servicenow_failed"> Test Connection Failed</span>
+                  </div>
+                <button type="button" id='test_servicenow' class="btn btn-primary">Test Connection</button>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                <button type="submit" id='servicenow_submit' class="btn btn-primary">Submit</button>
+              </div>
              </form>  
             </div>
-            <div id="ssc_config"class="card-body">
+            <div id="ssc_servicenow_config"class="card-body">
               <form action='/servicenow/servicenow_config/'method="post" style="padding-left:20px;" >
                 {% csrf_token %}
                   <div class="form-check">
-                      <input type="checkbox" name="fetch_company_overall" class="form-check-input" id="fetch_company_overall">
+                      <input type="checkbox" name="fetch_company_overall" class="form-check-input" id="service_fetch_company_overall">
                       <label class="form-check-label" for="fetch_company_overall">Company Overall Log</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="fetch_company_factors" class="form-check-input" id="fetch_company_factors">
+                      <input type="checkbox" name="fetch_company_factors" class="form-check-input" id="service_fetch_company_factors">
                       <label class="form-check-label" for="fetch_company_factors">Comapny Factor Log</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="fetch_company_issues" class="form-check-input" id="fetch_company_issues">
+                      <input type="checkbox" name="fetch_company_issues" class="form-check-input" id="service_fetch_company_issues">
                       <label class="form-check-label" for="fetch_company_issues">Comapny Issues Log</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="fetch_portfolio_overall "class="form-check-input" id="fetch_portfolio_overall">
+                      <input type="checkbox" name="fetch_portfolio_overall "class="form-check-input" id="service_fetch_portfolio_overall">
                       <label class="form-check-label" for="fetch_portfolio_overall">Comapny third party overall score </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="fetch_portfolio_factors" class="form-check-input" id="fetch_portfolio_factors">
+                      <input type="checkbox" name="fetch_portfolio_factors" class="form-check-input" id="service_fetch_portfolio_factors">
                       <label class="form-check-label" for="fetch_portfolio_factors">Company third party factor score</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="fetch_portfolio_issues" class="form-check-input" id="fetch_portfolio_issues">
+                      <input type="checkbox" name="fetch_portfolio_issues" class="form-check-input" id="service_fetch_portfolio_issues">
                       <label class="form-check-label" for="fetch_portfolio_issues">Company third party issue log</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="fetch_issue_level_data" class="form-check-input" id="fetch_issue_level_data">
+                      <input type="checkbox" name="fetch_issue_level_data" class="form-check-input" id="service_fetch_issue_level_data">
                       <label class="form-check-label" for="fetch_issue_level_data">Company third party issue level data</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="diff_override_own_overall" class="form-check-input" id="diff_override_own_overall">
+                      <input type="checkbox" name="diff_override_own_overall" class="form-check-input" id="service_diff_override_own_overall">
                       <label class="form-check-label" for="diff_override_own_overall">Company  override overall zero</label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="diff_override_portfolio_overall" class="form-check-input" id="diff_override_portfolio_overall">
+                      <input type="checkbox" name="diff_override_portfolio_overall" class="form-check-input" id="service_diff_override_portfolio_overall">
                       <label class="form-check-label" for="diff_override_portfolio_overall">Company third party overall zero </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="diff_override_own_factor" class="form-check-input" id="diff_override_own_factor">
+                      <input type="checkbox" name="diff_override_own_factor" class="form-check-input" id="service_diff_override_own_factor">
                       <label class="form-check-label" for="diff_override_own_factor">Log third party override factor zero </label>
                     </div>
                     <div class="form-check">
-                      <input type="checkbox" name="diff_override_portfolio_factor" class="form-check-input" id="diff_override_portfolio_factor">
+                      <input type="checkbox" name="diff_override_portfolio_factor" class="form-check-input" id="service_diff_override_portfolio_factor">
                       <label class="form-check-label" for="diff_override_portfolio_factor">Comapny third party factor zero </label>
                     </div>
                   <button type="submit" class="btn btn-primary">Submit</button>

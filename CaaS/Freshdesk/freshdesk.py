@@ -24,10 +24,21 @@ class FreshdeskEvents:
     
     # Creating new ticket
     def create_ticket(self, **data):
-        headers = {"Accept": "application/json", "Content-Type": "application/json", "Authorization": self.__api_token}
+        headers = {"Accept": "application/json", "Content-Type": "application/json", "Authorization": "Basic {}".format(self.__api_token)}
         try:
-            payload = json.dumps(data)
-            request = requests.post(self.get_issue_url(), payload, headers=headers)
+            
+            payload = { 
+                        "description": "Details about the issue...", 
+                        "subject": "Test Ticket", 
+                        "email": "deepak.baraik@sacumen.com", 
+                        "priority": 1, 
+                        "status": 2, 
+                        "cc_emails": ["ram@freshdesk.com","diana"] 
+                    }
+            # payload = json.dumps(data)
+            # req = requests.get(self.get_issue_url(), headers=headers)
+            url = self.get_issue_url()
+            request = requests.post(url, payload, headers=headers)
             
             if request.status_code == 201:
                 return request
@@ -43,8 +54,9 @@ class FreshdeskEvents:
         self.key = api_key+":X"
         self.key_bytes = self.key.encode('ascii')
         base64_bytes = base64.b64encode(self.key_bytes)
+        token = base64_bytes.decode()
 
-        return base64_bytes
+        return token
 
 
         

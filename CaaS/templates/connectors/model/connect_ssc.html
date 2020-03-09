@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Configure with SecurityScore Card</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Configure with SecurityScorecard</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -16,35 +16,42 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">API Url</label>
-                <input type="text"  class="ssc_form" placeholder="https://app_url.com" value='{{ssc_data.api_url}}'  name="api_url" id="email_id" required="">
+                <input type="text"  class="ssc_form" placeholder="https://app_url.com" value='{{ssc_data.api_url}}'  name="api_url" id="ssc_email_id" required="">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">API Token</label>
-                <input type="text" class="ssc_form" name="api_token" value='{{ssc_data.api_token}}'id="api_token" required="">
+                <input type="text" class="ssc_form" name="api_token" value='{{ssc_data.api_token}}'id="ssc_api_token" required="">
             </div>
              <div class="form-group">
                 <label for="exampleFormControlInput1">Overall Score</label>
-                <input type="number" class="ssc_form" value='{{ssc_data.overall_score}}' name="overall_score" id="project_key" required="">
+                <input type="number" class="ssc_form" value='{{ssc_data.overall_score}}' name="overall_score" id="ssc_project_key" required="">
             </div>
               <div class="form-group">
                 <label for="exampleFormControlInput1">Factor Score</label>
-                <input type="number" class="ssc_form" value='{{ssc_data.factor_score}}' name="factor_score" id="project_key" required="">
+                <input type="number" class="ssc_form" value='{{ssc_data.factor_score}}' name="factor_score" id="ssc_project_key" required="">
             </div>
               <div class="form-group">
                 <label for="exampleFormControlInput1">Issue Level Event</label>
-                <input type="number" class="ssc_form" value='{{ssc_data.issue_level_event}}' name="issue_level" id="project_key" required="">
+                <input type="number" class="ssc_form" value='{{ssc_data.issue_level_event}}' name="issue_level" id="ssc_project_key" required="">
             </div>
               <div class="form-group">
                 <label for="exampleFormControlInput1">Domain Url</label>
-                <input type="text" class="ssc_form" value='{{ssc_data.domain}}' name="domain" id="project_key" required="">
+                <input type="text" class="ssc_form" value='{{ssc_data.domain}}' name="domain" id="ssc_project_key" required="">
             </div>
             <div class="modal-footer">
-              <span style="color:green;" id="success">Test Conection Success</span>
-              <span style="color:red;" id="failed"> Test Connection Failed</span>
+              <div style="float:left;width:40%;text-align:left;">
+                <span style="color:green;" id="success">Test Conection Success</span>
+                <span style="color:red;" id="failed"> Test Connection Failed</span>
+              </div>
               <button type="button" id="test_ssc" class="btn btn-primary">Test Connection</button>
               <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
               <button type="submit" id= "ssc_submit" class="btn btn-primary">Submit</button>
             </div>
+            <div id="overlay" style="display:none;">
+              <div class="spinner"></div>
+              <br/>
+               Loading...
+           </div>
          </form>
         </div>
        

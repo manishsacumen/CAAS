@@ -102,7 +102,7 @@ def test_jira(request):
         email_id = request.POST.get('email_id',None)
         api_key = request.POST.get('api_key',None)
         auth = HTTPBasicAuth(email_id, api_key)
-        test_api = "/rest/api/2/issue/createmeta"
+        test_api = "rest/api/2/issue/createmeta"
         app_url = request.POST.get('app_url')
         test_api_url = "{}/{}".format(app_url, test_api)
         res = requests.get(url=test_api_url, auth=auth)

@@ -38,22 +38,90 @@
       opacity: 0.7;
     }
     </style>
+<head>
     </head>
-    <body>
-    
-    <h2 style="text-align:center">User Profile</h2>
-    
-    <div class="card">
-      <img src="{% static 'img/user-pic.jpg' %}" alt="John" style="width:100%">
-      <h1>{{request.user.first_name}} &nbsp; {{request.user.last_name}}</h1>
-      <p class="title">{{request.user.email}}</p>
-      <!-- <p>Harvard University</p>
-      <div style="margin: 24px 0;">
-        <a href="#"><i class="fa fa-dribbble"></i></a> 
-        <a href="#"><i class="fa fa-twitter"></i></a>  
-        <a href="#"><i class="fa fa-linkedin"></i></a>  
-        <a href="#"><i class="fa fa-facebook"></i></a> 
-      </div>
-      <p><button>Contact</button></p> -->
+<body>
+    <div class="subnavbar" style="padding-left:1.5%; width:98.5%;">
+        <div class="subnavbar-inner">
+            <div class="container padding-left0">
+                <ul class="mainnav">
+                    <li><a href="/ssc_connector/ssc/"><i class="icon-dashboard"></i><span>Dashboard</span></a></li>
+                    <li class="active"><a href="/profile/"><i class="icon-user"></i><span>User Profile</span></a></li>
+                </ul>
+                <!--<div class="nav-collapse">-->
+                <ul class="nav pull-right" style="margin-right: 4.5%;">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-user"></i>{{request.user.first_name}}<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/profile/">Profile</a></li>
+                            <li><a href="/ssc_connector/ssc/">Dashboard</a></li>
+                            <li><a href='/logout/'>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <!--</div>-->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /subnavbar-inner -->
     </div>
+    <div class="main width100">
+        <div class="main-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="span11" style="width: 93.5%;">
+                        <div class="widget">
+                            <div class="widget-header">
+                                <i class="icon-bookmark"></i>
+                                <h3>User  Profile</h3>
+                            </div>
+                            <!-- /widget-header -->
+                            <div class="widget-content">
+                                <div class="shortcuts">
+                                    <div id="divUserProfile">
+                                        <img src="{% static 'img/user-pic.jpg' %}" class="profile-picture">
+                                        <div class="profile-data">
+                                            <p class="title"><b>User Name:</b> {{request.user.first_name}} {{request.user.last_name}}</p>
+                                            <br />
+                                            <p class="title"><b>Email Id:</b> {{request.user.email}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /shortcuts -->
+                            </div>
+                            <!-- /widget-content -->
+                        </div>
+                    </div>
+                    <!-- /span6 -->
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /main-inner -->
+    </div>
+
+
+
+
+
+
+    <!--<h2 style="text-align:center">User Profile</h2>
+
+    <div class="card">
+        <img src="{% static 'img/user-pic.jpg' %}" alt="John" style="width:100%">
+        <h1>{{request.user.first_name}} &nbsp; {{request.user.last_name}}</h1>
+        <p class="title">{{request.user.email}}</p>
+        <!-- <p>Harvard University</p>
+        <div style="margin: 24px 0;">
+          <a href="#"><i class="fa fa-dribbble"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-linkedin"></i></a>
+          <a href="#"><i class="fa fa-facebook"></i></a>
+        </div>
+        <p><button>Contact</button></p>
+    </div>-->
+</body>
 {% endblock content %}

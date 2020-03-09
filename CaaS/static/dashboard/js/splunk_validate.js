@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#ssc_splunk_config').hide()  
     $('#splunk_success').hide()
     $('#splunk_failed').hide()
-
+    $('#splunk_submit').prop('disabled', true);
    
 
 });

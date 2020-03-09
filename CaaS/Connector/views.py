@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 import json
 from django.shortcuts import render
-from .config import payload
+from .config import payload, servicenow_payload
 from .models import SSCConnector
 from django.contrib import messages
 from ssc.main import collect_events
@@ -12,15 +12,47 @@ from Slack.models import Slack
 from Splunk.models import Splunk
 from Splunk.splunk import SplunkEvents
 from Rapid7.models import Rapid
+from Rapid7.rapidseven import Rapidseven
 from ServiceNow.models import Servicenowmodel
-<<<<<<< HEAD
+from ServiceNow.servicenow import ServiceNowEvents
 from Freshdesk.models import Freshdeskmodel
-=======
->>>>>>> 51f1075e57fbf9ec3bd64843867bbbb00b5b9989
+from Freshdesk.freshdesk import FreshdeskEvents
+from ZOHO.models import Zohomodel
+from ZOHO.zohodesk import ZohodeskEvents
+from Pagerduty.models import Pagerdutymodel
+from Pagerduty.pagerduty import Pagerdutyincident
+from Opsgenie.models import Opsgeniemodel
+from Opsgenie.opsgenie import Opsgenieincident
+from Zendesk.models import Zendeskmodel
+from Zendesk.zendesk import Zendesktickets
+from Jitbit.models import Jitbitmodel
+from Jitbit.jitbit  import Jitbitticket
+from SolarWinds.models import SolarWindsmodel
+from SolarWinds.solarwinds import SolarWindsEvents
+from Hubspot.hubspot import HubspotEvents
+from Hubspot.models import Hubspotmodel
+from Agilecrm.models import Agilecrmmodel
+from Agilecrm.agilecrm import AgilecrmEvents
+from Salesforce.salesforce import Salesforceevents
+from Salesforce.models import Salesforcemodel
 import datetime
 import logging
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .jira_conection import JiraConnect
+from .slack_connection import SlackConnect
+from .splunk_connection import SplunkConnect
+from .rapid_connection import RapidConnect
+from .servicenow_connection import ServicenowConnect
+from .pagerduty_connection import PagerdutyConnect
+from .zohodesk_connection import ZohodeskConnect
+from .opsgrnie_connection import OpsgenieConnect
+from .zendesk_connection import ZendeskConnect
+from .jitbit_connection import JitbitConnect
+from .solarwinds_connection import SolarwindsConnect
+from .hubspot_connection import HubspotConnect
+from .agilecrm_connection import AgilecrmConnect
+from .salesforce_connection import SalesforceConnect
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -80,8 +112,15 @@ def dashboard(request):
         servicenow_data  =  Servicenowmodel.objects.filter(source_id =  ssc_data).first()
         rapid_data  =  Rapid.objects.filter(source_id =  ssc_data).first()
         freshdesk_data  =  Freshdeskmodel.objects.filter(source_id =  ssc_data).first()
-
-
+        zohodesk_data  =   Zohomodel.objects.filter(source_id = ssc_data).first()
+        pagerduty_data  =  Pagerdutymodel.objects.filter(source_id = ssc_data).first()
+        opsgenie_data  =   Opsgeniemodel.objects.filter(source_id = ssc_data).first()
+        zendesk_data  =   Zendeskmodel.objects.filter(source_id = ssc_data).first()
+        jitbit_data  =   Jitbitmodel.objects.filter(source_id = ssc_data).first()
+        solarwinds_data  = SolarWindsmodel.objects.filter(source_id = ssc_data).first()
+        hubspot_data = Hubspotmodel.objects.filter(source_id= ssc_data).first()
+        agilecrm_data = Agilecrmmodel.objects.filter(source_id= ssc_data).first()
+        salesforce_data = Salesforcemodel.objects.filter(source_id= ssc_data).first()
         logger.info("Dashboard loaded successfully%s ", request.user.email)
         return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data,
                                              'jira_data':jira_data,
@@ -89,7 +128,16 @@ def dashboard(request):
                                               'splunk_data':splunk_data, 
                                               'servicenow_data': servicenow_data, 
                                               'rapid_data': rapid_data,
-                                              'freshdesk_data': freshdesk_data})
+                                              'freshdesk_data': freshdesk_data,
+                                              'zohodesk_data': zohodesk_data,
+                                              'pagerduty_data' : pagerduty_data,
+                                              'opsgenie_data':opsgenie_data,
+                                              'zendesk_data':zendesk_data,
+                                              'jitbit_data': jitbit_data,
+                                              'solarwinds_data': solarwinds_data,
+                                              'hubspot_data': hubspot_data,
+                                              'agilecrm_data': agilecrm_data,
+                                              'salesforce_data': salesforce_data})
     except Exception as e:
         logger.error("Unexpected Exception occured: %s ", e)
         return e
@@ -98,11 +146,6 @@ def dashboard(request):
 def process_ssc(request, flag_name):
     try:
         ssc_user = SSCConnector.objects.filter(user_id=request.user).first()
-        slack_user = Slack.objects.filter(source_id__user_id=request.user).first()
-        jira_user = models.Jira.objects.filter(user_id=request.user).first()
-        splunk_user =  Splunk.objects.filter(source_id__user_id=request.user).first()
-        slack_flag = slack_user and slack_user.flag
-        jira_flag = jira_user and jira_user.flag
         ssc_flag = ssc_user and ssc_user.flag
     except Exception as err:
         print("Getting exception as {}".format(err))
@@ -111,55 +154,64 @@ def process_ssc(request, flag_name):
             # To do: disable jira and slack
             pass
         else:
-            if not jira_user and not slack_user:
-                logger.info("Jira and slack is deactivated%s ", request.user.email)
-                # return messages.warning(request, f'No app is configured.. Please configure at least one..!!')
+            if flag_name =='Jira':
+                jira_class = JiraConnect(request,ssc_user)
+                jira_send  =  jira_class.send_data()
+            else:
                 pass
-            if jira_flag and flag_name !='Slack':
-                url, username, api_token, options_str = jira_user.app_url, jira_user.email_id, jira_user.api_key, jira_user.jira_config
-                options_formatted = options_str.replace("'", '"')
-                options = json.loads(options_formatted)
-                jira_obj = views.Connector(url, username, api_token)
-                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
-                sc_jira_response = collect_events(access_key, domain, **options)
-                data = process_ssc_response(sc_jira_response)
-                logger.info("Jira is start creating issues%s ", request.user.email)
-                for each_record in data:
-                    current_time = str(datetime.datetime.now())
-                    msg = "New SecurityScorecard Issue is reported on {}.".format(current_time)
-                    payload["fields"]["summary"] = msg
-                    payload["fields"]['description']['content'][0]['content'][0]['text'] = json.dumps(each_record[0])
-                    jira_resp = jira_obj.create_issue(**payload)
-                else:
-                    pass
-            if slack_flag and flag_name =='Slack':
-                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
-                options_str = slack_user.config
-                options_formatted = options_str.replace("'", '"')
-                optionss = json.loads(options_formatted)
-                sc_slack_response = collect_events(access_key, domain, **optionss)
-               
-                data = process_ssc_response(sc_slack_response)
-                logger.info("to Slack is start sending messages%s ", request.user.email)
-                for each_record in data:
-                    send_message_to_slack(token=slack_user.auth_token, channel=slack_user.default_channel, message=each_record[0])
-            if splunk_user.flag  and flag_name == 'Splunk':
-                access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
-                url, token, config = splunk_user.api_url, splunk_user.hec_token, splunk_user.config
-                options_formatted = config.replace("'", '"')
-                options = json.loads(options_formatted)
-                sc_splunk_response = collect_events(access_key, domain, **options)
-                data = process_ssc_response(sc_splunk_response)
-                splunk_obj  =  SplunkEvents(token,url)
-                sp = dict()
-                for each_record in data:
-                    current_time = str(datetime.datetime.now())
-                    sp['event'] = json.loads(json.dumps(each_record[0]))
-                    splunk_resp = splunk_obj.create_event(json.dumps(sp))
-                    print(splunk_resp.json())
-                
+            if flag_name =='Slack':
+                slack_obj = SlackConnect(request, ssc_user)
+                slack_send  = slack_obj.send_data()
+            if flag_name == 'Splunk':
+                splunk_obj =  SplunkConnect(request, ssc_user)
+                splunk_obj.send_data()
+            if flag_name == 'Rapid':
+                rapid_obj = RapidConnect(request, ssc_user)
+                rapid_obj.send_data()
+            if flag_name == 'ServiceNow':
+                servicenw_obj =  ServicenowConnect(request, ssc_user)
+                servicenw_obj.send_data()
+            # if freshdesk_flag  and flag_name == 'Freshdesk':
+            #     access_key, base_url, domain = ssc_user.api_token, ssc_user.api_url, ssc_user.domain
+            #     url, username, api_key, options_str   = freshdesk_user.url, freshdesk_user.username, freshdesk_user.api_key, servicenw_user.config
+            #     options_formatted = options_str.replace("'", '"')
+            #     options = json.loads(options_formatted)
+            #     fresh_obj =  FreshdeskEvents(username, api_key, url)
+            #     fresh_response = collect_events(access_key, domain, **options)
+            #     data = process_ssc_response(fresh_response)
+            #     for each_record in data:
+            #         fresh_resp = fresh_obj.create_ticket(**each_record[0])
+            if flag_name == 'Zohodesk':
+                zoho_obj  = ZohodeskConnect(request, ssc_user)
+                zoho_obj.send_data()
 
-        
+            if flag_name == 'Pagerduty':
+                pagerduty_obj =  PagerdutyConnect(request, ssc_user)
+                pagerduty_obj.send_data()
+            if flag_name == 'Opsgenie':
+                opsgenie_obj  = OpsgenieConnect(request, ssc_user)
+                opsgenie_obj.send_data()       
+            if flag_name == 'Zendesk':
+                zendesk_obj   = ZendeskConnect(request, ssc_user)
+                zendesk_obj.send_data()
+            if flag_name == 'Jitbit':
+                jitbit_obj = JitbitConnect(request, ssc_user)
+                jitbit_obj.send_data()
+            if flag_name == 'Solarwinds':
+                solarwinds_obj = SolarwindsConnect(request, ssc_user)
+                solarwinds_obj.send_data()
+            if flag_name == 'Hubspot':
+                hubspot_obj = HubspotConnect(request, ssc_user)
+                hubspot_obj.send_data()
+            if flag_name == 'Agilecrm':
+                agilecrm_obj = AgilecrmConnect(request, ssc_user)
+                agilecrm_obj.send_data()
+            if flag_name == 'Salesforce':
+                salesforce_obj = SalesforceConnect(request, ssc_user)
+                salesforce_obj.send_data()
+
+
+     
 def process_ssc_response(sc_response):
     for key, each_factor in sc_response.items():
         if isinstance(each_factor, list):
@@ -247,13 +299,215 @@ def set_splunk_flag(request):
     if splunk_data and splunk_data.flag:
         splunk_data.flag =  False
         splunk_data.save()
+        msg = "Splunk is Deactivated"
+        messages.success(request, msg)
     else:
         splunk_data.flag = True
         splunk_data.save()
         flag_name = "Splunk"
+        msg = "Splunk is Activated"
+        messages.success(request, msg)
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_rapid_flag(request):
+    rapid_data  =  Rapid.objects.filter(source_id__user_id =  request.user).first()
+    if rapid_data and rapid_data.flag:
+        rapid_data.flag =  False
+        rapid_data.save()
+        msg = "Rapid7 is Deactivated"
+        messages.success(request, msg)
+    else:
+        rapid_data.flag = True
+        rapid_data.save()
+        flag_name = "Rapid"
+        msg = "Rapid7 is Activated"
+        messages.success(request, msg)
         process_ssc(request,flag_name)
     return redirect("/ssc_connector/ssc/")
 
 
 
-        
+@login_required(login_url='/login/')
+def set_servicenow_flag(request):
+    snw_data  =  Servicenowmodel.objects.filter(source_id__user_id =  request.user).first()
+    if snw_data and snw_data.flag:
+        snw_data.flag =  False
+        snw_data.save()
+        msg = "Servicenow is Deactivated"
+        messages.success(request, msg)
+    else:
+        snw_data.flag = True
+        snw_data.save()
+        flag_name = "ServiceNow"
+        msg = "Servicenow is Activated"
+        messages.success(request, msg)
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_freshdesk_flag(request):
+    freshdesk_data  =  Freshdeskmodel.objects.filter(source_id__user_id =  request.user).first()
+    if freshdesk_data and freshdesk_data.flag:
+        freshdesk_data.flag =  False
+        freshdesk_data.save()
+        msg = "Freshdesk is Deactivated"
+        messages.success(request, msg)
+    else:
+        freshdesk_data.flag = True
+        freshdesk_data.save()
+        flag_name = "Freshdesk"
+        msg = "Freshdesk is Activated"
+        messages.success(request, msg)
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+
+@login_required(login_url='/login/')
+def set_zohodesk_flag(request):
+    zohodesk_data  =  Zohomodel.objects.filter(source_id__user_id =  request.user).first()
+    if zohodesk_data and zohodesk_data.flag:
+        zohodesk_data.flag =  False
+        zohodesk_data.save()
+        msg = "Zohodesk is Deactivated"
+        messages.success(request, msg)
+    else:
+        zohodesk_data.flag = True
+        zohodesk_data.save()
+        flag_name = "flag_name"
+        msg = "Zohodesk is Activated"
+        process_ssc(request,flag_name)
+        messages.success(request, msg)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_pagerduty_flag(request):
+    pagerduty_data  =  Pagerdutymodel.objects.filter(source_id__user_id =  request.user).first()
+    if pagerduty_data and pagerduty_data.flag:
+        pagerduty_data.flag =  False
+        pagerduty_data.save()
+        msg = "Pagerduty is Deactivated"
+        messages.success(request, msg)
+    else:
+        pagerduty_data.flag = True
+        pagerduty_data.save()
+        flag_name = "Pagerduty"
+        msg = "Pagerduty is Activated"
+        messages.success(request, msg)
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_opsgenie_flag(request):
+    opsgenie_data  =  Opsgeniemodel.objects.filter(source_id__user_id =  request.user).first()
+    if  opsgenie_data and  opsgenie_data.flag:
+        opsgenie_data.flag =  False
+        opsgenie_data.save()
+        msg = "Opsgenie is Deactivated"
+        messages.success(request, msg)
+    else:
+        opsgenie_data.flag = True
+        opsgenie_data.save()
+        flag_name = "Opsgenie"
+        msg = "Opsgenie is Activated"
+        messages.success(request, msg)
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_zendesk_flag(request):
+    zendesk_data  =  Zendeskmodel.objects.filter(source_id__user_id =  request.user).first()
+    if  zendesk_data and  zendesk_data.flag:
+        zendesk_data.flag =  False
+        zendesk_data.save()
+        msg = "Zendesk is Deactivated"
+        messages.success(request, msg)
+    else:
+        zendesk_data.flag = True
+        zendesk_data.save()
+        flag_name = "Zendesk"
+        msg = "Zendesk is Activated"
+        messages.success(request, msg)
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_jitbit_flag(request):
+    jitbit_data  =  Jitbitmodel.objects.filter(source_id__user_id =  request.user).first()
+    if  jitbit_data and  jitbit_data.flag:
+        jitbit_data.flag =  False
+        jitbit_data.save()
+        msg = "Jitbit is Activated"
+        messages.success(request, msg)
+    else:
+        jitbit_data.flag = True
+        jitbit_data.save()
+        flag_name = "Jitbit"
+        msg = "Jitbit is Deactivated"
+        messages.success(request, msg)
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_solarwinds_flag(request):
+    solarwinds_data  =  SolarWindsmodel.objects.filter(source_id__user_id =  request.user).first()
+    if solarwinds_data and solarwinds_data.flag:
+        solarwinds_data.flag =  False
+        solarwinds_data.save()
+    else:
+        solarwinds_data.flag = True
+        solarwinds_data.save()
+        flag_name = "Solarwinds"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_hubspot_flag(request):
+    hubspot_data  =  Hubspotmodel.objects.filter(source_id__user_id =  request.user).first()
+    if hubspot_data and hubspot_data.flag:
+        hubspot_data.flag =  False
+        hubspot_data.save()
+    else:
+        hubspot_data.flag = True
+        hubspot_data.save()
+        flag_name = "Hubspot"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_agilecrm_flag(request):
+    agilecrm_data  =  Agilecrmmodel.objects.filter(source_id__user_id =  request.user).first()
+    if agilecrm_data and agilecrm_data.flag:
+        agilecrm_data.flag =  False
+        agilecrm_data.save()
+    else:
+        agilecrm_data.flag = True
+        agilecrm_data.save()
+        flag_name = "Agilecrm"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+@login_required(login_url='/login/')
+def set_salesforce_flag(request):
+    salesforce_data  =  Salesforcemodel.objects.filter(source_id__user_id =  request.user).first()
+    if salesforce_data and salesforce_data.flag:
+        salesforce_data.flag =  False
+        salesforce_data.save()
+    else:
+        salesforce_data.flag = True
+        salesforce_data.save()
+        flag_name = "Salesforce"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+

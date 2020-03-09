@@ -4,6 +4,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.contrib import messages
 from Connector.models import SSCConnector
 from .models import Servicenowmodel
 from requests.auth import HTTPBasicAuth
@@ -21,7 +22,7 @@ class Save_servicenow(LoginRequiredMixin, View):
 
     def post(self, request):
 
-        url  =  request.POST.get('url',None)
+        url  =  request.POST.get('app_url',None)
         username  = request.POST.get('username',None)
         password  = request.POST.get('password',None)
         servicenow_data  =  Servicenowmodel.objects.filter(source_id__user_id  = request.user).first()
@@ -30,20 +31,22 @@ class Save_servicenow(LoginRequiredMixin, View):
             servicenow_data.username  =  username
             servicenow_data.password  =  password
             servicenow_data.save()
+            messages.success(request,"Service now updated successfully")
         else:
             source = SSCConnector.objects.filter(user_id = request.user).first()
-            rapid = Servicenowmodel(source_id =  source, username = username, password  =  password)
+            rapid = Servicenowmodel(source_id =  source, username = username, password  =  password,url= url)
             rapid.save()
+            messages.success(request,"Service now added successfully")
         return redirect('/ssc_connector/ssc/')
 
 
 
-def test_servicenow(self, request):
+def test_servicenow(request):
     try:
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
         auth = HTTPBasicAuth(username, password)
-        test_api = "/api/now/table/incident"
+        test_api = "api/now/table/incident"
         app_url = request.POST.get('app_url', None)
         test_api_url = "{}/{}".format(app_url, test_api)
         res = requests.get(url=test_api_url, auth=auth)
@@ -56,12 +59,12 @@ def test_servicenow(self, request):
 
 
 @login_required(login_url='/login/')
-def servicenow_config(self,request):
+def servicenow_config(request):
     try:
         logger.info("Servicenow configuration Request")
-        servicenow = Servicenowmodel.objects.filter(user_id = request.user).first()
+        servicenow = Servicenowmodel.objects.filter(source_id__user_id = request.user).first()
         if servicenow:
-            servicenow.servicenow_config = str(request.POST.dict())
+            servicenow.config = str(request.POST.dict())
             servicenow.save()
             return redirect('/ssc_connector/ssc/')
         else:

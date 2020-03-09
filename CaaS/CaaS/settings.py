@@ -45,6 +45,15 @@ INSTALLED_APPS = [
     'ServiceNow',
     'Rapid7',
     'Freshdesk',
+    'ZOHO',
+    'Pagerduty',
+    'Opsgenie',
+    'Zendesk',
+    'Jitbit',
+    'SolarWinds',
+    'Agilecrm',
+    'Hubspot',
+    'Salesforce',
 ]
 
 MIDDLEWARE = [
