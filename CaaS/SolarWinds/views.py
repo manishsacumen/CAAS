@@ -63,7 +63,6 @@ def solarwinds_config(request):
             solarwinds.config = str(request.POST.dict())
             solarwinds.save()
             messages.success(request, f'Solarwinds configuration saved successfully..!!')
-
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

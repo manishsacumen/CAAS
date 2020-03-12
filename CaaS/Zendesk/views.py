@@ -73,7 +73,6 @@ def zendesk_config(request):
             zendesk.save()
             logger.info("zendesk configuration data is added%s",request.user.email)
             messages.success(request, f'Zendesk configuration saved successfully..!!')
-
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')
