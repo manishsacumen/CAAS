@@ -74,6 +74,7 @@ def jitbit_config(request):
             jitbit.config = str(request.POST.dict())
             jitbit.save()
             logger.info("jitbit configuration data is added%s",request.user.email)
+            messages.success(request, f'Jitbit configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

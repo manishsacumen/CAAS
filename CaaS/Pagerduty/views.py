@@ -72,6 +72,7 @@ def pagerduty_config(request):
             pagerduty.config = str(request.POST.dict())
             pagerduty.save()
             logger.info("pagerduty configuration data is added%s",request.user.email)
+            messages.success(request, f'Pagerduty configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

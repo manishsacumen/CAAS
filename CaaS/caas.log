@@ -705,3 +705,187 @@ UnboundLocalError: local variable 'jitbit_obj' referenced before assignment
 09/Mar/2020 06:25:30|INFO|Login.views:82|ACTION: User alredy loggedin deepak.baraik@sacumen.com 
 09/Mar/2020 06:25:30|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
 09/Mar/2020 06:25:32|WARNING|django.request:228|ACTION: Not Found: /favicon.ico
+09/Mar/2020 08:55:15|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 08:55:22|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 08:56:54|INFO|Jira.views:110|ACTION: Jira Test Connection:  <Response [200]> 
+09/Mar/2020 08:56:56|INFO|Jira.views:86|ACTION: Jira connected successfully:  Jira object (1) 
+09/Mar/2020 08:56:56|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 08:57:00|INFO|Jira.views:120|ACTION: Jira configuration Request
+09/Mar/2020 08:57:00|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 08:57:06|INFO|Connector.jira_conection:33|ACTION: Jira is start creating issuesdeepak.baraik@sacumen.com 
+09/Mar/2020 08:57:23|INFO|Connector.views:289|ACTION: Activated Jira
+09/Mar/2020 08:57:23|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 08:57:28|INFO|Connector.views:282|ACTION: Deactivated Jira
+09/Mar/2020 08:57:28|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 08:57:57|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 08:58:22|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ssc/main.py changed, reloading.
+09/Mar/2020 08:58:23|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 08:58:28|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ssc/main.py changed, reloading.
+09/Mar/2020 08:58:29|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 08:58:35|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 08:58:43|INFO|Jira.views:110|ACTION: Jira Test Connection:  <Response [200]> 
+09/Mar/2020 08:58:45|INFO|Jira.views:78|ACTION: Project Key is already registred   :  Jira object (1) 
+09/Mar/2020 08:58:45|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 08:58:47|INFO|Jira.views:120|ACTION: Jira configuration Request
+09/Mar/2020 08:58:47|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 08:58:57|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ssc/main.py changed, reloading.
+09/Mar/2020 08:58:57|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 08:59:37|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ssc/main.py changed, reloading.
+09/Mar/2020 08:59:37|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 08:59:41|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ssc/main.py changed, reloading.
+09/Mar/2020 08:59:42|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 08:59:50|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ssc/main.py changed, reloading.
+09/Mar/2020 08:59:51|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:00:18|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ssc/main.py changed, reloading.
+09/Mar/2020 09:00:19|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:01:45|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+09/Mar/2020 09:01:45|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:01:48|ERROR|Connector.jira_conection:41|ACTION: Unexpected Exception occured: URL: https://api.securityscorecard.io/companies/sacumen.com/history/score Received status 400 with content b'{"error":{"message":"The \\"from\\" query parameter is invalid (\\"2020-03-4\\") \\nJSON Schema validation error. \\nString does not match pattern: ^\\\\d{4}-\\\\d{2}-\\\\d{2}$","statusCode":400}}'.
+ Headers {'authorization': 'Token zsnZYGya8WnqUuLdFP8wGK5ZqAeJ', 'X-SSC-Application-Name': 'Splunk', 'X-SSC-Application-Version': '1.5'}, Params {'date_from': '2020-03-4', 'date_to': datetime.date(2020, 3, 9)} 
+09/Mar/2020 09:01:48|INFO|Connector.views:289|ACTION: Activated Jira
+09/Mar/2020 09:01:48|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:01:52|INFO|Connector.views:282|ACTION: Deactivated Jira
+09/Mar/2020 09:01:52|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:01:57|INFO|Jira.views:110|ACTION: Jira Test Connection:  <Response [200]> 
+09/Mar/2020 09:01:57|INFO|Jira.views:78|ACTION: Project Key is already registred   :  Jira object (1) 
+09/Mar/2020 09:01:57|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:02:00|INFO|Jira.views:120|ACTION: Jira configuration Request
+09/Mar/2020 09:02:01|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:02:07|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+09/Mar/2020 09:02:07|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:05:48|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ZOHO/zohodesk.py changed, reloading.
+09/Mar/2020 09:05:49|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:06:42|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ZOHO/views.py changed, reloading.
+09/Mar/2020 09:06:43|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:07:59|INFO|ZOHO.views:40|ACTION: Zohodesk is added successfullydeepak.baraik@sacumen.com
+09/Mar/2020 09:07:59|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:08:01|INFO|ZOHO.views:77|ACTION: Zohodesk configuration data is addeddeepak.baraik@sacumen.com
+09/Mar/2020 09:08:01|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:08:06|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:08:14|INFO|ZOHO.views:34|ACTION: Zohodesk is updated successfullydeepak.baraik@sacumen.com
+09/Mar/2020 09:08:14|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:08:17|INFO|ZOHO.views:77|ACTION: Zohodesk configuration data is addeddeepak.baraik@sacumen.com
+09/Mar/2020 09:08:17|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:08:21|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ZOHO/views.py changed, reloading.
+09/Mar/2020 09:08:22|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:11:55|INFO|Jira.views:110|ACTION: Jira Test Connection:  <Response [200]> 
+09/Mar/2020 09:11:55|INFO|Jira.views:78|ACTION: Project Key is already registred   :  Jira object (1) 
+09/Mar/2020 09:11:55|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:11:58|INFO|Jira.views:120|ACTION: Jira configuration Request
+09/Mar/2020 09:11:58|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:31:43|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ZOHO/views.py changed, reloading.
+09/Mar/2020 09:31:43|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:32:41|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ZOHO/views.py changed, reloading.
+09/Mar/2020 09:32:42|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:32:55|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/ZOHO/views.py changed, reloading.
+09/Mar/2020 09:32:56|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:34:08|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+09/Mar/2020 09:34:09|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+09/Mar/2020 09:34:19|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+09/Mar/2020 09:52:09|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+09/Mar/2020 09:52:10|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:21:34|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:22:06|INFO|Login.views:52|ACTION: User logged in successfully Otp send deepak.baraik@sacumen.com 
+11/Mar/2020 05:22:17|INFO|Login.views:250|ACTION: otp is validated successfully deepak.baraik@sacumen.com
+11/Mar/2020 05:22:17|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:22:18|WARNING|django.request:228|ACTION: Not Found: /favicon.ico
+11/Mar/2020 05:26:09|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:26:53|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+11/Mar/2020 05:26:53|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:27:06|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+11/Mar/2020 05:27:06|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:27:28|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+11/Mar/2020 05:27:28|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:27:32|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+11/Mar/2020 05:27:32|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:27:39|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+11/Mar/2020 05:27:39|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:27:50|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+11/Mar/2020 05:27:51|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:27:57|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+11/Mar/2020 05:27:58|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:28:01|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:28:03|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:28:03|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:28:07|INFO|Jira.views:110|ACTION: Jira Test Connection:  <Response [200]> 
+11/Mar/2020 05:28:08|INFO|Jira.views:78|ACTION: Project Key is already registred   :  Jira object (1) 
+11/Mar/2020 05:28:08|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:28:11|INFO|Jira.views:120|ACTION: Jira configuration Request
+11/Mar/2020 05:28:11|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:28:22|ERROR|Connector.jira_conection:41|ACTION: Unexpected Exception occured: URL: https://api.securityscorecard.io/companies/sacumen.com/history/score Received status 400 with content b'{"error":{"message":"The \\"from\\" query parameter is invalid (\\"2020-03-4\\") \\nJSON Schema validation error. \\nString does not match pattern: ^\\\\d{4}-\\\\d{2}-\\\\d{2}$","statusCode":400}}'.
+ Headers {'authorization': 'Token zsnZYGya8WnqUuLdFP8wGK5ZqAeJ', 'X-SSC-Application-Name': 'Splunk', 'X-SSC-Application-Version': '1.5'}, Params {'date_from': '2020-03-4', 'date_to': datetime.date(2020, 3, 11)} 
+11/Mar/2020 05:28:22|INFO|Connector.views:289|ACTION: Activated Jira
+11/Mar/2020 05:28:22|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:28:25|INFO|Connector.views:282|ACTION: Deactivated Jira
+11/Mar/2020 05:28:25|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:29:38|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jira/views.py changed, reloading.
+11/Mar/2020 05:29:39|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:48:12|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Agilecrm/views.py changed, reloading.
+11/Mar/2020 05:48:13|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:48:58|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Agilecrm/views.py changed, reloading.
+11/Mar/2020 05:48:59|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:50:03|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Agilecrm/views.py changed, reloading.
+11/Mar/2020 05:50:03|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:52:26|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:52:30|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:52:39|INFO|Agilecrm.views:51|ACTION: Agilecrm Test Connection:  <Response [200]> 
+11/Mar/2020 05:52:40|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:52:42|INFO|Agilecrm.views:61|ACTION: Agilecrm configuration Request
+11/Mar/2020 05:52:42|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 05:52:56|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Agilecrm/views.py changed, reloading.
+11/Mar/2020 05:52:57|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 05:53:00|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 11:14:55|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:15:03|INFO|Login.views:82|ACTION: User alredy loggedin deepak.baraik@sacumen.com 
+11/Mar/2020 11:15:03|INFO|Connector.views:124|ACTION: Dashboard loaded successfullydeepak.baraik@sacumen.com 
+11/Mar/2020 11:15:04|WARNING|django.request:228|ACTION: Not Found: /favicon.ico
+11/Mar/2020 11:18:46|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Agilecrm/agilecrm.py changed, reloading.
+11/Mar/2020 11:18:47|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:19:02|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Agilecrm/agilecrm.py changed, reloading.
+11/Mar/2020 11:19:02|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:19:37|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Agilecrm/views.py changed, reloading.
+11/Mar/2020 11:19:37|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:23:04|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Freshdesk/models.py changed, reloading.
+11/Mar/2020 11:23:04|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:23:05|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Freshdesk/models.py changed, reloading.
+11/Mar/2020 11:23:05|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:24:03|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Freshdesk/views.py changed, reloading.
+11/Mar/2020 11:24:04|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:24:25|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Freshdesk/views.py changed, reloading.
+11/Mar/2020 11:24:25|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:24:27|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Freshdesk/views.py changed, reloading.
+11/Mar/2020 11:24:27|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:24:27|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Freshdesk/views.py changed, reloading.
+11/Mar/2020 11:24:28|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 11:24:32|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Freshdesk/views.py changed, reloading.
+11/Mar/2020 11:24:33|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:38:26|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Hubspot/views.py changed, reloading.
+11/Mar/2020 12:38:27|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:38:30|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Hubspot/views.py changed, reloading.
+11/Mar/2020 12:38:31|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:38:39|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Hubspot/views.py changed, reloading.
+11/Mar/2020 12:38:39|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:38:39|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Hubspot/views.py changed, reloading.
+11/Mar/2020 12:38:40|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:38:42|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Hubspot/views.py changed, reloading.
+11/Mar/2020 12:38:43|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:39:36|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jitbit/views.py changed, reloading.
+11/Mar/2020 12:39:37|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:39:39|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jitbit/views.py changed, reloading.
+11/Mar/2020 12:39:40|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:39:48|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Jitbit/views.py changed, reloading.
+11/Mar/2020 12:39:48|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:40:32|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Opsgenie/views.py changed, reloading.
+11/Mar/2020 12:40:33|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:40:34|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Opsgenie/views.py changed, reloading.
+11/Mar/2020 12:40:35|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:40:47|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Opsgenie/views.py changed, reloading.
+11/Mar/2020 12:40:48|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:40:48|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Opsgenie/views.py changed, reloading.
+11/Mar/2020 12:40:49|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:40:54|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Opsgenie/views.py changed, reloading.
+11/Mar/2020 12:40:55|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:40:57|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Opsgenie/views.py changed, reloading.
+11/Mar/2020 12:40:58|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader
+11/Mar/2020 12:41:19|INFO|django.utils.autoreload:203|ACTION: /home/deepak/git_repo/CAAS/CaaS/Pagerduty/views.py changed, reloading.
+11/Mar/2020 12:41:19|INFO|django.utils.autoreload:578|ACTION: Watching for file changes with StatReloader

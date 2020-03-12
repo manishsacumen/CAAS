@@ -75,6 +75,8 @@ def Zohodesk_config(request):
             Zohodesk.config = str(request.POST.dict())
             Zohodesk.save()
             logger.info("Zohodesk configuration data is added%s",request.user.email)
+            messages.success(request, f'Zoho configuration saved successfully..!!')
+
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

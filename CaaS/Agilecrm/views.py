@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from Connector.models import SSCConnector
 from .models import Agilecrmmodel
 from requests.auth import HTTPBasicAuth
+from django.contrib import messages
+
 
 import logging
 
@@ -61,6 +63,7 @@ def agilecrm_config(request):
         if agilecrm:
             agilecrm.config = str(request.POST.dict())
             agilecrm.save()
+            messages.success(request, f'AgileCRM configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

@@ -12,7 +12,7 @@ class Freshdeskmodel(models.Model):
     username  = models.CharField(max_length=512)
     api_key = models.CharField(max_length=512)
     config =  models.CharField(max_length=512)
-    flag =  flag =  models.BooleanField(default=False)
+    flag =  models.BooleanField(default=False)
     created_date =  models.DateTimeField()
 
 

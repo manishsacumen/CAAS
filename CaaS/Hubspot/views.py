@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from Connector.models import SSCConnector
 from .models import Hubspotmodel
 from requests.auth import HTTPBasicAuth
+from django.contrib import messages
+
 
 import logging
 
@@ -53,6 +55,7 @@ def hubspot_config(request):
         if hubspot:
             hubspot.config = str(request.POST.dict())
             hubspot.save()
+            messages.success(request, f'Hubspot configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

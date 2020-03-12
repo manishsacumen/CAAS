@@ -66,6 +66,7 @@ def servicenow_config(request):
         if servicenow:
             servicenow.config = str(request.POST.dict())
             servicenow.save()
+            messages.success(request, f'ServiceNow configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

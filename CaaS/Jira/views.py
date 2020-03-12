@@ -84,7 +84,7 @@ def jira_register(request):
             new_jira = Jira(user_id=current_user, app_url=app_url, email_id=email_id, api_key=api_key, project_key=project_key)
             new_jira.save()
             logger.info("Jira connected successfully:  %s ", new_jira)
-            messages.success(request, f'Jira connected Successfully..!!')
+            messages.success(request, f'Jira configuration saved Successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             logger.error("Problem in Jira connection:  %s ", res)
@@ -122,6 +122,7 @@ def jira_config(request):
         if jira:
             jira.jira_config = str(request.POST.dict())
             jira.save()
+            messages.success(request, f'Jira configuration saved Successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

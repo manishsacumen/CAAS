@@ -70,6 +70,7 @@ def opsgenie_config(request):
             opsgenie.config = str(request.POST.dict())
             opsgenie.save()
             logger.info("opsgenie configuration data is added%s",request.user.email)
+            messages.success(request, f'Opsgenie configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')
