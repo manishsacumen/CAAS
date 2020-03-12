@@ -1,0 +1,107 @@
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    #myInput {
+      background-image: url('/css/searchicon.png');
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      width: 100%;
+      font-size: 16px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+    
+    #myTable {
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #ddd;
+      font-size: 18px;
+    }
+    
+    #myTable th, #myTable td {
+      text-align: left;
+      padding: 12px;
+    }
+    
+    #myTable tr {
+      border-bottom: 1px solid #ddd;
+    }
+    
+    #myTable tr.header, #myTable tr:hover {
+      background-color: #f1f1f1;
+    }
+    </style>
+
+
+<div class="modal fade" id="target_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">List of Connectors Available</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="target_config"class="modal-body">
+         <form id="target-form" method='post' action='/target/target_register/'>
+          {% csrf_token %}
+           
+          
+          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+          <table id="myTable">
+            <tr class="header">
+              <!-- <th style="width:60%;">Select App</th> -->
+              <th style="width:70%;">Name</th>
+            </tr>
+            {% for target in target_obj %}
+            <tr>
+              <!-- <td><input type="radio" name="abc"></td> -->
+              
+              <td><input type="radio" name="abc"><img  style="width: 25px; height: 25px; margin-right: 20px; margin-left: 20px;" src="/{{target.app_logo}}">{{target.app_name}}</td>
+            </tr>
+            {% endfor %}
+           
+          
+          </table>
+            <div class="modal-footer">
+              <div style="float:left;width:40%;text-align:left;">
+                  <span style="color:green;" id="target_success">Test Conection Succeeded</span>
+                  <span style="color:red;" id="target_failed"> Test Connection Failed</span>
+              </div>
+            <button type="button" id='test_target' class="btn btn-primary">Test Connection</button>
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="submit" id='target_submit' class="btn btn-primary">Submit</button>
+          </div>
+         </form>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    </script>
+    
