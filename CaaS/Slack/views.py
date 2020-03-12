@@ -89,6 +89,7 @@ def create_slack_config(request):
             slack.config = str(request.POST.dict())
             slack.save()
             logger.info("Slack configuration data is added%s",request.user.email)
+            messages.success(request, f'Slack configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

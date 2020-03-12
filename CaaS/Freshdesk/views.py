@@ -67,6 +67,7 @@ def Freshdesk_config(request):
         if Freshdesk:
             Freshdesk.config = str(request.POST.dict())
             Freshdesk.save()
+            messages.success(request, f'Freshdesk configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

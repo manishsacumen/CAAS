@@ -280,7 +280,7 @@ def set_flag(request, flag_obj, flag_name):
                 ssc.flag = False
                 ssc.save()
                 logger.info("Deactivated %s", flag_name)
-                messages.warning(request, msg)
+                messages.success(request, msg)
             else:
                 msg = "{} is Activated".format(flag_name)
                 ssc.flag = True

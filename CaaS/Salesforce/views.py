@@ -68,6 +68,7 @@ def salesforce_config(request):
         if salesforce:
             salesforce.config = str(request.POST.dict())
             salesforce.save()
+            messages.success(request, f'Salesforce configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')
