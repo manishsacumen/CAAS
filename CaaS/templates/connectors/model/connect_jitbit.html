@@ -16,24 +16,29 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Password</label>
-                <input type="password" value='{{jitbit_data.password}}' class="ssc_form" name="password" id="api_key" required="">
+                <input type="password" value='{{jitbit_data.password}}' class="ssc_form" name="password" id="password" required="">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Jitbit Url</label>
-                <input type="text" value='{{jitbit_data.domain}}' class="ssc_form" name="url" id="api_key" required="">
+                <input type="text" value='{{jitbit_data.domain}}' class="ssc_form" name="url" id="url" required="">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Category Id</label>
-                <input type="text" value='{{jitbit_data.categoryId}}' class="ssc_form" name="categoryid" id="api_key" required="">
+                <input type="text" value='{{jitbit_data.categoryId}}' class="ssc_form" name="categoryid" id="categoryid" required="">
             </div>
             <div class="modal-footer">
               <div style="float:left;width:40%;text-align:left;">
                   <span style="color:green;" id="jitbit_success">Test Connection Succeeded</span>
                   <span style="color:red;" id="jitbit_failed"> Test Connection Failed</span>
               </div>
-            <button type="button" id='test_jitbit' class="btn btn-primary">Test Connection</button>
+            <button type="button" onClick="jitbit_reset()" id='test_jitbit' class="btn btn-primary">Test Connection</button>
             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-            <button type="submit" id='jitbit_submit' class="btn btn-primary">Submit</button>
+            <button type="submit" onClick="jitbit_reset('jitbit')" id='jitbit_submit' class="btn btn-primary">Submit</button>
+            <div id="jitbit_overlay" class="overlay" style="display:none;">
+              <div class="spinner"></div>
+              <br/>
+               Loading...
+           </div>
           </div>
          </form>  
         </div>

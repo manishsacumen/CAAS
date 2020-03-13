@@ -28,4 +28,7 @@ urlpatterns = [
     path('set_opsgenie_flag/', views.set_opsgenie_flag),
     path('set_zendesk_flag/', views.set_zendesk_flag),
     path('set_jitbit_flag/', views.set_jitbit_flag),
+    path('set_solarwinds_flag/', views.set_solarwinds_flag),
+    path('set_agilecrm_flag/', views.set_agilecrm_flag),
+    path('set_hubspot_flag/', views.set_hubspot_flag),
  ]

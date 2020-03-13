@@ -49,7 +49,7 @@
         }
     }
 
-    #overlay {
+    .overlay {
         background: #ffffff;
         color: #666666;
         position: fixed;
@@ -74,12 +74,14 @@
         margin: 0 auto;
         height: 64px;
         width: 64px;
-        animation: rotate 0.8s infinite linear;
-        border: 5px solid firebrick;
+        animation: rotate 0.5s infinite linear alternate;
+        border: 5px solid blue;
         border-right-color: transparent;
         border-radius: 50%;
     }
-
+    .error {
+        color: orange;
+    }
     @keyframes rotate {
         0% {
             transform: rotate(0deg);
@@ -178,6 +180,7 @@
                         <div class="widget-header">
                             <i class="icon-bookmark"></i>
                             <h3>Applications Connected</h3>
+                            <!-- <a  href="#" class="btn btn-success" style="margin-left: 60%;" data-toggle="modal" data-target="#target_modal"><i class="fa fa-plus"></i></a><h3>Add Connector</h3> -->
                         </div>
                         <!-- /widget-header -->
                         <div class="widget-content widget-body">
@@ -210,7 +213,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if jira_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jira_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary"  onClick="jira_reset()"  data-toggle="modal" data-target="#jira_modal">Edit</a>
 
                                     {% if jira_data.flag %}
                                     <a href="/ssc_connector/jira_flag/" class="btn btn-primary">Disable</a>
@@ -218,7 +221,7 @@
                                     <a href="/ssc_connector/jira_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jira_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="jira_reset('jira')" data-toggle="modal" data-target="#jira_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -231,15 +234,15 @@
 
                                     {% if ssc_data.flag %}
                                     {% if splunk_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary"  onClick="splunk_reset()" data-toggle="modal" data-target="#splunk_modal">Edit</a>
 
                                     {% if splunk_data.flag %}
-                                    <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Disable</a>
+                                    <a href="/ssc_connector/set_splunk_flag/"  class="btn btn-primary">Disable</a>
                                     {% else %}
                                     <a href="/ssc_connector/set_splunk_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#splunk_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary"  onClick="splunk_reset('splunk')" data-toggle="modal" data-target="#splunk_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -252,14 +255,14 @@
 
                                     {% if ssc_data.flag %}
                                     {% if servicenow_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary" onClick="servicenw_reset()" data-toggle="modal" data-target="#servicenow_modal">Edit</a>
                                     {% if servicenow_data.flag %}
                                     <a href="/ssc_connector/set_servicenow_flag/" class="btn btn-primary">Disable</a>
                                     {% else %}
                                     <a href="/ssc_connector/set_servicenow_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#servicenow_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="servicenw_reset('servicenw')" data-toggle="modal" data-target="#servicenow_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -272,7 +275,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if rapid_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary"  onClick="rapid_reset()" data-toggle="modal" data-target="#rapid_modal">Edit</a>
 
                                     {% if rapid_data.flag %}
                                     <a href="/ssc_connector/set_rapid_flag/" class="btn btn-primary">Disable</a>
@@ -280,7 +283,7 @@
                                     <a href="/ssc_connector/set_rapid_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rapid_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary"  onClick="rapid_reset('rapid')" data-toggle="modal" data-target="#rapid_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -314,7 +317,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if zohodesk_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zohodesk_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary" onClick="zohodesk_reset()" data-toggle="modal" data-target="#zohodesk_modal">Edit</a>
 
                                     {% if zohodesk_data.flag %}
                                     <a href="/ssc_connector/set_zohodesk_flag/" class="btn btn-primary">Disable</a>
@@ -322,7 +325,7 @@
                                     <a href="/ssc_connector/set_zohodesk_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zohodesk_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="zohodesk_reset('zoho')" data-toggle="modal" data-target="#zohodesk_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -335,7 +338,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if pagerduty_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pagerduty_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary" onClick="pagerduty_reset()" data-toggle="modal" data-target="#pagerduty_modal">Edit</a>
 
                                     {% if pagerduty_data.flag %}
                                     <a href="/ssc_connector/set_pagerduty_flag/" class="btn btn-primary">Disable</a>
@@ -343,7 +346,7 @@
                                     <a href="/ssc_connector/set_pagerduty_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#pagerduty_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="pagerduty_reset('pager')" data-toggle="modal" data-target="#pagerduty_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -356,7 +359,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if opsgenie_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#opsgenie_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary" onClick="opsgenie_reset()" data-toggle="modal" data-target="#opsgenie_modal">Edit</a>
 
                                     {% if opsgenie_data.flag %}
                                     <a href="/ssc_connector/set_opsgenie_flag/" class="btn btn-primary">Disable</a>
@@ -364,7 +367,7 @@
                                     <a href="/ssc_connector/set_opsgenie_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#opsgenie_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary"  onClick="opsgenie_reset('opsgenie')" data-toggle="modal" data-target="#opsgenie_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -377,7 +380,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if zendesk_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zendesk_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary"  onClick="zendesk_reset()" data-toggle="modal" data-target="#zendesk_modal">Edit</a>
 
                                     {% if zendesk_data.flag %}
                                     <a href="/ssc_connector/set_zendesk_flag/" class="btn btn-primary">Disable</a>
@@ -385,7 +388,7 @@
                                     <a href="/ssc_connector/set_zendesk_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#zendesk_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="zendesk_reset('zendesk')" data-toggle="modal" data-target="#zendesk_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -398,7 +401,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if jitbit_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary" onClick="jitbit_reset()" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
 
                                     {% if jitbit_data.flag %}
                                     <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
@@ -406,7 +409,7 @@
                                     <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="jitbit_reset('jitbit')" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -420,7 +423,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if solarwinds_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#solarwinds_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary" onClick="solarwind_reset()"  data-toggle="modal" data-target="#solarwinds_modal">Edit</a>
 
                                     {% if solarwinds_data.flag %}
                                     <a href="/ssc_connector/set_solarwinds_flag/" class="btn btn-primary">Disable</a>
@@ -428,7 +431,7 @@
                                     <a href="/ssc_connector/set_solarwinds_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#solarwinds_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="solarwind_reset('solarwind')" data-toggle="modal" data-target="#solarwinds_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -450,7 +453,7 @@
                                     <a href="/ssc_connector/set_hubspot_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#hubspot_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="hubspot_reset('hubspot')" data-toggle="modal" data-target="#hubspot_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -464,7 +467,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if agilecrm_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#agilecrm_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary" onClick="agilecrm_reset()" data-toggle="modal" data-target="#agilecrm_modal">Edit</a>
 
                                     {% if agilecrm_data.flag %}
                                     <a href="/ssc_connector/set_agilecrm_flag/" class="btn btn-primary">Disable</a>
@@ -472,7 +475,7 @@
                                     <a href="/ssc_connector/set_agilecrm_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#agilecrm_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="agilecrm_reset('agile')" data-toggle="modal" data-target="#agilecrm_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -487,7 +490,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if jitbit_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary" onClick="jitbit_reset()" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
 
                                     {% if jitbit_data.flag %}
                                     <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
@@ -495,7 +498,7 @@
                                     <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" onClick="jitbit_reset('jitbit')"  data-toggle="modal" data-target="#jitbit_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
@@ -509,7 +512,7 @@
 
                                     {% if ssc_data.flag %}
                                     {% if jitbit_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+                                    <a href="#" class="btn btn-primary"  data-toggle="modal" data-target="#jitbit_modal">Edit</a>
 
                                     {% if jitbit_data.flag %}
                                     <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
@@ -992,13 +995,8 @@
 {% include "connectors/model/connect_opsgenie.html" %}
 {% include "connectors/model/connect_zendesk.html" %}
 {% include "connectors/model/connect_jitbit.html" %}
-<<<<<<< HEAD
-=======
 {% include "connectors/model/connect_solarwinds.html" %}
 {% include "connectors/model/connect_agilecrm.html" %}
 {% include "connectors/model/connect_hubspot.html" %}
-
-
-
->>>>>>> d4e8db873ddb00b9064ae14314506c876490981b
+{% include "connectors/model/target.html" %}
 {% endblock content %}

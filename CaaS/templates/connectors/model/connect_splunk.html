@@ -23,10 +23,10 @@
                   <span style="color:green;" id="splunk_success">Test Conection Succeeded</span>
                   <span style="color:red;" id="splunk_failed"> Test Connection Failed</span>
               </div>
-            <button type="button" id='test_splunk' class="btn btn-primary">Test Connection</button>
+            <button type="button" onClick="spunk_reset()"id='test_splunk' class="btn btn-primary">Test Connection</button>
             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-            <button type="submit" id='splunk_submit' class="btn btn-primary">Submit</button>
-            <div id="overlay" style="display:none;">
+            <button type="submit" onClick="spunk_reset('reset')" id='splunk_submit' class="btn btn-primary">Submit</button>
+            <div id="splunk_overlay" class="overlay" style="display:none;">
               <div class="spinner"></div>
               <br/>
                Loading...

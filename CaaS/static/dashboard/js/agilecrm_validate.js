@@ -13,7 +13,7 @@ $("#agilecrm_submit").click(function(e) {
   // $('#overlay').fadeIn().delay(2000).fadeOut();
     console.log("hii")
     e.preventDefault(); // avoid to execute the actual submit of the form.
-    
+    $('#agile_overlay').fadeIn()
     var form = $("#agilecrm-form");
     var url = '/agilecrm/save_agilecrm/'
     
@@ -25,9 +25,11 @@ $("#agilecrm_submit").click(function(e) {
     {
       $("#ssc_agilecrm_config").show();
       $("#agilecrm_config").hide();
+      $('#agile_overlay').fadeOut();
 
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
+      $('#agile_overlay').fadeOut();
     }
     });
     
@@ -35,7 +37,7 @@ $("#agilecrm_submit").click(function(e) {
     });
 
     $("#test_agilecrm").click(function(e) {
-      $('#overlay').fadeIn().delay(2000).fadeOut();
+      $('#agile_overlay').fadeIn()
       $("#agilecrm_success").hide();
       $("#agilecrm_failed").hide();
       $('#agilecrm_submit').prop('disabled', true);
@@ -53,6 +55,8 @@ $("#agilecrm_submit").click(function(e) {
         $("#agilecrm_success").show();
         $("#agilecrm_failed").hide();
         $('#agilecrm_submit').prop('disabled', false);
+        $('#agile_overlay').fadeOut();
+        $("#agile-form :input").prop("readonly", false);
       
       
       },
@@ -60,6 +64,19 @@ $("#agilecrm_submit").click(function(e) {
         $("#agilecrm_failed").show();
         $("#agilecrm_success").hide();
          $('#agilecrm_submit').prop('disabled', true);
+         $('#agile_overlay').fadeOut();
       }
       });
     });
+
+    function agilecrm_reset(data){
+      if (data == 'agile') {
+        document.getElementById("agile-form").reset();
+      }
+      $("#agile-form :input").prop("readonly", false);
+      $("#agile_success").hide();
+      $("#agile_failed").hide();
+      $('#agile_submit').prop('disabled', true);
+      // $('#overlay').fadeOut()
+
+    }

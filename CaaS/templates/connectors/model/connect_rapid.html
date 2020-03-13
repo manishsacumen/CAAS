@@ -23,9 +23,14 @@
                       <span style="color:green;" id="rapid_success">Test Conection Succeeded</span>
                       <span style="color:red;" id="rapid_failed"> Test Connection Failed</span>
                   </div>
-                <button type="button" id='test_rapid' class="btn btn-primary">Test Connection</button>
+                <button type="button" onClick="rapid_reset()" id='test_rapid' class="btn btn-primary">Test Connection</button>
                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                <button type="submit" id='rapid_submit' class="btn btn-primary">Submit</button>
+                <button type="submit" onClick="rapid_reset('rapid')" id='rapid_submit' class="btn btn-primary">Submit</button>
+                <div id="rapid_overlay" class="overlay" style="display:none;">
+                  <div class="spinner"></div>
+                  <br/>
+                   Loading...
+               </div>
               </div>
              </form>  
             </div>

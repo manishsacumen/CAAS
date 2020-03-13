@@ -27,9 +27,14 @@
                   <span style="color:green;" id="pagerduty_success">Test Conection Succeeded</span>
                   <span style="color:red;" id="pagerduty_failed"> Test Connection Failed</span>
               </div>
-            <button type="button" id='test_pagerduty' class="btn btn-primary">Test Connection</button>
+            <button type="button" onClick="pagerduty_reset()" id='test_pagerduty' class="btn btn-primary">Test Connection</button>
             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-            <button type="submit" id='pagerduty_submit' class="btn btn-primary">Submit</button>
+            <button type="submit" onClick="pagerduty_reset('pagerduty')"  id='pagerduty_submit' class="btn btn-primary">Submit</button>
+            <div id="pagerduty_overlay" class="overlay" style="display:none;">
+              <div class="spinner"></div>
+              <br/>
+               Loading...
+           </div>
           </div>
          </form>  
         </div>

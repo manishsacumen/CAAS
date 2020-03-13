@@ -13,7 +13,7 @@ $("#hubspot_submit").click(function(e) {
   // $('#overlay').fadeIn().delay(2000).fadeOut();
     console.log("hii")
     e.preventDefault(); // avoid to execute the actual submit of the form.
-    
+    $('#hubspot_overlay').fadeIn()
     var form = $("#hubspot-form");
     var url = '/hubspot/save_hubspot/'
     
@@ -25,9 +25,11 @@ $("#hubspot_submit").click(function(e) {
     {
       $("#ssc_hubspot_config").show();
       $("#hubspot_config").hide();
+      $('#hubspot_overlay').fadeOut();
 
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
+      $('#hubspot_overlay').fadeOut();
     }
     });
     
@@ -35,7 +37,7 @@ $("#hubspot_submit").click(function(e) {
     });
 
     $("#test_hubspot").click(function(e) {
-      $('#overlay').fadeIn().delay(2000).fadeOut();
+      $('#hubspot_overlay').fadeIn()
       $("#hubspot_success").hide();
       $("#hubspot_failed").hide();
       $('#hubspot_submit').prop('disabled', true);
@@ -53,6 +55,8 @@ $("#hubspot_submit").click(function(e) {
         $("#hubspot_success").show();
         $("#hubspot_failed").hide();
         $('#hubspot_submit').prop('disabled', false);
+        $('#hubspot_overlay').fadeOut();
+        $("#hubspot-form :input").prop("readonly", true);
       
       
       },
@@ -60,6 +64,17 @@ $("#hubspot_submit").click(function(e) {
         $("#hubspot_failed").show();
         $("#hubspot_success").hide();
          $('#hubspot_submit').prop('disabled', true);
+         $('#hubspot_overlay').fadeOut();
       }
       });
     });
+  function   hubspot_reset(data = null){
+    if (data == 'hubspot') {
+      document.getElementById("hubspot-form").reset();
+    }
+    $("#hubspot-form :input").prop("readonly", false);
+    $("#hubspot_success").hide();
+    $("#hubspot_failed").hide();
+    $('#hubspot_submit').prop('disabled', true);
+    // $('#overlay').fadeOut()
+  }

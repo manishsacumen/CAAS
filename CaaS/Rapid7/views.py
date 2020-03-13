@@ -70,6 +70,7 @@ def rapid_config(request):
             rapid.config = str(request.POST.dict())
             rapid.save()
             logger.info("Rapid configuration data is added%s",request.user.email)
+            messages.success(request, f'Rapid7 configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')

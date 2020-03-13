@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from jsonfield import JSONField
 # Create your models here.
 
 
@@ -14,6 +14,11 @@ class SSCConnector(models.Model):
     domain = models.URLField()
     flag = models.BooleanField(default=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class TargetApplication(models.Model):
+    app_name = models.CharField(max_length=200, blank=False, null=False)
+    app_logo = models.ImageField(upload_to="static/logos/", blank=False, null=False)
+    required_fields = JSONField()
 
 
   

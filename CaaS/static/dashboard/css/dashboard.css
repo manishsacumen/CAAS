@@ -23,9 +23,7 @@ Bootstrap Admin Template by EGrappler.com
 		text-align: center;
 		background: #f4f9ff;
 		border-radius: 5px;
-		webkit-box-shadow: -12px 10px 22px -6px rgba(36,83,140,1);
-		-moz-box-shadow: -12px 10px 22px -6px rgba(36,83,140,1);
-		box-shadow: -12px 10px 22px -6px rgba(36,83,140,1);
+		
 	}
 
 		.shortcuts .shortcut .shortcut-icon {

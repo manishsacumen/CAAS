@@ -12,11 +12,11 @@
           {% csrf_token %}
             <div class="form-group">
                 <label for="exampleFormControlInput1">Api Key</label>
-                <input type="text" value='{{opsgenie_data.api_key}}' class="ssc_form" name="api_key" id="username" required="">
+                <input type="text" value='{{opsgenie_data.api_key}}' class="ssc_form" name="api_key" id="api_key" required="">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Service Id</label>
-                <input type="text" value='{{opsgenie_data.service_id}}' class="ssc_form" name="service_id" id="api_key" required="">
+                <input type="text" value='{{opsgenie_data.service_id}}' class="ssc_form" name="service_id" id="service_id" required="">
             </div>
             
             <div class="modal-footer">
@@ -24,9 +24,14 @@
                   <span style="color:green;" id="opsgenie_success">Test Conection Succeeded</span>
                   <span style="color:red;" id="opsgenie_failed"> Test Connection Failed</span>
               </div>
-            <button type="button" id='test_opsgenie' class="btn btn-primary">Test Connection</button>
+            <button type="button" onClick="opsgenie_reset()" id='test_opsgenie' class="btn btn-primary">Test Connection</button>
             <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-            <button type="submit" id='opsgenie_submit' class="btn btn-primary">Submit</button>
+            <button type="submit" onClick="opsgenie_reset('opsgenie')" id='opsgenie_submit' class="btn btn-primary">Submit</button>
+            <div id="opsgenie_overlay" class="overlay" style="display:none;">
+              <div class="spinner"></div>
+              <br/>
+               Loading...
+           </div>
           </div>
          </form>  
         </div>

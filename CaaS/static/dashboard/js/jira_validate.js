@@ -1,9 +1,10 @@
 $(document).ready(function() {
   $('#ssc_config').hide()  
   $("#jira_success").hide();
-    $("#jira_failed").hide();
-    $('#jira_submit').prop('disabled', true);
-    $("#basic-form").validate({
+  $("#jira_failed").hide();
+  $('#jira_submit').prop('disabled', true);
+
+    $("#jira-form").validate({
       rules: {
         app_url : {
           required: true,
@@ -11,7 +12,7 @@ $(document).ready(function() {
         api_key: {
           required: true,
         },
-        email: {
+        email_id: {
           required: true,
           email: true
         },
@@ -26,7 +27,7 @@ $(document).ready(function() {
         api_key: {
           required: "Api Key is required",
         },
-        email: {
+        email_id: {
           required: "Email is required",
           email: "The email should be in the format: abc@domain.tld"
         },
@@ -40,6 +41,7 @@ $(document).ready(function() {
 
   $("#test_jira").click(function(e) {
     console.log("hii")
+    $('#jira_overlay').fadeIn()
     $("#jira_success").hide();
     $("#jira_failed").hide();
     $('#jira_submit').prop('disabled', true);
@@ -57,6 +59,8 @@ $(document).ready(function() {
       $("#jira_success").show();
       $("#jira_failed").hide();
       $('#jira_submit').prop('disabled', false);
+      $('#jira_overlay').fadeOut()
+      $("#jira-form :input").prop("readonly", false);
     
     
     },
@@ -64,6 +68,7 @@ $(document).ready(function() {
       $("#jira_failed").show();
       $("#jira_success").hide();
        $('#jira_submit').prop('disabled', true);
+       $('#jira_overlay').fadeOut()
     }
     });
     
@@ -72,6 +77,7 @@ $(document).ready(function() {
     
     $("#jira_submit").click(function(e) {
     console.log("hii")
+    $('#jira_overlay').fadeIn()
     e.preventDefault(); // avoid to execute the actual submit of the form.
     
     var form = $("#jira-form");
@@ -85,11 +91,27 @@ $(document).ready(function() {
     {
       $("#ssc_config").show();
       $("#jira_config").hide();
+      $('#jira_overlay').fadeOut()
+      
 
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
+      $('#jira_overlay').fadeOut()
     }
     });
     
     
     });
+
+   function  jira_reset(data = null)
+    {
+      if (data == 'jira') {
+        document.getElementById("jira-form").reset();
+      }
+      $("#jira-form :input").prop("readonly", false);
+      $("#jira_success").hide();
+      $("#jira_failed").hide();
+      $('#jira_submit').prop('disabled', true);
+      $('#overlay').fadeOut()
+    
+    }

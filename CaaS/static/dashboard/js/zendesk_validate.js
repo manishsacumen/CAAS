@@ -33,7 +33,7 @@ $("#zendesk_submit").click(function(e) {
       });
   
       $("#test_zendesk").click(function(e) {
-        $('#overlay').fadeIn().delay(2000).fadeOut();
+        $('#zendesk_overlay').fadeIn()
         $("#zendesk_success").hide();
         $("#zendesk_failed").hide();
         $('#zendesk_submit').prop('disabled', true);
@@ -51,6 +51,8 @@ $("#zendesk_submit").click(function(e) {
           $("#zendesk_success").show();
           $("#zendesk_failed").hide();
           $('#zendesk_submit').prop('disabled', false);
+          $("#zendesk-form :input").prop("readonly", true);
+          $('#zendesk_overlay').fadeOut()
         
         
         },
@@ -58,6 +60,16 @@ $("#zendesk_submit").click(function(e) {
           $("#zendesk_failed").show();
           $("#zendesk_success").hide();
            $('#zendesk_submit').prop('disabled', true);
+           $('#zendesk_overlay').fadeOut()
         }
         });
       });
+function zendesk_reset(data = null){
+  if (data  = 'zendesk'){
+    document.getElementById("zendesk-form").reset();
+  }
+  $("#zendesk-form :input").prop("readonly", false);
+  $('#zendesk_success').hide()
+  $('#zendesk_failed').hide()
+  $('#zendesk_submit').prop('disabled', true);
+}

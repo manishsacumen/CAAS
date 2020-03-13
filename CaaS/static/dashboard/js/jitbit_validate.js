@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 $("#jitbit_submit").click(function(e) {
-    $('#overlay').fadeIn().delay(2000).fadeOut();
+  $('#jitbit_overlay').fadeIn()
       console.log("hii")
       e.preventDefault(); // avoid to execute the actual submit of the form.
       
@@ -23,9 +23,11 @@ $("#jitbit_submit").click(function(e) {
       {
         $("#ssc_jitbit_config").show();
         $("#jitbit_config").hide();
+        $('#jitbit_overlay').fadeOut();
   
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('#jitbit_overlay').fadeOut();
       }
       });
       
@@ -33,7 +35,7 @@ $("#jitbit_submit").click(function(e) {
       });
   
       $("#test_jitbit").click(function(e) {
-        $('#overlay').fadeIn().delay(2000).fadeOut();
+        $('#jitbit_overlay').fadeIn()
         $("#jitbit_success").hide();
         $("#jitbit_failed").hide();
         $('#jitbit_submit').prop('disabled', true);
@@ -51,6 +53,8 @@ $("#jitbit_submit").click(function(e) {
           $("#jitbit_success").show();
           $("#jitbit_failed").hide();
           $('#jitbit_submit').prop('disabled', false);
+          $('#jitbit_overlay').fadeOut();
+          $("#jitbit-form :input").prop("readonly", true);
         
         
         },
@@ -58,6 +62,18 @@ $("#jitbit_submit").click(function(e) {
           $("#jitbit_failed").show();
           $("#jitbit_success").hide();
            $('#jitbit_submit').prop('disabled', true);
+           $('#jitbit_overlay').fadeOut();
         }
         });
       });
+
+      function   jitbit_reset(data = null){
+        if (data == 'jitbit') {
+          document.getElementById("jitbit-form").reset();
+        }
+        $("#jitbit-form :input").prop("readonly", false);
+        $("#jitbit_success").hide();
+        $("#jitbit_failed").hide();
+        $('#jitbit_submit').prop('disabled', true);
+        // $('#overlay').fadeOut()
+      }

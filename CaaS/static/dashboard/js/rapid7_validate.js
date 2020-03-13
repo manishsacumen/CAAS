@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 $("#rapid_submit").click(function(e) {
-    $('#overlay').fadeIn().delay(2000).fadeOut();
+  $('#rapid_overlay').fadeIn()
       console.log("hii")
       e.preventDefault(); // avoid to execute the actual submit of the form.
       
@@ -23,9 +23,11 @@ $("#rapid_submit").click(function(e) {
       {
         $("#ssc_rapid_config").show();
         $("#rapid_config").hide();
+        $('#rapid_overlay').fadeOut()
   
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('#rapid_overlay').fadeOut()
       }
       });
       
@@ -33,7 +35,7 @@ $("#rapid_submit").click(function(e) {
       });
   
       $("#test_rapid").click(function(e) {
-        $('#overlay').fadeIn().delay(2000).fadeOut();
+        $('#rapid_overlay').fadeIn()
         $("#rapid_success").hide();
         $("#rapid_failed").hide();
         $('#rapid_submit').prop('disabled', true);
@@ -51,6 +53,8 @@ $("#rapid_submit").click(function(e) {
           $("#rapid_success").show();
           $("#rapid_failed").hide();
           $('#rapid_submit').prop('disabled', false);
+          $('#rapid_overlay').fadeOut()
+          $("#rapid-form :input").prop("readonly", true);
         
         
         },
@@ -58,6 +62,18 @@ $("#rapid_submit").click(function(e) {
           $("#rapid_failed").show();
           $("#rapid_success").hide();
            $('#rapid_submit').prop('disabled', true);
+           $('#rapid_overlay').fadeOut()
+           
         }
         });
       });
+function rapid_reset(data= null){
+  if (data  = 'rapid'){
+    document.getElementById("rapid-form").reset();
+  }
+  $("#rapid-form :input").prop("readonly", false);
+  $('#rapid_success').hide()
+  $('#rapid_failed').hide()
+  $('#rapid_submit').prop('disabled', true);
+
+}

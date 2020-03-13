@@ -21,7 +21,6 @@ def collect_events(access_key, domain, **options):
 
     # access_key = options.get('access_key')
     # domain = options.get('domain')
-    import pdb
     #pdb.set_trace()
 
     level_overall_change = options.get('level_overall_change', 7)
@@ -47,7 +46,7 @@ def collect_events(access_key, domain, **options):
     diff_override_portfolio_factor = options.get('diff_override_portfolio_factor', False)
 
     # check_point_date = helper.get_check_point(CHECKPOINT_NAME)
-    check_point_date = '2020-02-14'
+    check_point_date = '2020-03-04'
     # import pdb
     # pdb.set_trace()
 

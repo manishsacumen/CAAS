@@ -17,9 +17,6 @@ class ZohodeskEvents:
         self.__department  =  department_id
         self.__token = token
         self.__orgId = orgId
-
-
-
     
     # Creating new incident
     def create_ticket(self, **data):

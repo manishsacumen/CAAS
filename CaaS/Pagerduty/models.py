@@ -12,7 +12,7 @@ class Pagerdutymodel(models.Model):
     email   = models.CharField(max_length=512)
     api_key  =  models.CharField(max_length=512)
     service_id  =  models.CharField(max_length=512)
-    config =  models.CharField(max_length=512)
+    config =  models.CharField(max_length=512, null=True, blank=True)
     flag =  flag =  models.BooleanField(default=False)
     created_date =  models.DateTimeField()
 

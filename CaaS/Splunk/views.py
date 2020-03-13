@@ -48,6 +48,7 @@ def splunk_config(request):
         if splunk:
             splunk.config = str(request.POST.dict())
             splunk.save()
+            messages.success(request, f'Splunk configuration saved successfully..!!')
             return redirect('/ssc_connector/ssc/')
         else:
             return redirect('/ssc_connector/ssc/')
