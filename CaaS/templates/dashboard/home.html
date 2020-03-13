@@ -411,7 +411,51 @@
                                     {%  endif %}
                                 </div>
 
-                                <div class="shortcut" id="divJitBit">
+                                <div class="shortcut" id="solarwinds">
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/solarwinds.jpeg' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;"/><span class="padding-bottom5 shortcut-label">SolarWinds</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if solarwinds_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#solarwinds_modal">Edit</a>
+
+                                    {% if solarwinds_data.flag %}
+                                    <a href="/ssc_connector/set_solarwinds_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_solarwinds_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#solarwinds_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+
+                                <div class="shortcut" id="hubspot">
+                                    <!--<div class="float-left">
+                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
+                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
+                                    </div>-->
+                                    <img src="{% static 'dashboard/img/hubspot.svg' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;"/><span class="padding-bottom5 shortcut-label">HubSpot</span>
+
+                                    {% if ssc_data.flag %}
+                                    {% if hubspot_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#hubspot_modal">Edit</a>
+
+                                    {% if hubspot_data.flag %}
+                                    <a href="/ssc_connector/set_hubspot_flag/" class="btn btn-primary">Disable</a>
+                                    {% else %}
+                                    <a href="/ssc_connector/set_hubspot_flag/" class="btn btn-primary">Enable</a>
+                                    {% endif %}
+                                    {% else %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#hubspot_modal">Configure</a>
+                                    {% endif %}
+                                    {%  endif %}
+                                </div>
+
+                                <div class="shortcut" id="agilecrm">
                                     <!--<div class="float-left">
                                         <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
                                         <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
@@ -419,42 +463,21 @@
                                     <img src="{% static 'dashboard/demo/agilecrm.png' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;"/><span class="padding-bottom5 shortcut-label">Agile CRM</span>
 
                                     {% if ssc_data.flag %}
-                                    {% if jitbit_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
+                                    {% if agilecrm_data %}
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#agilecrm_modal">Edit</a>
 
-                                    {% if jitbit_data.flag %}
-                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
+                                    {% if agilecrm_data.flag %}
+                                    <a href="/ssc_connector/set_agilecrm_flag/" class="btn btn-primary">Disable</a>
                                     {% else %}
-                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
+                                    <a href="/ssc_connector/set_agilecrm_flag/" class="btn btn-primary">Enable</a>
                                     {% endif %}
                                     {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
+                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#agilecrm_modal">Configure</a>
                                     {% endif %}
                                     {%  endif %}
                                 </div>
                                 
-                                <div class="shortcut" id="divJitBit">
-                                    <!--<div class="float-left">
-                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
-                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
-                                    </div>-->
-                                    <img src="{% static 'dashboard/demo/hubspot.svg' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;" /><span class="padding-bottom5 shortcut-label">HubSpot</span>
-
-                                    {% if ssc_data.flag %}
-                                    {% if jitbit_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
-
-                                    {% if jitbit_data.flag %}
-                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
-                                    {% else %}
-                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
-                                    {% endif %}
-                                    {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
-                                    {% endif %}
-                                    {%  endif %}
-                                </div>
-                                
+                
                                 <div class="shortcut" id="divJitBit">
                                     <!--<div class="float-left">
                                         <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
@@ -476,29 +499,6 @@
                                     {% endif %}
                                     {%  endif %}
                                 </div>
-
-                                <div class="shortcut" id="divJitBit">
-                                    <!--<div class="float-left">
-                                        <i id="JitBitConnectedIcon" style="display:none;" title="Connected" class="icon-ok-circle statusConnectedIcon"></i>
-                                        <i id="JitBitDisconnectedIcon" style="display:none;" title="Not Connected" class="icon-remove-circle statusDisconnectedIcon"></i>
-                                    </div>-->
-                                    <img src="{% static 'dashboard/demo/solarwinds.jpeg' %}" class="width20 margin-bottom10 margin-left10" style="width: 140px; height:45px;" /><span class="padding-bottom5 shortcut-label">SolarWinds</span>
-
-                                    {% if ssc_data.flag %}
-                                    {% if jitbit_data %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Edit</a>
-
-                                    {% if jitbit_data.flag %}
-                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Disable</a>
-                                    {% else %}
-                                    <a href="/ssc_connector/set_jitbit_flag/" class="btn btn-primary">Enable</a>
-                                    {% endif %}
-                                    {% else %}
-                                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#jitbit_modal">Configure</a>
-                                    {% endif %}
-                                    {%  endif %}
-                                </div>
-
 
                                 <div class="shortcut">
                                     <!--<div class="float-left">
@@ -992,4 +992,13 @@
 {% include "connectors/model/connect_opsgenie.html" %}
 {% include "connectors/model/connect_zendesk.html" %}
 {% include "connectors/model/connect_jitbit.html" %}
+<<<<<<< HEAD
+=======
+{% include "connectors/model/connect_solarwinds.html" %}
+{% include "connectors/model/connect_agilecrm.html" %}
+{% include "connectors/model/connect_hubspot.html" %}
+
+
+
+>>>>>>> d4e8db873ddb00b9064ae14314506c876490981b
 {% endblock content %}

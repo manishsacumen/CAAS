@@ -27,11 +27,18 @@ from Zendesk.models import Zendeskmodel
 from Zendesk.zendesk import Zendesktickets
 from Jitbit.models import Jitbitmodel
 from Jitbit.jitbit  import Jitbitticket
+from SolarWinds.models import SolarWindsmodel
+from SolarWinds.solarwinds import SolarWindsEvents
+from Hubspot.hubspot import HubspotEvents
+from Hubspot.models import Hubspotmodel
+from Agilecrm.models import Agilecrmmodel
+from Agilecrm.agilecrm import AgilecrmEvents
+from Salesforce.salesforce import Salesforceevents
+from Salesforce.models import Salesforcemodel
 import datetime
 import logging
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import TargetApplication
 from .jira_conection import JiraConnect
 from .slack_connection import SlackConnect
 from .splunk_connection import SplunkConnect
@@ -41,7 +48,11 @@ from .pagerduty_connection import PagerdutyConnect
 from .zohodesk_connection import ZohodeskConnect
 from .opsgrnie_connection import OpsgenieConnect
 from .zendesk_connection import ZendeskConnect
-from .jira_conection import JiraConnect
+from .jitbit_connection import JitbitConnect
+from .solarwinds_connection import SolarwindsConnect
+from .hubspot_connection import HubspotConnect
+from .agilecrm_connection import AgilecrmConnect
+from .salesforce_connection import SalesforceConnect
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -106,6 +117,10 @@ def dashboard(request):
         opsgenie_data  =   Opsgeniemodel.objects.filter(source_id = ssc_data).first()
         zendesk_data  =   Zendeskmodel.objects.filter(source_id = ssc_data).first()
         jitbit_data  =   Jitbitmodel.objects.filter(source_id = ssc_data).first()
+        solarwinds_data  = SolarWindsmodel.objects.filter(source_id = ssc_data).first()
+        hubspot_data = Hubspotmodel.objects.filter(source_id= ssc_data).first()
+        agilecrm_data = Agilecrmmodel.objects.filter(source_id= ssc_data).first()
+        salesforce_data = Salesforcemodel.objects.filter(source_id= ssc_data).first()
         logger.info("Dashboard loaded successfully%s ", request.user.email)
         return render(request, 'dashboard/home.html',context={'ssc_data':ssc_data,
                                              'jira_data':jira_data,
@@ -118,7 +133,11 @@ def dashboard(request):
                                               'pagerduty_data' : pagerduty_data,
                                               'opsgenie_data':opsgenie_data,
                                               'zendesk_data':zendesk_data,
-                                              'jitbit_data': jitbit_data })
+                                              'jitbit_data': jitbit_data,
+                                              'solarwinds_data': solarwinds_data,
+                                              'hubspot_data': hubspot_data,
+                                              'agilecrm_data': agilecrm_data,
+                                              'salesforce_data': salesforce_data})
     except Exception as e:
         logger.error("Unexpected Exception occured: %s ", e)
         return e
@@ -171,17 +190,28 @@ def process_ssc(request, flag_name):
                 pagerduty_obj.send_data()
             if flag_name == 'Opsgenie':
                 opsgenie_obj  = OpsgenieConnect(request, ssc_user)
-                opsgenie_obj.send_data()
-        
+                opsgenie_obj.send_data()       
             if flag_name == 'Zendesk':
                 zendesk_obj   = ZendeskConnect(request, ssc_user)
                 zendesk_obj.send_data()
             if flag_name == 'Jitbit':
-                jitbit_obj = JiraConnect(request, ssc_user)
+                jitbit_obj = JitbitConnect(request, ssc_user)
                 jitbit_obj.send_data()
+            if flag_name == 'Solarwinds':
+                solarwinds_obj = SolarwindsConnect(request, ssc_user)
+                solarwinds_obj.send_data()
+            if flag_name == 'Hubspot':
+                hubspot_obj = HubspotConnect(request, ssc_user)
+                hubspot_obj.send_data()
+            if flag_name == 'Agilecrm':
+                agilecrm_obj = AgilecrmConnect(request, ssc_user)
+                agilecrm_obj.send_data()
+            if flag_name == 'Salesforce':
+                salesforce_obj = SalesforceConnect(request, ssc_user)
+                salesforce_obj.send_data()
 
 
-        
+     
 def process_ssc_response(sc_response):
     for key, each_factor in sc_response.items():
         if isinstance(each_factor, list):
@@ -250,7 +280,7 @@ def set_flag(request, flag_obj, flag_name):
                 ssc.flag = False
                 ssc.save()
                 logger.info("Deactivated %s", flag_name)
-                messages.warning(request, msg)
+                messages.success(request, msg)
             else:
                 msg = "{} is Activated".format(flag_name)
                 ssc.flag = True
@@ -423,6 +453,61 @@ def set_jitbit_flag(request):
         flag_name = "Jitbit"
         msg = "Jitbit is Deactivated"
         messages.success(request, msg)
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_solarwinds_flag(request):
+    solarwinds_data  =  SolarWindsmodel.objects.filter(source_id__user_id =  request.user).first()
+    if solarwinds_data and solarwinds_data.flag:
+        solarwinds_data.flag =  False
+        solarwinds_data.save()
+    else:
+        solarwinds_data.flag = True
+        solarwinds_data.save()
+        flag_name = "Solarwinds"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_hubspot_flag(request):
+    hubspot_data  =  Hubspotmodel.objects.filter(source_id__user_id =  request.user).first()
+    if hubspot_data and hubspot_data.flag:
+        hubspot_data.flag =  False
+        hubspot_data.save()
+    else:
+        hubspot_data.flag = True
+        hubspot_data.save()
+        flag_name = "Hubspot"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+
+@login_required(login_url='/login/')
+def set_agilecrm_flag(request):
+    agilecrm_data  =  Agilecrmmodel.objects.filter(source_id__user_id =  request.user).first()
+    if agilecrm_data and agilecrm_data.flag:
+        agilecrm_data.flag =  False
+        agilecrm_data.save()
+    else:
+        agilecrm_data.flag = True
+        agilecrm_data.save()
+        flag_name = "Agilecrm"
+        process_ssc(request,flag_name)
+    return redirect("/ssc_connector/ssc/")
+
+@login_required(login_url='/login/')
+def set_salesforce_flag(request):
+    salesforce_data  =  Salesforcemodel.objects.filter(source_id__user_id =  request.user).first()
+    if salesforce_data and salesforce_data.flag:
+        salesforce_data.flag =  False
+        salesforce_data.save()
+    else:
+        salesforce_data.flag = True
+        salesforce_data.save()
+        flag_name = "Salesforce"
         process_ssc(request,flag_name)
     return redirect("/ssc_connector/ssc/")
 
